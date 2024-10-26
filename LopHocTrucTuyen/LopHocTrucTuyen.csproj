@@ -155,14 +155,14 @@
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.esm.min.js" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.js" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.min.js" />
-    <Content Include="Content\HinhAnh\Base\bell.png" />
-    <Content Include="Content\HinhAnh\Base\education-high-resolution-logo.png" />
-    <Content Include="Content\HinhAnh\Base\fb.jpg" />
-    <Content Include="Content\HinhAnh\Base\github.png" />
-    <Content Include="Content\HinhAnh\Base\linkedin.jpg" />
-    <Content Include="Content\HinhAnh\Base\twitter.png" />
-    <Content Include="Content\HinhAnh\Base\user.png" />
-    <Content Include="Content\HinhAnh\Base\youtube.jpg" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\bell.png" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\education-high-resolution-logo.png" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\fb.jpg" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\github.png" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\linkedin.jpg" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\twitter.png" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\user.png" />
+    <Content Include="Content\GiangVien\HinhAnh\Base\youtube.jpg" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -273,6 +273,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\HocVien\" />
+    <Folder Include="Content\QuanTriVien\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
