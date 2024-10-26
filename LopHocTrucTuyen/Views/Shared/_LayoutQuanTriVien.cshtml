@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý lớp học trực tuyến</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3115b3f4f1.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap-5.0.2-dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/QuanTriVienStyle.css?v=1.0" rel="stylesheet" />
+</head>
+<body>
+    <div style="width: 100%; display: flex;">
+        <div style="width: 16%; height: 100vh; background-color: #fff; position: sticky; left: 0; top:0;" class="shadow">
+            <div style="width: 70%; margin: 10px auto;">
+                <img src="~/Content/QuanTriVien/logo.png" alt="Logo" style="width: 100%; -o-object-fit:cover" />
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center">
+                <img src="~/Content/QuanTriVien/avatar.jpg" alt="Alternate Text" style="width: 50px; height: 50px; border-radius: 999px;" />
+                <span style="display: block; font-size: 16px; font-weight: 500; padding: 10px 0;">Admin</span>
+            </div>
+            <div style="padding: 4px 16px 4px 24px;">
+                <div style="margin-top: 20px">
+                    <div style="margin-bottom: 25px;">
+                        <a href="/Admin/DashBoard" style="color: black; display: flex; align-items: center; justify-content: space-between" class="nav__link">
+                            <div style="display: flex; align-items: center; column-gap: 8px;">
+                                <img src="~/Content/QuanTriVien/iconSideBar.png" alt="icon dashboard" style="width: 20px; height: 20px;" />
+                                <span style="font-size: 16px;">Bảng điều khiển</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <a href="javascript:void(0)" onclick="toggleSubMenu('subMenu1')" style="color: black; display: flex; align-items: center; justify-content: space-between" class="nav__link">
+                            <div style="display: flex; align-items: center; column-gap: 8px;">
+                                <img src="~/Content/QuanTriVien/iconSideBar4.png" alt="icon dashboard" style="width: 20px; height: 20px;" />
+                                <span style="font-size: 16px;">Quản lý Người dùng</span>
+                            </div>
+                            <div class="icon_1 icon__visible">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </div>
+                            <div class="icon_2 icon__hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </a>
+                        <div id="subMenu1" class="subMenu" style="margin-left: 35px;">
+                            <a href="/Admin/Administrators" style="display: block; margin-top: 15px" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Danh sách Quản trị</span>
+                            </a>
+                            <a href="/Admin/Instructors" style="display: block; margin-top: 15px;" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Danh sách Giảng viên</span>
+                            </a>
+                            <a href="/Admin/Students" style="display: block; margin-top: 15px;" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Danh sách Học viên</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <a href="javascript:void(0)" onclick="toggleSubMenu('subMenu2')" style="color: black; display: flex; align-items: center; justify-content: space-between" class="nav__link">
+                            <div style="display: flex; align-items: center; column-gap: 8px;">
+                                <img src="~/Content/QuanTriVien/iconSideBar3.png" alt="icon dashboard" style="width: 20px; height: 20px;" />
+                                <span style="font-size: 16px;">Quản lý Khóa học</span>
+                            </div>
+                            <div class="icon_1 icon__visible">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </div>
+                            <div class="icon_2 icon__hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </a>
+                        <div id="subMenu2" class="subMenu" style="margin-left: 35px;">
+                            <a href="#" style="display: block; margin-top: 15px;" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Danh sách khóa học</span>
+                            </a>
+                            <a href="#" style="display: block; margin-top: 15px;" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Thêm khóa học</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <a href="javascript:void(0)" onclick="toggleSubMenu('subMenu3')" style="color: black; display: flex; align-items: center; justify-content: space-between" class="nav__link">
+                            <div style="display: flex; align-items: center; column-gap: 8px;">
+                                <img src="~/Content/QuanTriVien/iconSideBar6.png" alt="icon dashboard" style="width: 20px; height: 20px;" />
+                                <span style="font-size: 16px;">Quản lý Loại Khóa học</span>
+                            </div>
+                            <div class="icon_1 icon__visible">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </div>
+                            <div class="icon_2 icon__hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </div>
+                        </a>
+                        <div id="subMenu3" class="subMenu" style="margin-left: 35px;">
+                            <a href="#" style="display: block; margin-top: 15px;" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Danh sách Loại khóa học</span>
+                            </a>
+                            <a href="#" style="display: block; margin-top: 15px;" class="nav__link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="width: 15px; height: 15px;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                </svg>
+                                <span style="color: black; font-size: 15px;">Thêm Loại khóa học</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <a href="/Admin/DashBoard" style="color: black; display: flex; align-items: center; column-gap: 8px;" class="nav__link">
+                            <img src="~/Content/QuanTriVien/iconSideBar9.png" alt="icon dashboard" style="width: 20px; height: 20px;" />
+                            <span style="font-size: 16px;">Quản lý Ưu đãi</span>
+                        </a>
+                    </div>
+                    <div style="margin-bottom: 25px;">
+                        <a href="/Admin/DashBoard" style="color: black; display: flex; align-items: center; column-gap: 8px;" class="nav__link">
+                            <img src="~/Content/QuanTriVien/iconSideBar5.png" alt="icon dashboard" style="width: 20px; height: 20px;" />
+                            <span style="font-size: 16px;">Quản lý Thanh toán</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 84%; position: relative;">
+            <header style="background-color: #0077b6; height: 200px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 16px;">
+                    <div style="display: flex; align-items: center; column-gap: 8px;">
+                        <i class="fa-solid fa-bars" style="color: white; font-size: 20px;"></i>
+                        <span style="font-size: 16px; color: #fff;">Quản lý lớp học trực tuyến</span>
+                    </div>
+                    <div style="display: flex; align-items: center; column-gap: 4px; color: #fff">
+                        <span style="font-size: 16px; font-weight: 500;">Xin chào, Admin</span>
+                        <img src="~/Content/QuanTriVien/avatar.jpg" alt="Alternate Text" style="width: 30px; height: 30px; border-radius: 999px;" />
+                    </div>
+                </div>
+            </header>
+            <div style="position: absolute; top: 60px; left: 0; width: 100%">@RenderBody()</div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        function toggleSubMenu(submenuId) {
+            var allSubMenus = document.querySelectorAll('.subMenu');
+
+            for (var i = 0; i < allSubMenus.length; i++) {
+                var menu = allSubMenus[i];
+                if (menu.id !== submenuId) {
+                    menu.classList.remove("open");
+                    menu.parentElement.querySelector(".icon_1").classList.add("icon__visible");
+                    menu.parentElement.querySelector(".icon_1").classList.remove("icon__hidden");
+                    menu.parentElement.querySelector(".icon_2").classList.add("icon__hidden");
+                    menu.parentElement.querySelector(".icon_2").classList.remove("icon__visible");
+                }
+            }
+
+            var subMenu = document.getElementById(submenuId);
+
+            if (!subMenu.classList.contains("open")) {
+                subMenu.classList.add("open"); // Mở menu được nhấp vào
+                subMenu.parentElement.querySelector(".icon_1").classList.add("icon__hidden");
+                subMenu.parentElement.querySelector(".icon_1").classList.remove("icon__visible");
+                subMenu.parentElement.querySelector(".icon_2").classList.add("icon__visible");
+                subMenu.parentElement.querySelector(".icon_2").classList.remove("icon__hidden");
+            } else {
+                subMenu.classList.remove("open"); // Đóng menu được nhấp vào
+                subMenu.parentElement.querySelector(".icon_1").classList.add("icon__visible");
+                subMenu.parentElement.querySelector(".icon_1").classList.remove("icon__hidden");
+                subMenu.parentElement.querySelector(".icon_2").classList.add("icon__hidden");
+                subMenu.parentElement.querySelector(".icon_2").classList.remove("icon__visible");
+            }
+        }
+    </script>
+</body>
+</html>

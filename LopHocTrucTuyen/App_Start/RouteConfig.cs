@@ -18,6 +18,12 @@ namespace LopHocTrucTuyen
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "GiangVien", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Default2",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "QuanTriVien", action = "DashBoard", id = UrlParameter.Optional }
+            );
         }
     }
 }
