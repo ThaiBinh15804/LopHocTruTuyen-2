@@ -16,7 +16,7 @@ namespace LopHocTrucTuyen
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "GiangVien", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "HocVien", action = "TrangChu", id = UrlParameter.Optional }
             );
         }
     }
