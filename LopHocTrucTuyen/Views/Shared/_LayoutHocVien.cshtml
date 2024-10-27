@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Sử dụng link Bootstrap và Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        /* Footer styling to stay at the bottom */
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Dropdown on hover */
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        /* Điều chỉnh dropdown menu */
+        .navbar .dropdown-menu {
+            right: 0; /* Căn phải */
+            left: auto; /* Đảm bảo menu không mở sang trái */
+            min-width: 200px; /* Đặt chiều rộng tối thiểu nếu cần */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white mb-0">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="~/Content/HocVien/Images/z5967399194370_df2037acda8a0a7cba384a3b446fc73a.jpg" alt="Logo" width="60" height="60" class="d-inline-block" />
+                <span class="ms-2">Student</span>
+            </a>
+
+            <!-- Navigation Links (Trang chủ, Học tập, Thông tin) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/HocVien/TrangChu">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/HocVien/HocTap">Học tập</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/HocVien/ThongTin">Thông tin</a>
+                    </li>
+                </ul>
+
+                <!-- Search Bar -->
+                <form class="d-flex">
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+                </form>
+
+                <!-- Icons (Yêu thích, Giỏ hàng, Thông báo, Hồ sơ cá nhân) -->
+                <ul class="navbar-nav ms-3 d-flex align-items-center">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#"><i class="bi bi-heart text-danger" style="font-size: 1.5rem;"></i></a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#"><i class="bi bi-cart text-dark" style="font-size: 1.5rem;"></i></a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#"><i class="bi bi-bell text-warning" style="font-size: 1.5rem;"></i></a>
+                    </li>
+                    <!-- Dropdown Profile -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle text-secondary" style="font-size: 2rem;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Tài khoản của tôi</a></li>
+                            <li><a class="dropdown-item" href="#">Giỏ hàng của tôi</a></li>
+                            <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                            <li><a class="dropdown-item" href="#">Nâng cấp</a></li>
+                            <li><a class="dropdown-item" href="#">Trung tâm hỗ trợ</a></li> 
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#">Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nội dung chính -->
+    <div class="container-fluid content px-0 mx-0">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <!-- Social Media Icons -->
+        <div class="mb-3">
+            <a href="#" class="me-3"><i class="bi bi-facebook text-primary" style="font-size: 2rem;"></i></a>
+            <a href="#" class="me-3"><i class="bi bi-linkedin text-info" style="font-size: 2rem;"></i></a>
+            <a href="#" class="me-3"><i class="bi bi-youtube text-danger" style="font-size: 2rem;"></i></a>
+            <a href="#" class="me-3"><i class="bi bi-github text-dark" style="font-size: 2rem;"></i></a>
+            <a href="#"><i class="bi bi-twitter text-info" style="font-size: 2rem;"></i></a>
+        </div>
+        <!-- Copyright Text -->
+        <div>
+            <p>© 2024 Copyright: Bình - Khánh - Thuận</p>
+        </div>
+    </footer>
+
+    <!-- Thêm Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
