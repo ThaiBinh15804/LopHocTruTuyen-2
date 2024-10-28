@@ -129,6 +129,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GiangVienController.cs" />
     <Compile Include="Controllers\HocVienController.cs" />
+    <Compile Include="Filter\YeuCauDangNhap.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +203,7 @@
     <Content Include="Content\HocVien\Images\cpp.jpg" />
     <Content Include="Content\HocVien\Images\dangky.png" />
     <Content Include="Content\HocVien\Images\dangnhap.jpg" />
+    <Content Include="Content\HocVien\Images\DangNhap.png" />
     <Content Include="Content\HocVien\Images\datascience.jpg" />
     <Content Include="Content\HocVien\Images\digital_marketing.jpg" />
     <Content Include="Content\HocVien\Images\finance.jpg" />
@@ -370,6 +372,7 @@
     <Content Include="Views\HocVien\TrangChu.cshtml" />
     <Content Include="Views\HocVien\HocTap.cshtml" />
     <Content Include="Views\HocVien\ThongTin.cshtml" />
+    <Content Include="Views\HocVien\DangNhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

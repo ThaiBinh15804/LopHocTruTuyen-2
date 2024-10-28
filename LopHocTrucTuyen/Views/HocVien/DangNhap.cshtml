@@ -1,0 +1,53 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Đăng Nhập";
+}
+
+<div class="container vh-100 d-flex align-items-center justify-content-center">
+    <div class="row login-container shadow-lg">
+        <!-- Cột bên trái: Hình ảnh minh họa -->
+        <div class="col-md-6 d-none d-md-block p-0">
+            <img src="~/Content/HocVien/Images/DangNhap.png" alt="Hình minh họa" class="img-fluid w-100 h-100" style="object-fit: cover; border-radius: 8px 0 0 8px;">
+        </div>
+        <!-- Cột bên phải: Form đăng nhập -->
+        <div class="col-md-6 p-5">
+            <h3 class="mb-4 text-center">Đăng nhập để tiếp tục hành trình học tập của bạn</h3>
+
+            <!-- Hiển thị lỗi nếu có -->
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+
+            <!-- Form đăng nhập -->
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Tên đăng nhập</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">Đăng Nhập</button>
+            </form>
+
+           
+                <p>Bạn chưa có tài khoản? <a href="/HocVien/DangKy" class="text-decoration-none">Đăng ký</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .login-container {
+        max-width: 900px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .col-md-6.d-none.d-md-block {
+        height: 100%;
+    }
+</style>
