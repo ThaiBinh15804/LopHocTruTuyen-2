@@ -1,5 +1,4 @@
 ﻿@model List<LopHocTrucTuyen.Models.KhoaHoc>
-
 @{
     ViewBag.Title = "TrangChu";
     Layout = "~/Views/Shared/_LayoutHocVien.cshtml";
@@ -50,7 +49,7 @@
                          class="card-img-top" alt="Ảnh khóa học" style="height: 150px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title text-truncate">@item.TenKhoaHoc</h5>
-                        <p class="card-text text-muted">@item.Gia</p>
+                        <p class="card-text text-muted">Giảng viên: @item.GiangVien.HoTen</p>
                         <p class="card-text text-warning">
                             @for (var i = 0; i < 5; i++)
                             { <i class="bi bi-star-fill"></i> } <!-- Thêm ngôi sao đánh giá -->

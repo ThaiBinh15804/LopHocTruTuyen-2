@@ -6,9 +6,10 @@ using System.Web.Mvc;
 using LopHocTrucTuyen.Filter; // Thêm namespace của bộ lọc
 using LopHocTrucTuyen.Models;
 
+
 namespace LopHocTrucTuyen.Controllers
 {
-    [YeuCauDangNhap] // Áp dụng bộ lọc cho toàn bộ controller
+     // Áp dụng bộ lọc cho toàn bộ controller
     public class HocVienController : Controller
     {
         DataClasses1DataContext db = new DataClasses1DataContext();
