@@ -1,0 +1,133 @@
+﻿@using LopHocTrucTuyen.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid mx-0 px-0">
+        <div class="row">
+            <div class="col-2 text-center">
+                <a href="/GiangVien/Index">
+                    <img width="125" height="150" class="img-fluid" src="~/Content/GiangVien/HinhAnh/Base/education-high-resolution-logo.png" alt="Logo" />
+                </a>
+            </div>
+
+            <div class="col-10 d-flex align-items-center ">
+                <form class="d-flex mx-auto input-group w-50">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
+                <a class="mx-3" href="#">
+                    <img width="24" height="24" src="~/Content/GiangVien/HinhAnh/Base/bell.png" />
+                </a>
+
+                @if (Session["user"] != null)
+                {
+                    var user = Session["user"] as GiangVien;
+                    <a class="mx-3" href="#" style="text-decoration:none">
+                        <img width="24" height="24" src="~/Content/GiangVien/HinhAnh/Base/user.png" />
+                        <span>@user.HoTen</span>
+                    </a>
+
+                }
+                else
+                {
+                    <a class="btn btn-outline-dark" href="/GiangVien/DangNhap">Đăng nhập</a>
+                }
+
+            </div>
+
+
+        </div>
+
+        <div class="row bg-dark text-light" >
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mx-3 text-light" style="text-decoration:none">
+                        <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                        <li class="breadcrumb-item"><a href="#">Khoá Học của bạn</a></li>
+                        <li class="breadcrumb-item active">Chi tiết khoá học</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light flex-column">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse show" id="navbarSupportedContent">
+                            <ul class="navbar-nav flex-column me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/GiangVien/KhoaHoc/">Bài học</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Báo cáo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Đánh giá</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Học viên</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Thiết lập</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+
+            <div class="col-10">
+                @RenderBody()
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <footer class="text-center py-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                    <div class="py-3 align-items-center">
+                        <a class="btn mx-2 p-0" href="#" aria-label="facebook">
+                            <img width="28" height="28" src="~/Content/GiangVien/HinhAnh/Base/fb.jpg" alt="facebook" />
+                        </a>
+
+                        <a class="btn mx-2 p-0" href="#" aria-label="LinkedIn">
+                            <img width="28" height="28" src="~/Content/GiangVien/HinhAnh/Base/linkedin.jpg" alt="LinkedIn" />
+                        </a>
+
+                        <a class="btn mx-2 p-0" href="#" aria-label="youtube">
+                            <img width="28" height="28" src="~/Content/GiangVien/HinhAnh/Base/youtube.jpg" alt="youtube" />
+                        </a>
+
+                        <a class="btn mx-2 p-0" href="#" aria-label="github">
+                            <img width="28" height="28" src="~/Content/GiangVien/HinhAnh/Base/github.png" alt="github" />
+                        </a>
+
+                        <a class="btn mx-2 p-0" href="#" aria-label="twitter">
+                            <img width="28" height="28" src="~/Content/GiangVien/HinhAnh/Base/twitter.png" alt="twitter" />
+                        </a>
+                    </div>
+
+
+                    <div class="text-center p-3">
+                        © 2024 Copyright:
+                        <a class="text-body" style="text-decoration:none;" href="#">Bình - Khánh - Thuận</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

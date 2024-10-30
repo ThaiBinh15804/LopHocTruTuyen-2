@@ -1,0 +1,61 @@
+﻿@model LopHocTrucTuyen.Models.Chuong
+
+@{
+    ViewBag.Title = "SuaChuong";
+    Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
+}
+
+<h2>SuaChuong</h2>
+
+@using (Html.BeginForm("XuLySuaChuong", "GiangVien", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Chuong</legend>
+
+        @Html.HiddenFor(model => model.MaChuong)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaKhoaHoc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaKhoaHoc)
+            @Html.ValidationMessageFor(model => model.MaKhoaHoc)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TenChuong)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TenChuong)
+            @Html.ValidationMessageFor(model => model.TenChuong)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MoTa)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MoTa)
+            @Html.ValidationMessageFor(model => model.MoTa)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ThuTu)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ThuTu)
+            @Html.ValidationMessageFor(model => model.ThuTu)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

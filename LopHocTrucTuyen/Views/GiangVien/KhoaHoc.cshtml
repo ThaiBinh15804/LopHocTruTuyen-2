@@ -1,0 +1,69 @@
+﻿@model LopHocTrucTuyen.Models.KhoaHoc
+
+@{
+    ViewBag.Title = "KhoaHoc";
+    Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-2">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light flex-column">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse show" id="navbarSupportedContent">
+                    <ul class="navbar-nav flex-column me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/GiangVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=BaiHoc" name="BaiHoc">Bài học</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/GiangVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=BaoCao" name="BaoCao">Báo cáo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/GiangVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=DanhGia" name="DanhGia">Đánh giá</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/GiangVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=HocVien" name="HocVien">Học viên</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/GiangVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=ThietLap" name="ThietLap">Thiết lập</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="col-10">
+        @{
+            string dieuHuong = TempData["DieuHuong"] as string;
+            
+            switch (dieuHuong)
+            {
+                case "BaiHoc":
+                    @Html.Action("BaiHoc", "GiangVien", new { makh = Model.MaKhoaHoc})
+                    break;
+                case "BaoCao":
+                    @Html.Action("BaoCao","GiangVien")
+                    break;
+                case "DanhGia":
+                    @Html.Action("DanhGia","GiangVien")
+                    break;
+                case "HocVien":
+                    @Html.Action("HocVien", "GiangVien")
+                    break;
+                case "ThietLap":
+                    @Html.Action("ThietLap", "GiangVien")
+                    break;
+                default:
+                    @Html.Action("BaiHoc","GiangVien")
+                    break;
+        
+            }
+        }
+        
+    </div>
+</div>
