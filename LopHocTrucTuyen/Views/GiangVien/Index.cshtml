@@ -2,6 +2,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
 }
+@if (TempData["ThongBao"] != null)
+{
+    <p>Thông báo: @TempData["ThongBao"]</p>
+}
 
 <h2>Index</h2>
 <p>Tôi là Võ Thái Bình</p>
+<br />

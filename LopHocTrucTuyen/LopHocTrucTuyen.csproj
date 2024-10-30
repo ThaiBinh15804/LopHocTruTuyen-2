@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -130,6 +133,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +171,12 @@
     <Content Include="Content\GiangVien\HinhAnh\Base\twitter.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\user.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\youtube.jpg" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh1.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh2.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh3.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh4.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh5.jfif" />
+    <Content Include="Content\GiangVien\Video\dssa.mp4" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -241,6 +255,11 @@
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.esm.min.js.map" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.js.map" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.min.js.map" />
+    <Content Include="Models\DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -257,7 +276,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -270,15 +291,35 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LayoutGiangVien.cshtml" />
     <Content Include="Views\GiangVien\Index.cshtml" />
+    <Content Include="Views\GiangVien\TestUploadVideo.cshtml" />
+    <Content Include="Views\GiangVien\TestViewKH.cshtml" />
+    <Content Include="Views\GiangVien\TaoKH_1.cshtml" />
+    <Content Include="Views\GiangVien\DangNhap.cshtml" />
+    <Content Include="Views\Shared\_LayoutGiangVien_KhoaHoc.cshtml" />
+    <Content Include="Views\GiangVien\KhoaHoc.cshtml" />
+    <Content Include="Views\GiangVien\BaiHoc.cshtml" />
+    <Content Include="Views\GiangVien\Test.cshtml" />
+    <Content Include="Views\GiangVien\SuaChuong.cshtml" />
+    <Content Include="Views\GiangVien\BaoCao.cshtml" />
+    <Content Include="Views\GiangVien\DanhGia.cshtml" />
+    <Content Include="Views\GiangVien\HocVien.cshtml" />
+    <Content Include="Views\GiangVien\ThietLap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\HocVien\" />
     <Folder Include="Content\QuanTriVien\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

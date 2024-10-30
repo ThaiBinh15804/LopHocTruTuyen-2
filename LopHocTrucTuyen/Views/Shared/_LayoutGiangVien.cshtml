@@ -1,16 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@using LopHocTrucTuyen.Models;
+
+<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container-fluid mx-0 px-0">
         <div class="row">
             <div class="col-2 text-center">
-                <img width="125" height="150" class="img-fluid" src="~/Content/GiangVien/HinhAnh/Base/education-high-resolution-logo.png" alt="Logo" />
+                <a href="/GiangVien/Index">
+                    <img width="125" height="150" class="img-fluid" src="~/Content/GiangVien/HinhAnh/Base/education-high-resolution-logo.png" alt="Logo" />
+                </a>
             </div>
 
             <div class="col-10 d-flex align-items-center ">
@@ -23,9 +28,20 @@
                     <img width="24" height="24" src="~/Content/GiangVien/HinhAnh/Base/bell.png" />
                 </a>
 
-                <a class="mx-3" href="#">
-                    <img width="24" height="24" src="~/Content/GiangVien/HinhAnh/Base/user.png" />
-                </a>
+                @if (Session["user"] != null)
+                {
+                    var user = Session["user"] as GiangVien;
+                    <a class="mx-3" href="#" style="text-decoration:none">
+                        <img width="24" height="24" src="~/Content/GiangVien/HinhAnh/Base/user.png" />
+                        <span>@user.HoTen</span>
+                    </a>
+
+                }
+                else
+                {
+                    <a class="btn btn-outline-dark" href="/GiangVien/DangNhap">Đăng nhập</a>
+                }
+
             </div>
 
 
@@ -38,10 +54,10 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mb-lg-0" style="font-size:16px; font-weight:bold">
                                 <li class="nav-item mx-2">
-                                    <a class="nav-link active" href="#">Trang chủ</a>
+                                    <a class="nav-link active" href="/GiangVien/Index">Trang chủ</a>
                                 </li>
                                 <li class="nav-item mx-2">
-                                    <a class="nav-link active" href="#">Khoá học của bạn</a>
+                                    <a class="nav-link active" href="/GiangVien/TestViewKH">Khoá học của bạn</a>
                                 </li>
                                 @*<li class="nav-item mx-2 dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -104,7 +120,7 @@
                 </div>
             </div>*@
 
-        <div class="row">
+        <div class="row my-3" >
             <div class="col-12">
                 @RenderBody()
             </div>
