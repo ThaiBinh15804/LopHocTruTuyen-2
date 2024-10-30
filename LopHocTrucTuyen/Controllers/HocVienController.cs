@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using LopHocTrucTuyen.Filter; // Thêm namespace của bộ lọc
+using LopHocTrucTuyen.Filter; 
 using LopHocTrucTuyen.Models;
 
 
 namespace LopHocTrucTuyen.Controllers
 {
-     // Áp dụng bộ lọc cho toàn bộ controller
+    [YeuCauDangNhap]
     public class HocVienController : Controller
     {
         DataClasses1DataContext db = new DataClasses1DataContext();
@@ -25,7 +25,27 @@ namespace LopHocTrucTuyen.Controllers
             return View();
         }
 
-        public ActionResult ThongTin()
+        public ActionResult ChiTietKhoaHoc(int id)
+        {
+            var khoaHoc = db.KhoaHocs.FirstOrDefault(kh => kh.MaKhoaHoc == id);
+            if (khoaHoc == null)
+            {
+                return HttpNotFound();
+            }
+
+            var chuongs = db.Chuongs.Where(ch => ch.MaKhoaHoc == id).Select(ch => 
+                new{Chuong = ch, BaiGiangs = db.BaiGiangs.Where(bg => bg.MaChuong == ch.MaChuong).OrderBy(bg => bg.ThuTu).ToList()}).OrderBy(ch => ch.Chuong.ThuTu).ToList();
+
+            
+            return View(khoaHoc);
+        }
+
+        public ActionResult ThongTinNguoiDung()
+        {
+            return View();
+        }
+
+        public ActionResult GioHang()
         {
             return View();
         }
@@ -42,7 +62,7 @@ namespace LopHocTrucTuyen.Controllers
             var user = db.NguoiDungs.FirstOrDefault(u => u.TenDangNhap == username && u.MatKhau == password);
             if (user != null)
             {
-                Session["User"] = user; // Lưu thông tin người dùng vào Session
+                Session["User"] = user; 
                 return RedirectToAction("TrangChu", "HocVien");
             }
             else
@@ -54,8 +74,55 @@ namespace LopHocTrucTuyen.Controllers
 
         public ActionResult DangXuat()
         {
-            Session.Clear(); // Xóa thông tin Session khi đăng xuất
+            Session.Clear(); 
             return RedirectToAction("DangNhap");
+        }
+
+        [HttpGet]
+        public ActionResult DangKy()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DangKy(string username, string password, string email)
+        {
+            try
+            {
+                // Thêm vào bảng NguoiDung
+                NguoiDung nguoiDung = new NguoiDung
+                {
+                    TenDangNhap = username,
+                    MatKhau = password,
+                    Email = email,
+                    NgayTao = DateTime.Now,
+                    TrangThai = "Hoạt động",
+                    MaNhom = 3
+                };
+                db.NguoiDungs.InsertOnSubmit(nguoiDung);
+                db.SubmitChanges(); 
+
+                int maNguoiDungNew = nguoiDung.MaNguoiDung;
+                HocVien hocVien = new HocVien
+                {
+                    MaNguoiDung = maNguoiDungNew,
+                    HoTen = "Nguoi dung " + maNguoiDungNew,
+                    NgaySinh = null,
+                    GioiTinh = null,
+                    SoDienThoai = null,
+                    DiaChi = null
+                };
+                db.HocViens.InsertOnSubmit(hocVien);
+                db.SubmitChanges(); 
+
+                TempData["SuccessMessage"] = "Đăng ký thành công!";
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Đăng ký thất bại: " + ex.Message;
+                return View();
+            }
         }
     }
 }

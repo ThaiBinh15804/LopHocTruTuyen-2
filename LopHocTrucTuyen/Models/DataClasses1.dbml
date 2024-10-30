@@ -14,15 +14,12 @@
       <Association Name="Chuong_BaiGiang" Member="Chuong" ThisKey="MaChuong" OtherKey="MaChuong" Type="Chuong" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.ThanhToan" Member="ThanhToans">
-    <Type Name="ThanhToan">
-      <Column Name="MaThanhToan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MaHocVien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="SoTien" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="ThanhToan_ChiTietThanhToan" Member="ChiTietThanhToans" ThisKey="MaThanhToan" OtherKey="MaThanhToan" Type="ChiTietThanhToan" />
-      <Association Name="HocVien_ThanhToan" Member="HocVien" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="HocVien" IsForeignKey="true" />
+  <Table Name="dbo.VaiTro" Member="VaiTros">
+    <Type Name="VaiTro">
+      <Column Name="MaVaiTro" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="VaiTro_NhomNguoiDung_VaiTro" Member="NhomNguoiDung_VaiTros" ThisKey="MaVaiTro" OtherKey="MaVaiTro" Type="NhomNguoiDung_VaiTro" />
     </Type>
   </Table>
   <Table Name="dbo.BaiTap" Member="BaiTaps">
@@ -58,8 +55,8 @@
       <Column Name="MaDangKy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SoTien" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="NgayChiTiet" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Association Name="ThanhToan_ChiTietThanhToan" Member="ThanhToan" ThisKey="MaThanhToan" OtherKey="MaThanhToan" Type="ThanhToan" IsForeignKey="true" />
       <Association Name="DangKy_ChiTietThanhToan" Member="DangKy" ThisKey="MaDangKy" OtherKey="MaDangKy" Type="DangKy" IsForeignKey="true" />
+      <Association Name="ThanhToan_ChiTietThanhToan" Member="ThanhToan" ThisKey="MaThanhToan" OtherKey="MaThanhToan" Type="ThanhToan" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Chuong" Member="Chuongs">
@@ -145,9 +142,8 @@
       <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Column Name="DiaChi" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="NgayDangKy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Association Name="HocVien_ThanhToan" Member="ThanhToans" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="ThanhToan" />
       <Association Name="HocVien_DangKy" Member="DangKies" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="DangKy" />
+      <Association Name="HocVien_ThanhToan" Member="ThanhToans" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="ThanhToan" />
       <Association Name="NguoiDung_HocVien" Member="NguoiDung" ThisKey="MaNguoiDung" OtherKey="MaNguoiDung" Type="NguoiDung" IsForeignKey="true" />
     </Type>
   </Table>
@@ -238,12 +234,15 @@
       <Association Name="DangKy_ThamGia" Member="DangKy" ThisKey="MaDangKy" OtherKey="MaDangKy" Type="DangKy" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.VaiTro" Member="VaiTros">
-    <Type Name="VaiTro">
-      <Column Name="MaVaiTro" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="MoTa" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="VaiTro_NhomNguoiDung_VaiTro" Member="NhomNguoiDung_VaiTros" ThisKey="MaVaiTro" OtherKey="MaVaiTro" Type="NhomNguoiDung_VaiTro" />
+  <Table Name="dbo.ThanhToan" Member="ThanhToans">
+    <Type Name="ThanhToan">
+      <Column Name="MaThanhToan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaHocVien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoTien" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="ThanhToan_ChiTietThanhToan" Member="ChiTietThanhToans" ThisKey="MaThanhToan" OtherKey="MaThanhToan" Type="ChiTietThanhToan" />
+      <Association Name="HocVien_ThanhToan" Member="HocVien" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="HocVien" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -14,8 +14,8 @@ namespace LopHocTrucTuyen.Filter
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
                 var actionName = filterContext.ActionDescriptor.ActionName;
 
-                // Nếu không phải là trang DangNhap, thì chuyển hướng đến trang đăng nhập
-                if (!(controllerName == "HocVien" && actionName == "DangNhap"))
+                // Nếu trang học viên chưa đăng nhập, thì chuyển hướng đến trang đăng nhập
+                if ((controllerName == "HocVien" && actionName == "HocTap"))
                 {
                     filterContext.Result = new RedirectToRouteResult(
                         new System.Web.Routing.RouteValueDictionary
@@ -23,6 +23,8 @@ namespace LopHocTrucTuyen.Filter
                             { "controller", "HocVien" },
                             { "action", "DangNhap" }
                         });
+                    // Thêm thông báo vào TempData
+                    filterContext.Controller.TempData["warning"] = "Bạn cần phải đăng nhập";
                 }
             }
             base.OnActionExecuting(filterContext);

@@ -1,0 +1,87 @@
+﻿@using LopHocTrucTuyen.Models;
+@using System.Globalization
+@model LopHocTrucTuyen.Models.KhoaHoc
+
+@{
+    ViewBag.Title = "Chi Tiết Khóa Học - " + Model.TenKhoaHoc;
+    Layout = "~/Views/Shared/_LayoutHocVien.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Cột trái: Ảnh bìa khóa học và thông tin nhanh -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <img src="~/Content/HocVien/Images/@Model.AnhBia" alt="Ảnh khóa học" class="card-img-top rounded">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger fw-bold">@String.Format(CultureInfo.InvariantCulture, "{0:N0} đ", Model.Gia)</h5>
+                    <p class="text-muted"><strong>Đánh giá:</strong> 4.9 <i class="bi bi-star-fill text-warning"></i> (265 xếp hạng)</p>
+                    <button class="btn btn-primary w-100 mb-2">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-outline-secondary w-100">Áp dụng mã giảm giá</button>
+                </div>
+            </div>
+        </div>
+        <!-- Cột phải: Thông tin chi tiết khóa học -->
+        <div class="col-md-8">
+            <h1 class="mb-3">@Model.TenKhoaHoc</h1>
+            <p><strong>Giảng viên:</strong> @Model.GiangVien.HoTen</p>
+            <p><strong>Loại khóa học:</strong> @Model.LoaiKhoaHoc.MoTa</p>
+
+            <hr>
+
+            <h4>Mô tả khóa học</h4>
+            <p>@Model.MoTa</p>
+
+            <hr>
+
+            <h4>Nội dung bài học</h4>
+            <p>@Model.Chuongs.Count phần - @Model.Chuongs.Sum(ch => ch.BaiGiangs.Count) bài giảng - Tổng thời lượng: 25 giờ 33 phút</p>
+
+            <!-- Nội dung chi tiết từng chương và bài giảng -->
+            <div class="accordion" id="courseContent">
+                @foreach (Chuong chuong in Model.Chuongs)
+                {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading@chuong.MaChuong">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@chuong.MaChuong" aria-expanded="false" aria-controls="collapse@chuong.MaChuong">
+                                Chương @chuong.ThuTu: @chuong.TenChuong (@chuong.BaiGiangs.Count bài giảng)
+                            </button>
+                        </h2>
+                        <div id="collapse@chuong.MaChuong" class="accordion-collapse collapse" aria-labelledby="heading@chuong.MaChuong" data-bs-parent="#courseContent">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (BaiGiang baiGiang in chuong.BaiGiangs)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <a href="@baiGiang.URL" class="text-decoration-none" target="_blank">
+                                                #@baiGiang.ThuTu @baiGiang.TenBaiGiang
+                                            </a>
+                                            <span class="text-muted">Thời lượng không có sẵn</span>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <hr>
+
+            <h4>Thông tin khóa học</h4>
+            <p><strong>Ngày bắt đầu:</strong> @Model.NgayBatDau</p>
+            <p><strong>Ngày kết thúc:</strong> @Model.NgayKetThuc</p>
+
+            <hr>
+
+            <h4>Đánh giá và nhận xét</h4>
+            <div>
+                <p><strong>4.6</strong> <i class="bi bi-star-fill text-warning"></i> (265 xếp hạng)</p>
+                <p>"Khoá học rất bổ ích, giảng viên dạy dễ hiểu và chi tiết."</p>
+                <p>"Thực hành dễ hiểu, bài giảng có logic. Cảm ơn giảng viên!"</p>
+            </div>
+
+            <hr>
+        </div>
+    </div>
+</div>

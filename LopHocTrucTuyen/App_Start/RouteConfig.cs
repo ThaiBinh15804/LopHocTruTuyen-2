@@ -18,6 +18,7 @@ namespace LopHocTrucTuyen
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "HocVien", action = "TrangChu", id = UrlParameter.Optional }
             );
+
         }
     }
 }

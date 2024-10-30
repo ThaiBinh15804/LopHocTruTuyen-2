@@ -59,7 +59,6 @@
     </style>
 </head>
 <body>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white mb-0">
         <div class="container-fluid">
@@ -68,7 +67,6 @@
                 <img src="~/Content/HocVien/Images/z5967399194370_df2037acda8a0a7cba384a3b446fc73a.jpg" alt="Logo" width="65" height="65" class="d-inline-block" />
                 <span class="ms-3" style="font-weight:bold">Student</span>
             </a>
-
             <!-- Navigation Links (Trang chủ, Học tập, Thông tin) -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -81,9 +79,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/HocVien/HocTap">Học tập</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/HocVien/ThongTin">Thông tin</a>
-                    </li>
+                    
                 </ul>
                <!-- Kiểm tra nếu người dùng chưa đăng nhập -->
                 @if (Session["User"] == null)
@@ -119,7 +115,7 @@
                                 <i class="bi bi-person-circle text-secondary" style="font-size: 2rem;"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Tài khoản của tôi</a></li>
+                                <li><a class="dropdown-item" href="/HocVien/ThongTinNguoiDung">Tài khoản của tôi</a></li>
                                 <li><a class="dropdown-item" href="#">Giỏ hàng của tôi</a></li>
                                 <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                                 <li><a class="dropdown-item" href="#">Nâng cấp</a></li>
@@ -154,7 +150,7 @@
             <p>© 2024 Copyright: Bình - Khánh - Thuận</p>
         </div>
     </footer>
-
+    @RenderSection("Scripts", required: false)
     <!-- Thêm Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
