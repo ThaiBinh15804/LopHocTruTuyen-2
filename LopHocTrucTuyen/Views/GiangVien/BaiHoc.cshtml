@@ -61,9 +61,13 @@
 
                                         @* Form thêm bài học *@
                                         <div id="formAddBaiHoc_@chuong.MaChuong" class="mt-2" style="display: none;">
-                                            <input type="text" id="baiHocName_@chuong.MaChuong" class="form-control" placeholder="Tên Bài học" required />
-                                            <button onclick="addBaiHoc(@chuong.MaChuong)" class="btn btn-success btn-sm mt-1">Tạo</button>
-                                            <button class="btn btn-secondary btn-sm mt-1" onclick="hideAddBaiHocForm(@chuong.MaChuong)">Huỷ</button>
+                                            <form action="/GiangVien/TaoBaiGiang/?machuong=@chuong.MaChuong" method="post">
+                                                <input type="text" id="baiHocName_@chuong.MaChuong" name="TenBaiGiang" class="form-control" placeholder="Tên Bài học" required />
+                                                <input type="hidden" name="ThuTu" value="@chuong.BaiGiangs.Count" />
+                                                <button onclick="addBaiHoc(@chuong.MaChuong)" class="btn btn-success btn-sm mt-1" type="submit">Tạo</button>
+                                                <button class="btn btn-secondary btn-sm mt-1" onclick="hideAddBaiHocForm(@chuong.MaChuong)">Huỷ</button>
+                                            </form>
+                                            
                                         </div>
                                     </div>
                                 </div>

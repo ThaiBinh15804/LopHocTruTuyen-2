@@ -14,10 +14,11 @@ namespace LopHocTrucTuyen.Controllers
         DataClasses1DataContext data = new DataClasses1DataContext();
         public ActionResult Index()
         {
-            return View();
+            GiangVien gv = (GiangVien)Session["user"];
+            return View(data.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien).Take(5).ToList());
         }
 
-        public ActionResult TestViewKH()
+        public ActionResult HienThiKhoaHoc()
         {
             GiangVien gv = (GiangVien)Session["user"];
             return View(data.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien).ToList());
@@ -201,5 +202,18 @@ namespace LopHocTrucTuyen.Controllers
             return RedirectToAction("KhoaHoc", new { makh = ch.MaKhoaHoc });
         }
 
+        public ActionResult TaoBaiGiang(string machuong, FormCollection c)
+        {
+            Chuong ch = data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong);
+
+            BaiGiang bg = new BaiGiang();
+            bg.TenBaiGiang = c["TenBaiGiang"];
+            bg.MaChuong = ch.MaChuong;
+            bg.ThuTu = int.Parse(c["ThuTu"]) + 1;
+            data.BaiGiangs.InsertOnSubmit(bg);
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = ch.MaKhoaHoc });
+        }
     }
 }

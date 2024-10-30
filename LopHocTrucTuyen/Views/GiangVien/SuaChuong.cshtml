@@ -1,61 +1,50 @@
 ﻿@model LopHocTrucTuyen.Models.Chuong
 
 @{
-    ViewBag.Title = "SuaChuong";
+    ViewBag.Title = "Sửa Chương";
     Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
 }
 
-<h2>SuaChuong</h2>
+<div class="container mt-4">
+    <h2 class="text-center">Sửa Chương</h2>
 
-@using (Html.BeginForm("XuLySuaChuong", "GiangVien", FormMethod.Post)) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @using (Html.BeginForm("XuLySuaChuong", "GiangVien", FormMethod.Post, new { @class = "mt-4" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <fieldset>
-        <legend>Chuong</legend>
+        <div class="card">
+            <div class="card-body">
+                <fieldset>
+                    <legend class="text-primary">Thông tin Chương</legend>
 
-        @Html.HiddenFor(model => model.MaChuong)
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.TenChuong, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.TenChuong, new { htmlAttributes = new { @class = "form-control", style = "width: 100%;" } })
+                        @Html.ValidationMessageFor(model => model.TenChuong, "", new { @class = "text-danger" })
+                    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MaKhoaHoc)
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.MoTa, new { @class = "form-label" })
+                        @Html.TextAreaFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control", style = "height: 100px; width: 100%;" } })
+                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.ThuTu, new { @class = "form-label" })
+                        @Html.EditorFor(model => model.ThuTu, new { htmlAttributes = new { @class = "form-control", style = "width: 100%;" } })
+                        @Html.ValidationMessageFor(model => model.ThuTu, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="text-center">
+                        <input type="submit" value="Lưu" class="btn btn-success" />
+                    </div>
+                </fieldset>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MaKhoaHoc)
-            @Html.ValidationMessageFor(model => model.MaKhoaHoc)
-        </div>
+    }
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TenChuong)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TenChuong)
-            @Html.ValidationMessageFor(model => model.TenChuong)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MoTa)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MoTa)
-            @Html.ValidationMessageFor(model => model.MoTa)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ThuTu)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ThuTu)
-            @Html.ValidationMessageFor(model => model.ThuTu)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="mt-3 text-center">
+        @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
 </div>
-
-
