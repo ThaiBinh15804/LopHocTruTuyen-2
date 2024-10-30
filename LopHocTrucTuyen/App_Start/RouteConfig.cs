@@ -22,7 +22,7 @@ namespace LopHocTrucTuyen
             routes.MapRoute(
                 name: "Default2",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "QuanTriVien", action = "DashBoard", id = UrlParameter.Optional }
+                defaults: new { controller = "QuanTriVien", action = "DangNhap", id = UrlParameter.Optional }
             );
         }
     }

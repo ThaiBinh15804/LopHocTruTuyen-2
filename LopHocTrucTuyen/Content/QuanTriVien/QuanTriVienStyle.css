@@ -154,9 +154,9 @@ button {
     transition: all 0.3s linear;
 }
 
-    .nav__link:hover {
-        opacity: 0.5;
-    }
+.nav__link:hover {
+    opacity: 0.5;
+}
 
 .subMenu {
     max-height: 0;
@@ -165,11 +165,11 @@ button {
     transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
 }
 
-    .subMenu.open {
-        max-height: 100px;
-        opacity: 1;
-        margin-top: 5px;
-    }
+.subMenu.open {
+    max-height: 100px;
+    opacity: 1;
+    margin-top: 5px;
+}
 
 .icon__visible {
     display: block;
@@ -177,4 +177,53 @@ button {
 
 .icon__hidden {
     display: none;
+}
+
+.user {
+    z-index: 10;
+    position: relative;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+.user.visible {
+    max-height: 100px;
+    opacity: 1;
+}
+
+.user__body::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 10px solid #f2f2f2; /* Màu của tam giác */
+}
+
+.user__btn {
+    background-color: #fff;
+    transition: all 0.3s linear;
+}
+
+.user__btn:hover {
+    background-color: #dadada;
+}
+
+.item {
+    justify-content: center; 
+    display: flex; 
+    align-items: center; 
+    height: 35px; 
+    border-bottom: 1px solid #dadada; 
+    font-weight: 500;
+}
+
+div > .item:nth-last-child(-n+6) {
+    border-bottom: none;
 }

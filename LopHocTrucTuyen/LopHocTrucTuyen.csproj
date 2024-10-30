@@ -171,7 +171,35 @@
     <Content Include="Content\GiangVien\HinhAnh\Base\twitter.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\user.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\youtube.jpg" />
-    <Content Include="Content\QuanTriVienStyle.css" />
+    <Content Include="Content\QuanTriVien\DangNhap.png" />
+    <Content Include="Content\QuanTriVien\favicon\android-icon-144x144.png" />
+    <Content Include="Content\QuanTriVien\favicon\android-icon-192x192.png" />
+    <Content Include="Content\QuanTriVien\favicon\android-icon-36x36.png" />
+    <Content Include="Content\QuanTriVien\favicon\android-icon-48x48.png" />
+    <Content Include="Content\QuanTriVien\favicon\android-icon-72x72.png" />
+    <Content Include="Content\QuanTriVien\favicon\android-icon-96x96.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-114x114.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-120x120.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-144x144.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-152x152.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-180x180.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-57x57.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-60x60.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-72x72.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-76x76.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon-precomposed.png" />
+    <Content Include="Content\QuanTriVien\favicon\apple-icon.png" />
+    <Content Include="Content\QuanTriVien\favicon\browserconfig.xml" />
+    <Content Include="Content\QuanTriVien\favicon\favicon-16x16.png" />
+    <Content Include="Content\QuanTriVien\favicon\favicon-32x32.png" />
+    <Content Include="Content\QuanTriVien\favicon\favicon-96x96.png" />
+    <Content Include="Content\QuanTriVien\favicon\favicon.ico" />
+    <Content Include="Content\QuanTriVien\favicon\ms-icon-144x144.png" />
+    <Content Include="Content\QuanTriVien\favicon\ms-icon-150x150.png" />
+    <Content Include="Content\QuanTriVien\favicon\ms-icon-310x310.png" />
+    <Content Include="Content\QuanTriVien\favicon\ms-icon-70x70.png" />
+    <Content Include="Content\QuanTriVien\QuanTriVienJS.js" />
+    <Content Include="Content\QuanTriVien\QuanTriVienStyle.css" />
     <Content Include="Content\QuanTriVien\avatar.jpg" />
     <Content Include="Content\QuanTriVien\iconDetail.png" />
     <Content Include="Content\QuanTriVien\iconSideBar.png" />
@@ -266,6 +294,7 @@
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\QuanTriVien\favicon\manifest.json" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -295,8 +324,11 @@
     <Content Include="Views\Shared\_LayoutQuanTriVien.cshtml" />
     <Content Include="Views\Shared\_LayoutGiangVien.cshtml" />
     <Content Include="Views\GiangVien\Index.cshtml" />
-    <Content Include="Views\QuanTriVien\DashBoard.cshtml" />
-    <Content Include="Views\QuanTriVien\Administrators.cshtml" />
+    <Content Include="Views\QuanTriVien\BangDieuKhien.cshtml" />
+    <Content Include="Views\QuanTriVien\QuanTriVien.cshtml" />
+    <Content Include="Views\QuanTriVien\DangNhap.cshtml" />
+    <Content Include="Views\QuanTriVien\ThemQuanTriVien.cshtml" />
+    <Content Include="Views\QuanTriVien\GiangVien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
