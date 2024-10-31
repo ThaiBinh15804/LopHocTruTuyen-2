@@ -219,11 +219,26 @@ button {
     justify-content: center; 
     display: flex; 
     align-items: center; 
-    height: 35px; 
+    height: 50px; 
     border-bottom: 1px solid #dadada; 
     font-weight: 500;
 }
 
 div > .item:nth-last-child(-n+6) {
     border-bottom: none;
+}
+
+.iconActive {
+    position: relative;
+}
+
+.iconActive::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background-color: #f2f2f2;
+    border-radius: 999px;
 }

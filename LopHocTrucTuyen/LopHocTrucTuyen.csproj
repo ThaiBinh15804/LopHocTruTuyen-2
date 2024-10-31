@@ -289,12 +289,12 @@
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.esm.min.js.map" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.js.map" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.min.js.map" />
+    <Content Include="Content\QuanTriVien\favicon\manifest.json" />
     <Content Include="Models\QuanTriVien\DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\QuanTriVien\favicon\manifest.json" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

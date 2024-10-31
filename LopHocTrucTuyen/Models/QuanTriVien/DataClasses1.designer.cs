@@ -96,7 +96,7 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyLopHocTrucTuyenConnectionString2"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyLopHocTrucTuyenConnectionString3"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

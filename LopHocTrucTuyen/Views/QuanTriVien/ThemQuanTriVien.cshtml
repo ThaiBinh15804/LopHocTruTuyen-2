@@ -40,23 +40,30 @@
                     <div class="w-25">
                         <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputTenNguoiDung">Tên đăng nhập: </label>
                         @Html.TextBoxFor(model => model.TenDangNhap, new { @id = "TenDangNhap", @class = "form-control mt-2",  placeholder = "Nhập tên đăng nhập", })
-                        <span style="min-height: 15px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap"></span>
+                        @if (ViewBag.errTenDangNhap != null)
+                        {
+                            <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap">@ViewBag.errTenDangNhap</span>
+                        }
+                        else
+                        {
+                            <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap"></span>
+                        }
                     </div>
                     <div class="w-25">
                         <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputMatKhau">Mật khẩu: </label>
                         @Html.TextBoxFor(model => model.MatKhau, new { @id = "MatKhau", @class = "form-control mt-2", placeholder = "Nhập mật khẩu" })
-                        <span style="min-height: 15px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errMatKhau"></span>
+                        <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errMatKhau"></span>
                     </div>
                 </div>
                 <div class="mt-2">
                     <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputEmail">Email: </label>
                     @Html.TextBoxFor(model => model.Email, new {@id = "Email" ,@class = "form-control mt-2 w-25", placeholder = "Nhập email" })
-                    <span style="min-height: 15px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errEmail"></span>
+                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errEmail"></span>
                 </div>
                 <div class="mt-2">
                     <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputHoTen">Họ tên: </label>
                     @Html.TextBoxFor(model => model.HoTen, new { @id = "HoTen" ,@class = "form-control mt-2 w-25", placeholder = "Nhập họ tên" })
-                    <span style="min-height: 15px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errHoTen"></span>
+                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errHoTen"></span>
                 </div>
                 <div class="mt-2">
                     <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputEmail">Nhóm người dùng:</label>
@@ -65,12 +72,12 @@
                         <option value="4" @(Model.MaNhom == 4 ? "selected" : "")>Thu Ngân</option>
                         <option value="5" @(Model.MaNhom == 5 ? "selected" : "")>Kỹ thuật viên</option>
                     </select>   
-                    <span style="min-height: 15px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errNhomNguoiDung"></span>
+                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errNhomNguoiDung"></span>
                 </div>
 
-                <div class="d-flex align-items-center gap-2">
-                    <button class="btn mt-4 btn-danger">Xóa</button>
-                    <button type="submit" class="btn btn-primary mt-4">Thêm</button>
+                <div class="d-flex align-items-center gap-2 mt-2">
+                    <button class="btn btn-danger">Xóa</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
             </form>
         </div>

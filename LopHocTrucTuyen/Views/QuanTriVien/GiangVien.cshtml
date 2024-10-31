@@ -1,60 +1,113 @@
 ﻿@model IEnumerable<LopHocTrucTuyen.Models.QuanTriVien.GiangVienModel>
+@using LopHocTrucTuyen.Models.QuanTriVien;
 @{
     ViewBag.Title = "GiangVien";
     Layout = "~/Views/Shared/_LayoutQuanTriVien.cshtml";
 }
 
-<div style="width: 100%; padding: 8px 16px;">
-    <h1 style="color: #fff; font-size: 20px; display: inline-block">Danh sách</h1>
-    <div style="display: flex; align-items: center; column-gap: 8px; margin-top: 15px;">
-        <i class="fa-solid fa-house-chimney" style="color: #dadada"></i>
-        <i class="fa-solid fa-chevron-right" style="color: #dadada"></i>
-        <span style="color: #dadada; font-size: 16px;">Giảng viên</span>
-        <i class="fa-solid fa-chevron-right" style="color: #dadada"></i>
-        <span style="color: white; font-size: 16px;">Danh sách</span>
-    </div>
-
-    <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 16px; border: 1px solid #dadada;">
-        <a href="/QuanTriVien/ThemQuanTriVien" class="btn btn-primary" style="margin-bottom: 10px; display: inline-block;">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 15px; width: 15px;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            Thêm giảng viên
-        </a>
-        <div style="background-color: #e9ecef; display: flex; border: 1px solid #dadada; border-bottom: 0px;">
-            <span class="col-md-2" style="text-align: center; padding: 10px 8px; border-right: 1px solid #dadada;">Mã giảng viên</span>
-            <span class="col-md-2" style="text-align: center; padding: 10px 8px; border-right: 1px solid #dadada;">Họ tên</span>
-            <span class="col-md-2" style="text-align: center; padding: 10px 8px; border-right: 1px solid #dadada;">Tên đăng nhập</span>
-            <span class="col-md-2" style="text-align: center; padding: 10px 8px; border-right: 1px solid #dadada;">Chuyên ngành</span>
-            <span class="col-md-2" style="text-align: center; padding: 10px 8px; border-right: 1px solid #dadada;">Trạng thái</span>
-            <span class="col-md-2" style="text-align: center; padding: 10px 8px;">Thao tác</span>
+<div>
+    <header style="background-color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0px 16px; border-bottom: 1px solid #edede9; height: 80px;">
+        <div style="display: flex; align-items: center; column-gap: 8px;">
+            <i class="fa-solid fa-bars" style="color: black; font-size: 20px;"></i>
+            <h2 style="font-size: 18px; color: #000; font-weight: 500;">Quản lý người dùng</h2>
         </div>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; border: 1px solid #dadada; border-bottom: 0px;">
-            @foreach (var user in Model)
-            {
-                <span class="col-md-2" style="justify-content: center; display: flex; align-items: center; height: 35px; border-bottom: 1px solid #dadada; border-right: 1px solid #dadada">@user.MaGiangVien</span>
-                <span class="col-md-2" style="justify-content: center; display: flex; align-items: center; height: 35px; border-bottom: 1px solid #dadada; border-right: 1px solid #dadada; ">@user.HoTen</span>
-                <span class="col-md-2" style="justify-content: center; display: flex; align-items: center; height: 35px; border-bottom: 1px solid #dadada; border-right: 1px solid #dadada; ">@user.TenDangNhap</span>
-                <span class="col-md-2" style="justify-content: center; display: flex; align-items: center; height: 35px; border-bottom: 1px solid #dadada; border-right: 1px solid #dadada; ">@user.TenChuyenNganh</span>
-                <span class="col-md-2" style="justify-content: center; display: flex; align-items: center; height: 35px; border-bottom: 1px solid #dadada; border-right: 1px solid #dadada; ">@user.TrangThai</span>
-                <span class="col-md-2" style="justify-content: center; display: flex; align-items: center; height: 35px; border-bottom: 1px solid #dadada; ">
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" style="height: 20px; width: 20px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                        </svg>
-                    </button>
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="height: 20px; width: 20px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                        </svg>
-                    </button>
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" style="height: 20px; width: 20px;">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                        </svg>
-                    </button>
+        <div style="position: relative">
+            <button onclick="handleClickUser(event)" style="display: flex; align-items: center; column-gap: 4px; color: #000">
+                <span style="font-size: 16px; font-weight: 500; color: #000">
+                    Xin chào,
+                    @if (Session["user"] != null)
+                    {
+                        NguoiDung user = Session["user"] as NguoiDung;
+                        <span>@user.TenDangNhap</span>
+                    }
                 </span>
-            }
+                <img src="~/Content/QuanTriVien/avatar.jpg" alt="Alternate Text" style="width: 30px; height: 30px; border-radius: 999px;" />
+            </button>
+            <div style="position: absolute; right: 0; top: 25px;" class="user">
+                <div class="d-flex flex-column mt-3 user__body">
+                    <a class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; display: block; text-align: center; font-size: 15px;">Thông tin tài khoản</a>
+                    <a href="/QuanTriVien/DangXuat" class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; border-top: 0px; display: block; text-align: center; font-size: 15px;">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div style="padding: 4px 16px;">
+        <div class="d-flex align-items-center justify-content-between mt-4">
+            <h1 style="font-size: 24px; font-weight: 600; color: #000;">Danh sách Giảng viên</h1>
+            <a href="/QuanTriVien/ThemQuanTriVien" class="btn btn-primary" style="margin-bottom: 10px; display: inline-block;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height: 15px; width: 15px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Thêm giảng viên
+            </a>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mt-2">
+            <form class="input-group" style="width: 75%; position: relative;">
+                <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 10;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="search" class="form-control" style="padding: 8px; padding-left: 35px; border-top-left-radius: 5px; border-bottom-left-radius: 5px" placeholder="Tìm kiếm theo mã giảng viên...">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" style="padding: 8px; border-radius: 5px; border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button">Search</button>
+                </div>
+            </form>
+
+            <select style="width: 20%; padding: 8px; border-radius: 5px" class="form-control">
+                <option value="" disabled selected hidden>Lọc chuyên ngành</option>
+                <option value="quan-tri-vien">Quản trị viên</option>
+                <option value="thu-ngan">Thu Ngân</option>
+                <option value="ky-thuat-vien">Kỹ thuật viên</option>
+            </select>
+        </div>
+
+        <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 16px; border: 1px solid #dadada; border-radius: 5px;">
+            <div style="display:flex; border-bottom: 1px solid #dadada">
+                <span class="col-md-2" style="text-align: center; padding: 10px 8px; color: #7f7f7f; font-weight: 500; ">Mã giảng viên</span>
+                <span class="col-md-2" style="text-align: center; padding: 10px 8px; color: #7f7f7f; font-weight: 500; ">Họ tên</span>
+                <span class="col-md-2" style="text-align: center; padding: 10px 8px; color: #7f7f7f; font-weight: 500; ">Tên đăng nhập</span>
+                <span class="col-md-2" style="text-align: center; padding: 10px 8px; color: #7f7f7f; font-weight: 500; ">Chuyên ngành</span>
+                <span class="col-md-2" style="text-align: center; padding: 10px 8px; color: #7f7f7f; font-weight: 500; ">Trạng thái</span>
+                <span class="col-md-2" style="text-align: center; padding: 10px 8px; color: #7f7f7f; font-weight: 500; ">Thao tác</span>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center;">
+                @foreach (var user in Model)
+                {
+                    <span class="col-md-2 item">@user.MaGiangVien</span>
+                    <span class="col-md-2 item">@user.HoTen</span>
+                    <span class="col-md-2 item">@user.TenDangNhap</span>
+                    <span class="col-md-2 item">@user.TenChuyenNganh</span>
+                    <span class="col-md-2 item">
+                        <span class="iconActive" style="padding: 8px 16px 8px 24px; background-color: #38b000; color: #fff; font-weight: 400; border-radius: 99px; ">@user.TrangThai</span>
+                    </span>
+                    <span class="col-md-2 item">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="green" style="height: 20px; width: 20px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                        </button>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" style="height: 20px; width: 20px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                            </svg>
+                        </button>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" style="height: 20px; width: 20px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                        </button>
+                    </span>
+                }
+            </div>
+            <div class="mt-2 d-flex justify-content-end gap-2">
+                <button style="padding: 4px 8px; border: 1px solid black; border-radius: 5px;">
+                    Trước
+                </button>
+                <button style="padding: 4px 8px; border: 1px solid black; border-radius: 5px;">
+                    Sau
+                </button>
+            </div>
         </div>
     </div>
 </div>
+

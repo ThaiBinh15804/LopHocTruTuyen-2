@@ -97,7 +97,6 @@ document.getElementById("myForm").addEventListener("submit", function (event) {
         isValid = false;
     }
 
-
     // Kiểm tra tên đăng nhập
     if (inputTenDangNhap.value.trim() === "") {
         errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";

@@ -111,8 +111,12 @@ namespace LopHocTrucTuyen.Controllers
             {
                 return RedirectToAction("DangNhap");
             }
-            if(!string.IsNullOrEmpty(user.TenDangNhap) && user.TenDangNhap.Contains(" ")) {
-                ViewBag.textErrTenDangNhap = "Tên đăng nhập không chứa khoảng trắng!";
+
+            var findUser = db.NguoiDungs.FirstOrDefault(t => t.TenDangNhap == user.TenDangNhap);
+            if (findUser != null)
+            {
+                ViewBag.errTenDangNhap = "Tên đăng nhập đã tồn tại!";
+                return View(user);  // Trả về view với thông báo lỗi
             }
 
             var nguoiDung = new NguoiDung
@@ -159,6 +163,37 @@ namespace LopHocTrucTuyen.Controllers
                           };
 
             return View(dsInstructor.ToList());
+        }
+
+        public ActionResult HocVien()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            var dsStudent = from nd in db.NguoiDungs
+                               join hocvien in db.HocViens on nd.MaNguoiDung equals hocvien.MaNguoiDung
+                               where nd.MaNhom == 3
+                               select new HocVienModel
+                               {
+                                   MaHocVien = hocvien.MaHocVien,
+                                   HoTen = hocvien.HoTen,
+                                   TenDangNhap = nd.TenDangNhap,
+                                   NgaySinh = hocvien.NgayDangKy.ToString(),
+                                   TrangThai = nd.TrangThai
+                               };
+
+            return View(dsStudent.ToList());
+        }
+
+        public ActionResult KhoaHoc()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            
+            return View();
         }
     }
 }
