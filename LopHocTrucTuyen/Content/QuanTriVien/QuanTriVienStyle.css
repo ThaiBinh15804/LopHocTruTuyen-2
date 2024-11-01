@@ -242,3 +242,42 @@ div > .item:nth-last-child(-n+6) {
     background-color: #f2f2f2;
     border-radius: 999px;
 }
+
+.btnNextPage {    
+    color: #000;
+    padding: 10px 12px; 
+    font-size: 14px; 
+    font-weight: 500; 
+    border: 1px solid #dadada; 
+    border-radius: 5px; 
+    transition: all 0.3s linear;
+}
+
+.btnNextPage:hover {
+    color: #000;
+    background-color: #dadada;  
+}
+
+.btnPageItem {
+    padding: 6px 8px;
+    border-radius: 5px; 
+    border: 1px solid #dadada;
+    color: #000;
+    transition: all 0.3s linear;
+}
+
+.btnPageItem:hover {
+   background-color: #dadada;
+   color: #000;
+}
+
+.btnPageItem.Active {
+    background-color: #dadada;
+    color: #000;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5; /* Giảm độ mờ để báo hiệu người dùng rằng nút bị vô hiệu hóa */
+    cursor: not-allowed; /* Đổi biểu tượng con trỏ */
+}

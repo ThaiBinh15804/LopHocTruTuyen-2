@@ -329,6 +329,9 @@
     <Content Include="Views\QuanTriVien\DangNhap.cshtml" />
     <Content Include="Views\QuanTriVien\ThemQuanTriVien.cshtml" />
     <Content Include="Views\QuanTriVien\GiangVien.cshtml" />
+    <Content Include="Views\QuanTriVien\HocVien.cshtml" />
+    <Content Include="Views\QuanTriVien\KhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\ThemGiangVien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -74,7 +74,7 @@ namespace LopHocTrucTuyen.Controllers
         }
 
         // Trang quản trị
-        public ActionResult QuanTriVien()
+        public ActionResult QuanTriVien(int page = 1, int pageSize = 5)
         {
             if (Session["user"] == null)
             {
@@ -91,7 +91,20 @@ namespace LopHocTrucTuyen.Controllers
                               TrangThai = nd.TrangThai,
                               TenNhom = quantri.ChucVu // Lấy tên nhóm từ bảng QuanTriVien
                           };
-            return View(dsAdmin.ToList());
+            var totalRecords = dsAdmin.Count();
+
+            var adminList = dsAdmin.OrderBy(q => q.MaQuanTriVien).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var model = new QuanTriVienPagedList
+            {
+                AdminList = adminList,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = pageSize
+            };
+
+            return View(model);
         }
 
         public ActionResult ThemQuanTriVien()
@@ -136,15 +149,15 @@ namespace LopHocTrucTuyen.Controllers
              {
                 MaNguoiDung = nguoiDung.MaNguoiDung,
                 HoTen = user.HoTen,
-                ChucVu = (user.MaNhom == 4) ? "Thu ngân" : "Kỹ thuật viên"
+                ChucVu = (user.MaNhom == 4) ? "Thu ngân" : "Kĩ thuật viên"
              };
              db.QuanTriViens.InsertOnSubmit(quanTriVien);
              db.SubmitChanges(); 
              return RedirectToAction("QuanTriVien"); 
         }
-
+ 
         // trang giảng viên
-        public ActionResult GiangVien()
+        public ActionResult GiangVien(int page = 1, int pageSize = 5)
         {
             if (Session["user"] == null)
             {
@@ -161,11 +174,73 @@ namespace LopHocTrucTuyen.Controllers
                               TenChuyenNganh = giangvien.ChuyenNganh,
                               TrangThai = nd.TrangThai
                           };
+            var totalRecords = dsInstructor.Count();
+            var instructorList = dsInstructor.OrderBy(q => q.MaGiangVien).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            return View(dsInstructor.ToList());
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+            var model = new GiangVienPagedList
+            {
+                InstructorList = instructorList,
+                CurrentPage = page,
+                PageSize = pageSize,
+                TotalPages = totalPages
+            };
+
+            return View(model);
         }
 
-        public ActionResult HocVien()
+        public ActionResult ThemGiangVien()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+
+            var model = new ThemGiangVienModel();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ThemGiangVien(ThemGiangVienModel user)
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+
+            var findUser = db.NguoiDungs.FirstOrDefault(t => t.TenDangNhap == user.TenDangNhap);
+            if (findUser != null)
+            {
+                ViewBag.errTenDangNhap = "Tên đăng nhập đã tồn tại!";
+                return View(user);  // Trả về view với thông báo lỗi
+            }
+
+            var nguoiDung = new NguoiDung
+            {
+                MaNguoiDung = db.NguoiDungs.Count(),
+                TenDangNhap = user.TenDangNhap,
+                MatKhau = user.MatKhau,
+                Email = user.Email,
+                NgayTao = DateTime.Now,
+                TrangThai = "Đang Hoạt động",
+                MaNhom = 2
+            };
+            db.NguoiDungs.InsertOnSubmit(nguoiDung);
+            db.SubmitChanges();
+
+            var giangVien = new GiangVien
+            {
+                MaNguoiDung = nguoiDung.MaNguoiDung,
+                HoTen = user.HoTen,
+                ChuyenNganh = user.ChuyenNganh,
+                SoDienThoai = user.SoDienThoai,
+                DiaChi = user.DiaChi
+            };
+            db.GiangViens.InsertOnSubmit(giangVien);
+            db.SubmitChanges();
+            return RedirectToAction("GiangVien");
+        }
+
+        public ActionResult HocVien(int page = 1, int pageSize = 2)
         {
             if (Session["user"] == null)
             {
@@ -183,7 +258,20 @@ namespace LopHocTrucTuyen.Controllers
                                    TrangThai = nd.TrangThai
                                };
 
-            return View(dsStudent.ToList());
+            var totalRecords = dsStudent.Count();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var studentList = dsStudent.OrderBy(q => q.MaHocVien).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var model = new HocVienPagedList
+            {
+                StudentList = studentList,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                CurrentPage = page
+            };
+
+            return View(model);
         }
 
         public ActionResult KhoaHoc()

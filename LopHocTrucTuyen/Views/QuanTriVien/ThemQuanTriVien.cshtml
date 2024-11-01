@@ -32,14 +32,21 @@
         </div>
     </header>
 
-    <div style="padding: 8px 16px;">
-        <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 16px 16px 30px; border: 1px solid #dadada; width: 100%;">
-            <form id="myForm" action="/QuanTriVien/ThemQuanTriVien" method="post">
-                <h1 style="font-size: 20px; font-weight: 500;">Thêm quản trị viên</h1>
-                <div class="d-flex align-items-center mt-4" style="column-gap: 30px; width: 100%">
+    <div style="padding: 4px 16px;">
+        <div class="d-flex gap-2 mt-2">
+            <i style="color: #343a40" class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #343a40">Danh sách quản trị viên</span>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #000; ">Thêm quản trị viên</span>
+        </div>
+        <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Thêm Quản trị viên</h1>
+        <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 8px 16px 25px; border: 1px solid #dadada; width: 100%;">
+            <form id="myForm1" action="/QuanTriVien/ThemQuanTriVien" method="post">
+                <div class="d-flex align-items-center mt-2" style="column-gap: 30px; width: 100%">
                     <div class="w-25">
                         <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputTenNguoiDung">Tên đăng nhập: </label>
-                        @Html.TextBoxFor(model => model.TenDangNhap, new { @id = "TenDangNhap", @class = "form-control mt-2",  placeholder = "Nhập tên đăng nhập", })
+                        @Html.TextBoxFor(model => model.TenDangNhap, new { @id = "TenDangNhap", @class = "form-control mt-2", placeholder = "Nhập tên đăng nhập", })
                         @if (ViewBag.errTenDangNhap != null)
                         {
                             <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap">@ViewBag.errTenDangNhap</span>
@@ -57,12 +64,12 @@
                 </div>
                 <div class="mt-2">
                     <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputEmail">Email: </label>
-                    @Html.TextBoxFor(model => model.Email, new {@id = "Email" ,@class = "form-control mt-2 w-25", placeholder = "Nhập email" })
+                    @Html.TextBoxFor(model => model.Email, new { @id = "Email", @class = "form-control mt-2 w-25", placeholder = "Nhập email" })
                     <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errEmail"></span>
                 </div>
                 <div class="mt-2">
                     <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputHoTen">Họ tên: </label>
-                    @Html.TextBoxFor(model => model.HoTen, new { @id = "HoTen" ,@class = "form-control mt-2 w-25", placeholder = "Nhập họ tên" })
+                    @Html.TextBoxFor(model => model.HoTen, new { @id = "HoTen", @class = "form-control mt-2 w-25", placeholder = "Nhập họ tên" })
                     <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errHoTen"></span>
                 </div>
                 <div class="mt-2">
@@ -71,15 +78,90 @@
                         <option value="">Chọn nhóm người dùng</option>
                         <option value="4" @(Model.MaNhom == 4 ? "selected" : "")>Thu Ngân</option>
                         <option value="5" @(Model.MaNhom == 5 ? "selected" : "")>Kỹ thuật viên</option>
-                    </select>   
+                    </select>
                     <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errNhomNguoiDung"></span>
                 </div>
 
                 <div class="d-flex align-items-center gap-2 mt-2">
-                    <button class="btn btn-danger">Xóa</button>
+                    <button id="btnClearForm" class="btn btn-danger">Xóa</button>
                     <button type="submit" class="btn btn-primary">Thêm</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById("myForm1").addEventListener("submit", handleForm1);
+        function handleForm1() {
+            const errTenDangNhap = document.querySelector(".errTenDangNhap");
+            const errMatKhau = document.querySelector(".errMatKhau");
+            const errEmail = document.querySelector(".errEmail");
+            const errHoTen = document.querySelector(".errHoTen");
+            const errNhomNguoiDung = document.querySelector(".errNhomNguoiDung")
+            const inputTenDangNhap = document.getElementById("TenDangNhap");
+            const inputMatKhau = document.getElementById("MatKhau");
+            const inputEmail = document.getElementById("Email");
+            const inputHoTen = document.getElementById("HoTen");
+            const inputMaNhom = document.getElementById("MaNhom");
+
+            // Reset lỗi trước khi validate
+            errTenDangNhap.innerText = "";
+            errMatKhau.innerText = "";
+            errEmail.innerText = "";
+            errHoTen.innerText = "";
+            errNhomNguoiDung.innerText = "";
+
+            let isValid = true;
+
+            // Kiểm tra nhóm người dùng
+            if (inputMaNhom.value === "") {
+                errNhomNguoiDung.innerText = "Nhóm người dùng bắt buộc!"
+                isValid = false;
+            }
+
+            // Kiểm tra khoảng trắng ở giữa tên đăng nhập
+            if (inputTenDangNhap.value.trim().includes(" ")) {
+                errTenDangNhap.innerText = "Tên đăng nhập không chứa khoảng trắng!";
+                isValid = false;
+            }
+
+            // Kiểm tra tên đăng nhập
+            if (inputTenDangNhap.value.trim() === "") {
+                errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";
+                isValid = false;
+            }
+
+            // Kiểm tra mật khẩu
+            if (inputMatKhau.value.trim() === "") {
+                errMatKhau.innerText = "Mật khẩu bắt buộc!";
+                isValid = false;
+            }
+
+            // Kiểm tra email
+            let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (inputEmail.value.trim() === "") {
+                errEmail.innerText = "Email bắt buộc!";
+                isValid = false;
+            } else if (!regexEmail.test(inputEmail.value)) {
+                errEmail.innerText = "Email không hợp lệ!";
+                isValid = false;
+            }
+
+            // Kiểm tra họ tên và ko chứa kí tự số
+            let regexHoTen = /\d/; // \d đại diện kí tự số
+            if (inputHoTen.value.trim() === "") {
+                errHoTen.innerText = "Họ tên bắt buộc!";
+                isValid = false;
+            } else if (regexHoTen.test(inputHoTen.value)) {
+                errHoTen.innerText = "Họ tên không chứa kí tự số!";
+            }
+
+            // Nếu tất cả các kiểm tra đều hợp lệ, cho phép submit form
+            if (!isValid) {
+                event.preventDefault();  // Ngăn submit nếu có lỗi
+            }
+        }
+    </script>
+}

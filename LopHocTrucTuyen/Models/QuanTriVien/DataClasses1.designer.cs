@@ -96,7 +96,7 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyLopHocTrucTuyenConnectionString3"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyLopHocTrucTuyenConnectionString4"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -2760,8 +2760,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private string _DiaChi;
 		
-		private System.Nullable<System.DateTime> _NgayGiaNhap;
-		
 		private EntitySet<KhoaHoc> _KhoaHocs;
 		
 		private EntityRef<NguoiDung> _NguoiDung;
@@ -2782,8 +2780,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnSoDienThoaiChanged();
     partial void OnDiaChiChanging(string value);
     partial void OnDiaChiChanged();
-    partial void OnNgayGiaNhapChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayGiaNhapChanged();
     #endregion
 		
 		public GiangVien()
@@ -2913,26 +2909,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 					this._DiaChi = value;
 					this.SendPropertyChanged("DiaChi");
 					this.OnDiaChiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGiaNhap", DbType="Date")]
-		public System.Nullable<System.DateTime> NgayGiaNhap
-		{
-			get
-			{
-				return this._NgayGiaNhap;
-			}
-			set
-			{
-				if ((this._NgayGiaNhap != value))
-				{
-					this.OnNgayGiaNhapChanging(value);
-					this.SendPropertyChanging();
-					this._NgayGiaNhap = value;
-					this.SendPropertyChanged("NgayGiaNhap");
-					this.OnNgayGiaNhapChanged();
 				}
 			}
 		}

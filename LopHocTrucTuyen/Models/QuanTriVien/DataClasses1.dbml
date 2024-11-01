@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyLopHocTrucTuyen" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PHAMTHUAN\THUAN;Initial Catalog=QuanLyLopHocTrucTuyen;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyLopHocTrucTuyenConnectionString3" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PHAMTHUAN\THUAN;Initial Catalog=QuanLyLopHocTrucTuyen;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyLopHocTrucTuyenConnectionString4" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BaiGiang" Member="BaiGiangs">
     <Type Name="BaiGiang">
       <Column Name="MaBaiGiang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -120,7 +120,6 @@
       <Column Name="ChuyenNganh" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Column Name="DiaChi" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="NgayGiaNhap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="GiangVien_KhoaHoc" Member="KhoaHocs" ThisKey="MaGiangVien" OtherKey="MaGiangVien" Type="KhoaHoc" />
       <Association Name="NguoiDung_GiangVien" Member="NguoiDung" ThisKey="MaNguoiDung" OtherKey="MaNguoiDung" Type="NguoiDung" IsForeignKey="true" />
     </Type>
