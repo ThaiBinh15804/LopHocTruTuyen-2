@@ -31,9 +31,9 @@
                                         </div>
 
                                         <div class="my-3 d-flex justify-content-end">
-                                            <a href="/GiangVien/SuaChuong/?machuong=@chuong.MaChuong" class="btn btn-info btn-sm mx-2">Chỉnh sửa chương</a>
+                                            <a href="javascript:void(0);" onclick="openModal('@Url.Action("SuaChuong", new { machuong = @chuong.MaChuong })')" class="btn btn-info btn-sm mx-2">Chỉnh sửa chương</a>
 
-                                            <a href="/GiangVien/XoaChuong/?machuong=@chuong.MaChuong" class="btn btn-danger btn-sm">Xoá chương</a>
+                                            <a href="javascript:void(0);" onclick="openModal('@Url.Action("XoaChuong", new { machuong = @chuong.MaChuong })')" class="btn btn-danger btn-sm">Xoá chương</a>
                                         </div>
 
                                         <ul class="list-unstyled">
@@ -47,8 +47,12 @@
     
                                                         <!-- Nhóm các nút ở cuối thẻ li -->
                                                         <div class="d-flex gap-2">
-                                                            <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("EditBaiHoc", new { id = baiHoc.MaBaiGiang })">Chỉnh sửa chi tiết</a>
-                                                            <a class="btn btn-outline-danger btn-sm" href="@Url.Action("DeleteBaiHoc", new { id = baiHoc.MaBaiGiang })">Xoá</a>
+                                                            @if (!string.IsNullOrEmpty(baiHoc.NoiDung) || !string.IsNullOrEmpty(baiHoc.URL) || !string.IsNullOrEmpty(baiHoc.FileVideo))
+                                                            {
+                                                                <a href="/GiangVien/XemBaiGiang/?mabg=@baiHoc.MaBaiGiang" class="btn btn-primary btn-sm">Xem bài giảng</a>
+                                                            }
+                                                            <a href="/GiangVien/SuaBaiGiang/?mabg=@baiHoc.MaBaiGiang" class="btn btn-secondary btn-sm mx-2">Chỉnh sửa</a>
+                                                            <a href="javascript:void(0);" onclick="openModal('@Url.Action("XoaBaiGiang", new { mabg = @baiHoc.MaBaiGiang})')" class="btn btn-danger btn-sm">Xoá chương</a>
                                                         </div>
                                                     </li>
 

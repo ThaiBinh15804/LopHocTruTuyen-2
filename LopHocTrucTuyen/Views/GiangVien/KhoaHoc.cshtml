@@ -67,3 +67,34 @@
         
     </div>
 </div>
+
+
+<div class="modal fade" id="dynamicModal" tabindex="-1" aria-labelledby="dynamicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <!-- Giữ popup ở giữa màn hình -->
+        <div class="modal-content  p-4 " id="modalContent">
+            
+            <!-- Nội dung của popup sẽ được truyền động vào đây -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function openModal(actionUrl) {
+        $.ajax({
+            url: actionUrl,
+            type: "GET",
+            success: function (data) {
+                // Nhúng toàn bộ nội dung động vào modal-content
+                $("#modalContent").html(data);
+                // Hiển thị modal
+                $("#dynamicModal").modal("show");
+            },
+            error: function () {
+                alert("Không thể tải nội dung, vui lòng thử lại.");
+            }
+        });
+    }
+
+</script>

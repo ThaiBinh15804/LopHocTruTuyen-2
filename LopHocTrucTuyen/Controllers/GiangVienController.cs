@@ -185,10 +185,10 @@ namespace LopHocTrucTuyen.Controllers
 
         public ActionResult SuaChuong(string machuong)
         {
-            return View(data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong));
+            return PartialView(data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong));
         }
 
-
+        [HttpPost]
         public ActionResult XuLySuaChuong(Chuong ch)
         {
             Chuong cu = data.Chuongs.FirstOrDefault(t => t.MaChuong == ch.MaChuong);
@@ -214,6 +214,81 @@ namespace LopHocTrucTuyen.Controllers
             data.SubmitChanges();
 
             return RedirectToAction("KhoaHoc", new { makh = ch.MaKhoaHoc });
+        }
+
+        public ActionResult XoaChuong(string machuong)
+        {
+            Chuong ch = data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong);
+
+            return PartialView(ch);
+        }
+
+        public ActionResult XuLyXoaChuong(string machuong)
+        {
+            Chuong ch = data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong);
+            data.Chuongs.DeleteOnSubmit(ch);
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = ch.MaKhoaHoc });
+        }
+
+        public ActionResult SuaBaiGiang(string mabg)
+        {
+            BaiGiang bg = data.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang.ToString() == mabg);
+            return View(bg);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult XuLySuaBaiGiang(BaiGiang bg, HttpPostedFileBase FileVideo)
+        {
+            BaiGiang cu = data.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang == bg.MaBaiGiang);
+
+            if (bg.URL != null && cu.URL != bg.URL)
+            {
+                cu.URL = bg.URL;
+                cu.FileVideo = null;
+            }
+            
+            if (FileVideo != null && FileVideo.ContentLength > 0 && cu.FileVideo != bg.FileVideo)
+            {
+                // Xử lý tải lên file video
+                string fileName = Path.GetFileName(FileVideo.FileName);
+                string duongdan = Path.Combine(Server.MapPath("~/Content/GiangVien/Video"), fileName);
+                FileVideo.SaveAs(duongdan);
+
+                cu.FileVideo = fileName;
+                cu.URL = null;
+            }
+
+            // Cập nhật chỉ những thuộc tính có sự thay đổi
+            if (cu.NoiDung != bg.NoiDung)
+            {
+                cu.NoiDung = bg.NoiDung;
+            }
+
+            if (cu.ThuTu != bg.ThuTu)
+            {
+                cu.ThuTu = bg.ThuTu;
+            }
+
+
+            // Lưu thay đổi
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = cu.Chuong.MaKhoaHoc });
+        }
+
+
+        public ActionResult XemBaiGiang(string mabg)
+        {
+            return View(data.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang.ToString() == mabg));
+        }
+
+        public ActionResult XoaBaiGiang(string mabg)
+        {
+            return PartialView(data.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang.ToString() == mabg));
         }
     }
 }

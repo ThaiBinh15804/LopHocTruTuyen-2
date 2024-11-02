@@ -1,0 +1,29 @@
+﻿@model LopHocTrucTuyen.Models.Chuong
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="text-center text-danger mb-4">Bạn có chắc muốn xoá chương này?</h3>
+
+            <div class="mb-3">
+                <strong>Tên chương:</strong>
+                <p>@Model.TenChuong</p>
+            </div>
+
+            <div class="mb-3">
+                <strong>Mô tả:</strong>
+                <p>@Model.MoTa</p>
+            </div>
+
+            @using (Html.BeginForm("XuLyXoaChuong", "GiangVien", FormMethod.Post, new { @class = "text-center mt-3" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="machuong" value="@Model.MaChuong" />
+                <div class="d-flex justify-content-center gap-3">
+                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                    <a href="#" class="btn btn-secondary btn-lg ms-2" data-bs-dismiss="modal">Quay lại danh sách</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

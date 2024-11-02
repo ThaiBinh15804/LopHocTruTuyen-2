@@ -1,0 +1,93 @@
+﻿@model LopHocTrucTuyen.Models.BaiGiang
+
+@{
+    ViewBag.Title = "XemBaiGiang";
+    Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
+}
+
+<div class="container my-3">
+    <h1>@Model.TenBaiGiang</h1>
+
+    <div class="card mb-2">
+        <div class="card-body">
+            
+
+            @* Hiển thị video nếu có *@
+            @if (!string.IsNullOrEmpty(Model.URL) || !string.IsNullOrEmpty(Model.FileVideo))
+            {
+                <div class="mb-4">
+                    @if (!string.IsNullOrEmpty(Model.URL))
+                    {
+                        <iframe style="width:100%; height:630px" src="' + @Model.URL + '" frameborder="0"></iframe>
+
+                    }
+                    else if (!string.IsNullOrEmpty(Model.FileVideo))
+                    {
+                        var fileUrl = Url.Content("~/Content/GiangVien/Video/" + Model.FileVideo);
+                        <video style="width:100%; height:630px;" controls>
+                            <source src="@fileUrl" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    }
+                </div>
+            }
+            @* Hiển thị nội dung bài giảng *@
+            @if (!string.IsNullOrEmpty(Model.NoiDung))
+            {
+                <hr />
+                <div class="mb-3">
+                    @Html.Raw(Model.NoiDung)
+                </div>
+            }
+        </div>
+    </div>
+
+    @* Nút hiển thị phần comment *@
+    <button class="btn btn-outline-primary" id="toggleComments">Hiển thị bình luận</button>
+
+    @* Phần bình luận *@
+    <div id="commentsSection" class="mt-4" style="display: none;">
+        <h5>Bình luận</h5>
+        @* Hiển thị danh sách bình luận *@
+        <ul class="list-unstyled">
+            @*@foreach (var comment in Model.Comments)
+            {
+                <li class="border rounded-1 px-3 py-2 mb-2">
+                    <strong>@comment.UserName:</strong> @Html.Raw(comment.Content)
+                </li>
+            }*@
+            <li>  ádsad  </li>
+        </ul>
+
+        @* Form thêm bình luận *@
+        <div class="form-group">
+            <label for="commentContent">Thêm bình luận:</label>
+            <textarea id="commentContent" class="form-control" rows="3"></textarea>
+            <button class="btn btn-success mt-2" onclick="addComment()">Gửi bình luận</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("toggleComments").onclick = function () {
+        var commentsSection = document.getElementById("commentsSection");
+        if (commentsSection.style.display === "none") {
+            commentsSection.style.display = "block";
+            this.textContent = "Ẩn bình luận";
+        } else {
+            commentsSection.style.display = "none";
+            this.textContent = "Hiển thị bình luận";
+        }
+    };
+
+    function addComment() {
+        const commentContent = document.getElementById("commentContent").value;
+        if (commentContent) {
+            // Logic to send the comment to the server
+            console.log("Comment submitted:", commentContent);
+            document.getElementById("commentContent").value = ""; // Clear the textarea
+        } else {
+            alert("Vui lòng nhập bình luận.");
+        }
+    }
+</script>

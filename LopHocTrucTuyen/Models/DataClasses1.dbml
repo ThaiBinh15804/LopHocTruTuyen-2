@@ -5,9 +5,9 @@
       <Column Name="MaBaiGiang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="MaChuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TenBaiGiang" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="NoiDung" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NoiDung" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="URL" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
-      <Column Name="TaiLieu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FileVideo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="ThuTu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="BaiGiang_BinhLuan" Member="BinhLuans" ThisKey="MaBaiGiang" OtherKey="MaBaiGiang" Type="BinhLuan" />
       <Association Name="BaiGiang_ThamGia" Member="ThamGias" ThisKey="MaBaiGiang" OtherKey="MaBaiGiang" Type="ThamGia" />
@@ -157,9 +157,9 @@
       <Column Name="NgayBatDau" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Gia" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TrangThai" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AnhBia" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="MaGiangVien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="AnhBia" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="TrangThai" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="KhoaHoc_Chuong" Member="Chuongs" ThisKey="MaKhoaHoc" OtherKey="MaKhoaHoc" Type="Chuong" />
       <Association Name="KhoaHoc_DangKy" Member="DangKies" ThisKey="MaKhoaHoc" OtherKey="MaKhoaHoc" Type="DangKy" />
       <Association Name="KhoaHoc_DanhGia" Member="DanhGias" ThisKey="MaKhoaHoc" OtherKey="MaKhoaHoc" Type="DanhGia" />

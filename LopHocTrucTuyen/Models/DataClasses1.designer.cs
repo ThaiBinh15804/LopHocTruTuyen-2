@@ -310,7 +310,7 @@ namespace LopHocTrucTuyen.Models
 		
 		private string _URL;
 		
-		private string _TaiLieu;
+		private string _FileVideo;
 		
 		private int _ThuTu;
 		
@@ -334,8 +334,8 @@ namespace LopHocTrucTuyen.Models
     partial void OnNoiDungChanged();
     partial void OnURLChanging(string value);
     partial void OnURLChanged();
-    partial void OnTaiLieuChanging(string value);
-    partial void OnTaiLieuChanged();
+    partial void OnFileVideoChanging(string value);
+    partial void OnFileVideoChanged();
     partial void OnThuTuChanging(int value);
     partial void OnThuTuChanged();
     #endregion
@@ -412,7 +412,7 @@ namespace LopHocTrucTuyen.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoiDung", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoiDung", DbType="NVarChar(MAX)")]
 		public string NoiDung
 		{
 			get
@@ -452,22 +452,22 @@ namespace LopHocTrucTuyen.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TaiLieu", DbType="NVarChar(255)")]
-		public string TaiLieu
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileVideo", DbType="NVarChar(255)")]
+		public string FileVideo
 		{
 			get
 			{
-				return this._TaiLieu;
+				return this._FileVideo;
 			}
 			set
 			{
-				if ((this._TaiLieu != value))
+				if ((this._FileVideo != value))
 				{
-					this.OnTaiLieuChanging(value);
+					this.OnFileVideoChanging(value);
 					this.SendPropertyChanging();
-					this._TaiLieu = value;
-					this.SendPropertyChanged("TaiLieu");
-					this.OnTaiLieuChanged();
+					this._FileVideo = value;
+					this.SendPropertyChanged("FileVideo");
+					this.OnFileVideoChanged();
 				}
 			}
 		}
@@ -3502,11 +3502,11 @@ namespace LopHocTrucTuyen.Models
 		
 		private decimal _Gia;
 		
-		private int _MaGiangVien;
+		private bool _TrangThai;
 		
 		private string _AnhBia;
 		
-		private System.Nullable<bool> _TrangThai;
+		private int _MaGiangVien;
 		
 		private EntitySet<Chuong> _Chuongs;
 		
@@ -3538,12 +3538,12 @@ namespace LopHocTrucTuyen.Models
     partial void OnNgayKetThucChanged();
     partial void OnGiaChanging(decimal value);
     partial void OnGiaChanged();
-    partial void OnMaGiangVienChanging(int value);
-    partial void OnMaGiangVienChanged();
+    partial void OnTrangThaiChanging(bool value);
+    partial void OnTrangThaiChanged();
     partial void OnAnhBiaChanging(string value);
     partial void OnAnhBiaChanged();
-    partial void OnTrangThaiChanging(System.Nullable<bool> value);
-    partial void OnTrangThaiChanged();
+    partial void OnMaGiangVienChanging(int value);
+    partial void OnMaGiangVienChanged();
     #endregion
 		
 		public KhoaHoc()
@@ -3701,6 +3701,46 @@ namespace LopHocTrucTuyen.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="Bit NOT NULL")]
+		public bool TrangThai
+		{
+			get
+			{
+				return this._TrangThai;
+			}
+			set
+			{
+				if ((this._TrangThai != value))
+				{
+					this.OnTrangThaiChanging(value);
+					this.SendPropertyChanging();
+					this._TrangThai = value;
+					this.SendPropertyChanged("TrangThai");
+					this.OnTrangThaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnhBia", DbType="NVarChar(255)")]
+		public string AnhBia
+		{
+			get
+			{
+				return this._AnhBia;
+			}
+			set
+			{
+				if ((this._AnhBia != value))
+				{
+					this.OnAnhBiaChanging(value);
+					this.SendPropertyChanging();
+					this._AnhBia = value;
+					this.SendPropertyChanged("AnhBia");
+					this.OnAnhBiaChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaGiangVien", DbType="Int NOT NULL")]
 		public int MaGiangVien
 		{
@@ -3721,46 +3761,6 @@ namespace LopHocTrucTuyen.Models
 					this._MaGiangVien = value;
 					this.SendPropertyChanged("MaGiangVien");
 					this.OnMaGiangVienChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnhBia", DbType="VarChar(255)")]
-		public string AnhBia
-		{
-			get
-			{
-				return this._AnhBia;
-			}
-			set
-			{
-				if ((this._AnhBia != value))
-				{
-					this.OnAnhBiaChanging(value);
-					this.SendPropertyChanging();
-					this._AnhBia = value;
-					this.SendPropertyChanged("AnhBia");
-					this.OnAnhBiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="Bit")]
-		public System.Nullable<bool> TrangThai
-		{
-			get
-			{
-				return this._TrangThai;
-			}
-			set
-			{
-				if ((this._TrangThai != value))
-				{
-					this.OnTrangThaiChanging(value);
-					this.SendPropertyChanging();
-					this._TrangThai = value;
-					this.SendPropertyChanged("TrangThai");
-					this.OnTrangThaiChanged();
 				}
 			}
 		}

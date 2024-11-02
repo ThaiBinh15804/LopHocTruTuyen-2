@@ -1,50 +1,44 @@
 ﻿@model LopHocTrucTuyen.Models.Chuong
 
-@{
-    ViewBag.Title = "Sửa Chương";
-    Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
-}
+<!-- Modal Header -->
+<div class="modal-header">
+    <h5 class="modal-title">Sửa Chương</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
 
-<div class="container mt-4">
-    <h2 class="text-center">Sửa Chương</h2>
-
-    @using (Html.BeginForm("XuLySuaChuong", "GiangVien", FormMethod.Post, new { @class = "mt-4" }))
+<!-- Modal Body -->
+<div class="modal-body">
+    @using (Html.BeginForm("XuLySuaChuong", "GiangVien", FormMethod.Post, new { @class = "form-horizontal" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="card">
-            <div class="card-body">
-                <fieldset>
-                    <legend class="text-primary">Thông tin Chương</legend>
+        <!-- Model -->
+        @Html.HiddenFor(model => model.MaChuong)
+        @Html.HiddenFor(model => model.MaKhoaHoc)
 
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model.TenChuong, new { @class = "form-label" })
-                        @Html.EditorFor(model => model.TenChuong, new { htmlAttributes = new { @class = "form-control", style = "width: 100%;" } })
-                        @Html.ValidationMessageFor(model => model.TenChuong, "", new { @class = "text-danger" })
-                    </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.TenChuong, new { @class = "form-label fw-bold" })
+            @Html.TextBoxFor(model => model.TenChuong, new { @class = "form-control", placeholder = "Tên chương" })
+            @Html.ValidationMessageFor(model => model.TenChuong, "", new { @class = "text-danger" })
+        </div>
 
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model.MoTa, new { @class = "form-label" })
-                        @Html.TextAreaFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control", style = "height: 100px; width: 100%;" } })
-                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
-                    </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.MoTa, new { @class = "form-label fw-bold" })
+            @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", placeholder = "Mô tả chương", rows = 4 })
+            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+        </div>
 
-                    <div class="mb-3">
-                        @Html.LabelFor(model => model.ThuTu, new { @class = "form-label" })
-                        @Html.EditorFor(model => model.ThuTu, new { htmlAttributes = new { @class = "form-control", style = "width: 100%;" } })
-                        @Html.ValidationMessageFor(model => model.ThuTu, "", new { @class = "text-danger" })
-                    </div>
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.ThuTu, new { @class = "form-label fw-bold" })
+            @Html.TextBoxFor(model => model.ThuTu, new { @class = "form-control", type = "number", min = "0", placeholder = "Thứ tự" })
+            @Html.ValidationMessageFor(model => model.ThuTu, "", new { @class = "text-danger" })
+        </div>
 
-                    <div class="text-center">
-                        <input type="submit" value="Lưu" class="btn btn-success" />
-                    </div>
-                </fieldset>
-            </div>
+        <!-- Button Section -->
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a href="#" class="btn btn-secondary ms-2" data-bs-dismiss="modal">Quay lại danh sách</a>
         </div>
     }
-
-    <div class="mt-3 text-center">
-        @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-secondary" })
-    </div>
 </div>
