@@ -205,7 +205,9 @@
     <Content Include="Content\HocVien\Images\dangnhap.jpg" />
     <Content Include="Content\HocVien\Images\DangNhap.png" />
     <Content Include="Content\HocVien\Images\datascience.jpg" />
+    <Content Include="Content\HocVien\Images\Default_Avatar.png" />
     <Content Include="Content\HocVien\Images\digital_marketing.jpg" />
+    <Content Include="Content\HocVien\Images\email-icon.png" />
     <Content Include="Content\HocVien\Images\finance.jpg" />
     <Content Include="Content\HocVien\Images\h1.png" />
     <Content Include="Content\HocVien\Images\h10.png" />
@@ -227,6 +229,7 @@
     <Content Include="Content\HocVien\Images\marketing_communication.jpg" />
     <Content Include="Content\HocVien\Images\microeconomics.jpg" />
     <Content Include="Content\HocVien\Images\ml_basic.jpg" />
+    <Content Include="Content\HocVien\Images\phone-icon.png" />
     <Content Include="Content\HocVien\Images\php.jpg" />
     <Content Include="Content\HocVien\Images\python_datascience.jpg" />
     <Content Include="Content\HocVien\Images\z5967399194370_df2037acda8a0a7cba384a3b446fc73a.jpg" />
@@ -377,6 +380,7 @@
     <Content Include="Views\HocVien\DangKy.cshtml" />
     <Content Include="Views\HocVien\ChiTietKhoaHoc.cshtml" />
     <Content Include="Views\HocVien\ThongTinNguoiDung.cshtml" />
+    <Content Include="Views\HocVien\GioHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
