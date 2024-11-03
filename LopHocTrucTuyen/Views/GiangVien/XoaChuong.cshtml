@@ -3,8 +3,11 @@
 <div class="container">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h3 class="text-center text-danger mb-4">Bạn có chắc muốn xoá chương này?</h3>
-
+            <div class="text-center">
+                <h3 class="text-center text-danger mb-4">Bạn có chắc muốn xoá chương này?</h3>
+                <em>(Các bài giảng của chương chương cũng sẽ bị xoá)</em>
+            </div>
+            <hr />
             <div class="mb-3">
                 <strong>Tên chương:</strong>
                 <p>@Model.TenChuong</p>
@@ -14,7 +17,7 @@
                 <strong>Mô tả:</strong>
                 <p>@Model.MoTa</p>
             </div>
-
+            <hr />
             @using (Html.BeginForm("XuLyXoaChuong", "GiangVien", FormMethod.Post, new { @class = "text-center mt-3" }))
             {
                 @Html.AntiForgeryToken()

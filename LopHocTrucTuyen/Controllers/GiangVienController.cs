@@ -226,6 +226,7 @@ namespace LopHocTrucTuyen.Controllers
         public ActionResult XuLyXoaChuong(string machuong)
         {
             Chuong ch = data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong);
+            data.BaiGiangs.DeleteAllOnSubmit(ch.BaiGiangs);
             data.Chuongs.DeleteOnSubmit(ch);
             data.SubmitChanges();
 
@@ -289,6 +290,15 @@ namespace LopHocTrucTuyen.Controllers
         public ActionResult XoaBaiGiang(string mabg)
         {
             return PartialView(data.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang.ToString() == mabg));
+        }
+
+        public ActionResult XuLyXoaBaiGiang(string mabg)
+        {
+            BaiGiang bg = data.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang.ToString() == mabg);
+            data.BaiGiangs.DeleteOnSubmit(bg);
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = bg.Chuong.MaKhoaHoc});
         }
     }
 }

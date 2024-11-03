@@ -91,7 +91,7 @@
                     @Html.LabelFor(model => model.FileVideo, "File Video", new { @class = "form-label" })
                     <input type="file" id="FileVideo" name="FileVideo" class="form-control" onchange="previewVideo(this);" value="@Model.FileVideo" />
                     @Html.ValidationMessageFor(model => model.FileVideo, "", new { @class = "text-danger" })
-                    
+
                     @if (!string.IsNullOrEmpty(Model.FileVideo))
                     {
                         <div id="uploadedVideoMessage">

@@ -5,6 +5,19 @@
     Layout = "~/Views/Shared/_LayoutGiangVien.cshtml";
 }
 
+
+<script>
+    function getYoutubeVideoId(url) {
+        var regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^\s&]+)/;
+        var match = url.match(regex);
+        return match ? match[1] : null;
+    }
+</script>
+
+<div>
+    <a href="@Url.Action("KhoaHoc", "GiangVien", new { makh = Model.Chuong.MaKhoaHoc })" class="btn btn-light m-3 border-dark rounded-pill"><i class="fa-solid fa-arrow-left m-2"></i>Trở lại khóa học</a>
+</div>
+
 <div class="container my-3">
     <h1>@Model.TenBaiGiang</h1>
 
@@ -18,13 +31,20 @@
                 <div class="mb-4">
                     @if (!string.IsNullOrEmpty(Model.URL))
                     {
-                        <iframe style="width:100%; height:630px" src="' + @Model.URL + '" frameborder="0"></iframe>
-
+                        <script>
+                            var url = '@Model.URL';
+                            var videoId = getYoutubeVideoId(url);
+                            if (videoId) {
+                                var embedUrl = 'https://www.youtube.com/embed/' + videoId;
+                                document.write('<iframe style="width:100%; height:630px;"  src="' + embedUrl + '" frameborder="0" allowfullscreen></iframe>');
+                            }
+                        </script>
+                        
                     }
                     else if (!string.IsNullOrEmpty(Model.FileVideo))
                     {
                         var fileUrl = Url.Content("~/Content/GiangVien/Video/" + Model.FileVideo);
-                        <video style="width:100%; height:630px;" controls>
+                        <video id="my-video" class="video-js" controls preload="auto" style="width:100%; height:630px;" data-setup="{}">
                             <source src="@fileUrl" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -67,6 +87,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script>
     document.getElementById("toggleComments").onclick = function () {

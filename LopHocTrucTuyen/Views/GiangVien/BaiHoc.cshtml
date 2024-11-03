@@ -6,9 +6,9 @@
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-<div class="container-fluid">
+<div class="container-fluid p-0">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 pt-3">
             <h3>@Model.TenKhoaHoc</h3>  @* Hiển thị tên khoá học *@
 
             @* Hiển thị các chương hiện có *@
@@ -52,7 +52,7 @@
                                                                 <a href="/GiangVien/XemBaiGiang/?mabg=@baiHoc.MaBaiGiang" class="btn btn-primary btn-sm">Xem bài giảng</a>
                                                             }
                                                             <a href="/GiangVien/SuaBaiGiang/?mabg=@baiHoc.MaBaiGiang" class="btn btn-secondary btn-sm mx-2">Chỉnh sửa</a>
-                                                            <a href="javascript:void(0);" onclick="openModal('@Url.Action("XoaBaiGiang", new { mabg = @baiHoc.MaBaiGiang})')" class="btn btn-danger btn-sm">Xoá chương</a>
+                                                            <a href="javascript:void(0);" onclick="openModal('@Url.Action("XoaBaiGiang", new { mabg = @baiHoc.MaBaiGiang })')" class="btn btn-danger btn-sm">Xoá</a>
                                                         </div>
                                                     </li>
 
