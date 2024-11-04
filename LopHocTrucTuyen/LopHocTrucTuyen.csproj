@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,6 +173,12 @@
     <Content Include="Content\GiangVien\HinhAnh\Base\twitter.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\user.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\youtube.jpg" />
+    <Content Include="Content\QuanTriVien\Avatar\avatar_default.jpg" />
+    <Content Include="Content\QuanTriVien\Avatar\h1.jpg" />
+    <Content Include="Content\QuanTriVien\Avatar\h2.jpg" />
+    <Content Include="Content\QuanTriVien\Avatar\h3.jpg" />
+    <Content Include="Content\QuanTriVien\Avatar\h4.jpg" />
+    <Content Include="Content\QuanTriVien\Avatar\h5.jpg" />
     <Content Include="Content\QuanTriVien\DangNhap.png" />
     <Content Include="Content\QuanTriVien\favicon\android-icon-144x144.png" />
     <Content Include="Content\QuanTriVien\favicon\android-icon-192x192.png" />
@@ -327,11 +335,18 @@
     <Content Include="Views\QuanTriVien\BangDieuKhien.cshtml" />
     <Content Include="Views\QuanTriVien\QuanTriVien.cshtml" />
     <Content Include="Views\QuanTriVien\DangNhap.cshtml" />
-    <Content Include="Views\QuanTriVien\ThemQuanTriVien.cshtml" />
     <Content Include="Views\QuanTriVien\GiangVien.cshtml" />
     <Content Include="Views\QuanTriVien\HocVien.cshtml" />
     <Content Include="Views\QuanTriVien\KhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\ThemQuanTriVien.cshtml" />
     <Content Include="Views\QuanTriVien\ThemGiangVien.cshtml" />
+    <Content Include="Views\QuanTriVien\ChiTietQuanTriVien.cshtml" />
+    <Content Include="Views\QuanTriVien\ChiTietGiangVien.cshtml" />
+    <Content Include="Views\QuanTriVien\ThemHocVien.cshtml" />
+    <Content Include="Views\QuanTriVien\ChiTietHocVien.cshtml" />
+    <Content Include="Views\QuanTriVien\TimKiemQuanTriVien.cshtml" />
+    <Content Include="Views\QuanTriVien\TimKiemGiangVien.cshtml" />
+    <Content Include="Views\QuanTriVien\TimKiemHocVien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

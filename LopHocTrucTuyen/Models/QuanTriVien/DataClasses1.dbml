@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyLopHocTrucTuyen" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PHAMTHUAN\THUAN;Initial Catalog=QuanLyLopHocTrucTuyen;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyLopHocTrucTuyenConnectionString4" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PHAMTHUAN\THUAN;Initial Catalog=QuanLyLopHocTrucTuyen;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyLopHocTrucTuyenConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BaiGiang" Member="BaiGiangs">
     <Type Name="BaiGiang">
       <Column Name="MaBaiGiang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -133,7 +133,6 @@
       <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Column Name="DiaChi" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="NgayDangKy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="HocVien_DangKy" Member="DangKies" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="DangKy" />
       <Association Name="HocVien_ThanhToan" Member="ThanhToans" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="ThanhToan" />
       <Association Name="NguoiDung_HocVien" Member="NguoiDung" ThisKey="MaNguoiDung" OtherKey="MaNguoiDung" Type="NguoiDung" IsForeignKey="true" />
@@ -181,6 +180,7 @@
       <Column Name="Email" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="NgayTao" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Avatar" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="MaNhom" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="NguoiDung_BinhLuan" Member="BinhLuans" ThisKey="MaNguoiDung" OtherKey="MaNguoiDung" Type="BinhLuan" />
       <Association Name="NguoiDung_GiangVien" Member="GiangViens" ThisKey="MaNguoiDung" OtherKey="MaNguoiDung" Type="GiangVien" />

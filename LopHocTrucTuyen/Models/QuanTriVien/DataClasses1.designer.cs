@@ -96,7 +96,7 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyLopHocTrucTuyenConnectionString4"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyLopHocTrucTuyenConnectionString3"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -3013,8 +3013,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private string _DiaChi;
 		
-		private System.Nullable<System.DateTime> _NgayDangKy;
-		
 		private EntitySet<DangKy> _DangKies;
 		
 		private EntitySet<ThanhToan> _ThanhToans;
@@ -3039,8 +3037,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnSoDienThoaiChanged();
     partial void OnDiaChiChanging(string value);
     partial void OnDiaChiChanged();
-    partial void OnNgayDangKyChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayDangKyChanged();
     #endregion
 		
 		public HocVien()
@@ -3191,26 +3187,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 					this._DiaChi = value;
 					this.SendPropertyChanged("DiaChi");
 					this.OnDiaChiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayDangKy", DbType="Date")]
-		public System.Nullable<System.DateTime> NgayDangKy
-		{
-			get
-			{
-				return this._NgayDangKy;
-			}
-			set
-			{
-				if ((this._NgayDangKy != value))
-				{
-					this.OnNgayDangKyChanging(value);
-					this.SendPropertyChanging();
-					this._NgayDangKy = value;
-					this.SendPropertyChanged("NgayDangKy");
-					this.OnNgayDangKyChanged();
 				}
 			}
 		}
@@ -4068,6 +4044,8 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private string _TrangThai;
 		
+		private string _Avatar;
+		
 		private int _MaNhom;
 		
 		private EntitySet<BinhLuan> _BinhLuans;
@@ -4096,6 +4074,8 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnNgayTaoChanged();
     partial void OnTrangThaiChanging(string value);
     partial void OnTrangThaiChanged();
+    partial void OnAvatarChanging(string value);
+    partial void OnAvatarChanged();
     partial void OnMaNhomChanging(int value);
     partial void OnMaNhomChanged();
     #endregion
@@ -4226,6 +4206,26 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 					this._TrangThai = value;
 					this.SendPropertyChanged("TrangThai");
 					this.OnTrangThaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Avatar", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Avatar
+		{
+			get
+			{
+				return this._Avatar;
+			}
+			set
+			{
+				if ((this._Avatar != value))
+				{
+					this.OnAvatarChanging(value);
+					this.SendPropertyChanging();
+					this._Avatar = value;
+					this.SendPropertyChanged("Avatar");
+					this.OnAvatarChanged();
 				}
 			}
 		}

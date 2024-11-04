@@ -3,9 +3,29 @@ const user = document.querySelector(".user")
 const iconEye = document.querySelector(".iconEye")
 const inputPassWord = document.getElementById("inputMatKhau")
 
+const form1 = document.querySelector(".myForm1");
+const form2 = document.querySelector(".myForm2");
+const form3 = document.querySelector(".myForm3");
+const form4 = document.querySelector(".myForm4");
+
+if (form1) {
+    form1.addEventListener("submit", handleForm1)
+}
+
+if (form2) {
+    form2.addEventListener("submit", handleForm2)
+}
+
+if (form3) {
+    form3.addEventListener("submit", handleForm3)
+}
+
+if (form4) {
+    form4.addEventListener("submit", handleForm4)
+}
+
 function handleClickUser(event) {
     event.stopPropagation(); // Ngăn sự kiện nhấp lan truyền ra ngoài
-
     if (user.classList.contains("visible")) {
         user.classList.remove("visible")
     } else {
@@ -19,15 +39,16 @@ document.addEventListener("click", function (e) {
     }
 })
 
-function handleClickChangeEye() {
+function handleClickChangeEye(idInputPass) {
+    const inputMatKhau = document.getElementById(idInputPass);
     if (iconEye.classList.contains("fa-eye-slash")) {
         iconEye.classList.add("fa-eye");
         iconEye.classList.remove("fa-eye-slash");
-        inputPassWord.type = "text";
+        inputMatKhau.type = "text";
     } else {
         iconEye.classList.remove("fa-eye");
         iconEye.classList.add("fa-eye-slash");
-        inputPassWord.type = "password";
+        inputMatKhau.type = "password";
     }
 }
 
@@ -63,63 +84,110 @@ function toggleSubMenu(submenuId) {
     }
 }
 
-const selectMaNhom = document.getElementById("MaNhom");
-document.getElementById("btnClearForm").addEventListener("click", function(event) {
-    event.preventDefault();
-    inputTenDangNhap.value = "";
-    inputMatKhau.value = "";
-    inputEmail.value = "";
-    inputHoTen.value = "";
-    selectMaNhom.value = "";
-})
-// xử lý form thêm quản trị viên
-document.getElementById("myForm1").addEventListener("submit", handleForm1);
-function handleForm1() {
-    const errTenDangNhap = document.querySelector(".errTenDangNhap");
-    const errMatKhau = document.querySelector(".errMatKhau");
-    const errEmail = document.querySelector(".errEmail");
-    const errHoTen = document.querySelector(".errHoTen");
-    const errNhomNguoiDung = document.querySelector(".errNhomNguoiDung")
-    const inputTenDangNhap = document.getElementById("TenDangNhap");
-    const inputMatKhau = document.getElementById("MatKhau");
-    const inputEmail = document.getElementById("Email");
-    const inputHoTen = document.getElementById("HoTen");
-    const inputMaNhom = document.getElementById("MaNhom");
+const errTenDangNhap = document.querySelector(".errTenDangNhap");
+const errMatKhau = document.querySelector(".errMatKhau");
+const errEmail = document.querySelector(".errEmail");
+const errHoTen = document.querySelector(".errHoTen");
+const errNhomNguoiDung = document.querySelector(".errNhomNguoiDung");
+const errAvatar = document.querySelector(".errAvatar")
 
-    // Reset lỗi trước khi validate
+const inputTenDangNhap = document.getElementById("TenDangNhap");
+const inputMatKhau = document.getElementById("MatKhau");
+const inputEmail = document.getElementById("Email");
+const inputHoTen = document.getElementById("HoTen");
+const inputMaNhom = document.getElementById("MaNhom");
+
+function handleForm1(event) {
     errTenDangNhap.innerText = "";
     errMatKhau.innerText = "";
     errEmail.innerText = "";
     errHoTen.innerText = "";
     errNhomNguoiDung.innerText = "";
+    errAvatar.innerText = "";
 
     let isValid = true;
-
-    // Kiểm tra nhóm người dùng
+    
     if (inputMaNhom.value === "") {
         errNhomNguoiDung.innerText = "Nhóm người dùng bắt buộc!"
         isValid = false;
     }
-
-    // Kiểm tra khoảng trắng ở giữa tên đăng nhập
-    if (inputTenDangNhap.value.trim().includes(" ")) {
+    
+    if (inputTenDangNhap.value.trim() === "") {
+         errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";
+         isValid = false;
+    } else if (inputTenDangNhap.value.length < 5) {
+        errTenDangNhap.innerText = "Tên đăng nhập ít nhất 5 kí tự!";
+    } else if (inputTenDangNhap.value.trim().includes(" ")) {
         errTenDangNhap.innerText = "Tên đăng nhập không chứa khoảng trắng!";
         isValid = false;
     }
 
-    // Kiểm tra tên đăng nhập
+    if (inputMatKhau.value.trim() === "") {
+         errMatKhau.innerText = "Mật khẩu bắt buộc!";
+         isValid = false;
+    } else if (inputMatKhau.value.length < 8) {
+        errMatKhau.innerText = "Mật khẩu ít nhất 8 kí tự!";
+        isValid = false;
+    }
+
+     let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+     if (inputEmail.value.trim() === "") {
+          errEmail.innerText = "Email bắt buộc!";
+         isValid = false;
+     } else if (!regexEmail.test(inputEmail.value)) {
+          errEmail.innerText = "Email không hợp lệ!";
+          isValid = false;
+     }
+
+     let regexHoTen = /\d/; // \d đại diện kí tự số
+     if (inputHoTen.value.trim() === "") {
+          errHoTen.innerText = "Họ tên bắt buộc!";
+          isValid = false;
+     } else if (regexHoTen.test(inputHoTen.value)) {
+         errHoTen.innerText = "Họ tên không chứa kí tự số!";
+         isValid = false;
+     } else if (inputHoTen.value.length < 6) {
+         errHoTen.innerText = "Họ tên ít nhất 6 kí tự!";
+         isValid = false;
+     }
+
+     var avatarPreview = document.getElementById("avatarPreview").getAttribute("src");
+     if(avatarPreview.includes("avatar_default.jpg")) {
+         errAvatar.innerText = "Avatar bắt buộc!";
+         isValid = false;
+     }
+
+     if (!isValid) {
+          event.preventDefault();  // Ngăn submit nếu có lỗi
+     }
+}
+
+function handleForm4(event) {
+    errTenDangNhap.innerText = "";
+    errMatKhau.innerText = "";
+    errEmail.innerText = "";
+    errHoTen.innerText = "";
+
+    let isValid = true;
+
     if (inputTenDangNhap.value.trim() === "") {
         errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";
         isValid = false;
-    }
-
-    // Kiểm tra mật khẩu
-    if (inputMatKhau.value.trim() === "") {
-        errMatKhau.innerText = "Mật khẩu bắt buộc!";
+    } else if (inputTenDangNhap.value.length < 5) {
+        errTenDangNhap.innerText = "Tên đăng nhập ít nhất 5 kí tự!";
+    } else if (inputTenDangNhap.value.trim().includes(" ")) {
+        errTenDangNhap.innerText = "Tên đăng nhập không chứa khoảng trắng!";
         isValid = false;
     }
 
-    // Kiểm tra email
+    if (inputMatKhau.value.trim() === "") {
+        errMatKhau.innerText = "Mật khẩu bắt buộc!";
+        isValid = false;
+    } else if (inputMatKhau.value.length < 8) {
+        errMatKhau.innerText = "Mật khẩu ít nhất 8 kí tự!";
+        isValid = false;
+    }
+
     let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (inputEmail.value.trim() === "") {
         errEmail.innerText = "Email bắt buộc!";
@@ -129,89 +197,344 @@ function handleForm1() {
         isValid = false;
     }
 
-    // Kiểm tra họ tên và ko chứa kí tự số
     let regexHoTen = /\d/; // \d đại diện kí tự số
     if (inputHoTen.value.trim() === "") {
         errHoTen.innerText = "Họ tên bắt buộc!";
         isValid = false;
     } else if (regexHoTen.test(inputHoTen.value)) {
         errHoTen.innerText = "Họ tên không chứa kí tự số!";
+        isValid = false;
+    } else if (inputHoTen.value.length < 6) {
+        errHoTen.innerText = "Họ tên ít nhất 6 kí tự!";
+        isValid = false;
     }
 
-    // Nếu tất cả các kiểm tra đều hợp lệ, cho phép submit form
     if (!isValid) {
         event.preventDefault();  // Ngăn submit nếu có lỗi
     }
 }
 
-document.getElementById("myForm2").addEventListener("submit", handleForm2);
-//function handleForm2() {
-//    const errTenDangNhap1 = document.querySelector(".errTenDangNhap1");
-//    const errMatKhau1 = document.querySelector(".errMatKhau1");
-//    const errEmail1 = document.querySelector(".errEmail1");
-//    const errHoTen1 = document.querySelector(".errHoTen1");
-//    const errSoDienThoai1 = document.querySelector(".errSoDienThoai1");
-//    const errDiaChi1 = document.querySelector(".errDiaChi1");
-//    const errChuyenNganh1 = document.querySelector(".errChuyenNganh1");
+const selectMaNhom = document.getElementById("MaNhom");
+const btnClearForm = document.getElementById("btnClearForm")
+if (btnClearForm) {
+    btnClearForm.addEventListener("click", function (event) {
+        event.preventDefault();
+        inputTenDangNhap.value = "";
+        inputMatKhau.value = "";
+        inputEmail.value = "";
+        inputHoTen.value = "";
+        selectMaNhom.value = "";
+    })
+}
 
-//    const inputTenDangNhap1 = document.getElementById("TenDangNhap1");
-//    const inputMatKhau1 = document.getElementById("MatKhau1");
-//    const inputEmail1 = document.getElementById("Email1");
-//    const inputHoTen1 = document.getElementById("HoTen1");
-//    const inputSoDienThoai1 = document.getElementById("SoDienThoai1");
-//    const inputDiaChi1 = document.getElementById("DiaChi1");
-//    const inputChuyenNganh1 = document.getElementById("ChuyenNganh1");
+const errSoDienThoai = document.querySelector(".errSoDienThoai");
+const errDiaChi = document.querySelector(".errDiaChi");
+const errChuyenNganh = document.querySelector(".errChuyenNganh");
+const inputSoDienThoai = document.getElementById("SoDienThoai");
+const inputDiaChi = document.getElementById("DiaChi");
+const inputChuyenNganh = document.getElementById("ChuyenNganh");
 
-//    // Reset lỗi trước khi validate
-//    errTenDangNhap1.innerText = "";
-//    errMatKhau1.innerText = "";
-//    errEmail1.innerText = "";
-//    errHoTen1.innerText = "";
-//    errSoDienThoai1.innerText = "";
-//    errDiaChi1.innerText = "";
-//    errChuyenNganh1.innerText = "";
+function handleForm2(event) {
+    errTenDangNhap.innerText = "";
+    errMatKhau.innerText = "";
+    errEmail.innerText = "";
+    errHoTen.innerText = "";
+    errSoDienThoai.innerText = "";
+    errDiaChi.innerText = "";
+    errChuyenNganh.innerText = "";
+    errAvatar.innerText = "";
 
-//    let isValid = true;
+    let isValid = true;
 
-//    // Kiểm tra khoảng trắng ở giữa tên đăng nhập
-//    if (inputTenDangNhap1.value.trim().includes(" ")) {
-//        errTenDangNhap1.innerText = "Tên đăng nhập không chứa khoảng trắng!";
-//        isValid = false;
-//    }
+    if (inputTenDangNhap.value.trim() === "") {
+        errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";
+        isValid = false;
+    } else if (inputTenDangNhap.value.length < 5) {
+        errTenDangNhap.innerText = "Tên đăng nhập ít nhất 5 kí tự!";
+    } else if (inputTenDangNhap.value.trim().includes(" ")) {
+        errTenDangNhap.innerText = "Tên đăng nhập không chứa khoảng trắng!";
+        isValid = false;
+    }
 
-//    // Kiểm tra tên đăng nhập
-//    if (inputTenDangNhap1.value.trim() === "") {
-//        errTenDangNhap1.innerText = "Tên đăng nhập bắt buộc!";
-//        isValid = false;
-//    }
+    if (inputMatKhau.value.trim() === "") {
+        errMatKhau.innerText = "Mật khẩu bắt buộc!";
+        isValid = false;
+    }
 
-//    // Kiểm tra mật khẩu
-//    if (inputMatKhau1.value.trim() === "") {
-//        errMatKhau1.innerText = "Mật khẩu bắt buộc!";
-//        isValid = false;
-//    }
+    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (inputEmail.value.trim() === "") {
+        errEmail.innerText = "Email bắt buộc!";
+        isValid = false;
+    } else if (!regexEmail.test(inputEmail.value)) {
+        errEmail.innerText = "Email không hợp lệ!";
+        isValid = false;
+    }
 
-//    // Kiểm tra email
-//    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-//    if (inputEmail1.value.trim() === "") {
-//        errEmail1.innerText = "Email bắt buộc!";
-//        isValid = false;
-//    } else if (!regexEmail.test(inputEmail1.value)) {
-//        errEmail1.innerText = "Email không hợp lệ!";
-//        isValid = false;
-//    }
+    let regexHoTen = /\d/; // \d đại diện kí tự số
+    if (inputHoTen.value.trim() === "") {
+        errHoTen.innerText = "Họ tên bắt buộc!";
+        isValid = false;
+    } else if (regexHoTen.test(inputHoTen.value)) {
+        errHoTen.innerText = "Họ tên không chứa kí tự số!";
+        isValid = false;
+    } else if (inputHoTen.value.length < 6) {
+        errHoTen.innerText = "Họ tên ít nhất 6 kí tự!";
+        isValid = false;
+    }
 
-//    // Kiểm tra họ tên và ko chứa kí tự số
-//    let regexHoTen = /\d/; // \d đại diện kí tự số
-//    if (inputHoTen1.value.trim() === "") {
-//        errHoTen1.innerText = "Họ tên bắt buộc!";
-//        isValid = false;
-//    } else if (regexHoTen.test(inputHoTen1.value)) {
-//        errHoTen1.innerText = "Họ tên không chứa kí tự số!";
-//    }
+    let regexChuCai = /[a-zA-Z]/; // \d đại diện kí tự chữ
+    if (inputSoDienThoai.value.trim() === "") {
+        errSoDienThoai.innerText = "Số điện thoại bắt buộc!";
+        isValid = false;
+    } else if (regexChuCai.test(inputSoDienThoai.value)) {
+        errSoDienThoai.innerText = "Số điện thoại không chứa kí tự chữ!";
+        isValid = false;
+    }
 
-//    // Nếu tất cả các kiểm tra đều hợp lệ, cho phép submit form
-//    if (!isValid) {
-//        event.preventDefault();  // Ngăn submit nếu có lỗi
-//    }
-//}
+    if (inputDiaChi.value.trim() === "") {
+        errDiaChi.innerText = "Địa chỉ bắt buộc!";
+        isValid = false;
+    }
+
+    if (inputChuyenNganh.value.trim() === "") {
+        errChuyenNganh.innerText = "Chuyên ngành bắt buộc!";
+        isValid = false;
+    }
+
+    var avatarPreview = document.getElementById("avatarPreview").getAttribute("src");
+    if (avatarPreview.includes("avatar_default.jpg")) {
+        errAvatar.innerText = "Avatar bắt buộc!";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();  // Ngăn submit nếu có lỗi
+    }
+}
+
+const btnClearForm2 = document.getElementById("btnClearForm2")
+if (btnClearForm2) {
+    btnClearForm2.addEventListener("click", function (event) {
+        event.preventDefault();
+        inputTenDangNhap1.value = "";
+        inputMatKhau1.value = "";
+        inputEmail1.value = "";
+        inputHoTen1.value = "";
+        inputSoDienThoai1.value = "";
+        inputDiaChi1.value = "";
+        inputChuyenNganh1.value = "";
+    })
+}
+
+const errNgaySinh = document.querySelector(".errNgaySinh")
+const errGioiTinh = document.querySelector(".errGioiTinh")
+const inputNgaySinh = document.getElementById("NgaySinh");
+const inputGioiTinh = document.getElementById("GioiTinh")
+
+function handleForm3(event) {
+    errTenDangNhap.innerText = "";
+    errMatKhau.innerText = "";
+    errEmail.innerText = "";
+    errHoTen.innerText = "";
+    errSoDienThoai.innerText = "";
+    errDiaChi.innerText = "";
+    errNgaySinh.innerText = "";
+
+    let isValid = true;
+
+    if (inputTenDangNhap.value.trim() === "") {
+        errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";
+        isValid = false;
+    } else if (inputTenDangNhap.value.length < 5) {
+        errTenDangNhap.innerText = "Tên đăng nhập ít nhất 5 kí tự!";
+    } else if (inputTenDangNhap.value.trim().includes(" ")) {
+        errTenDangNhap.innerText = "Tên đăng nhập không chứa khoảng trắng!";
+        isValid = false;
+    }
+
+    if (inputMatKhau.value.trim() === "") {
+        errMatKhau.innerText = "Mật khẩu bắt buộc!";
+        isValid = false;
+    }
+
+    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (inputEmail.value.trim() === "") {
+        errEmail.innerText = "Email bắt buộc!";
+        isValid = false;
+    } else if (!regexEmail.test(inputEmail.value)) {
+        errEmail.innerText = "Email không hợp lệ!";
+        isValid = false;
+    }
+
+    let regexHoTen = /\d/; // \d đại diện kí tự số
+    if (inputHoTen.value.trim() === "") {
+        errHoTen.innerText = "Họ tên bắt buộc!";
+        isValid = false;
+    } else if (regexHoTen.test(inputHoTen.value)) {
+        errHoTen.innerText = "Họ tên không chứa kí tự số!";
+    } else if (inputHoTen.value.length < 6) {
+        errHoTen.innerText = "Họ tên ít nhất 6 kí tự!";
+    }
+
+    let regexChuCai = /[a-zA-Z]/;
+    if (inputSoDienThoai.value.trim() === "") {
+        errSoDienThoai.innerText = "Số điện thoại bắt buộc!";
+        isValid = false;
+    } else if (regexChuCai.test(inputSoDienThoai.value)) {
+        errSoDienThoai.innerText = "Số điện thoại không chứa kí tự chữ!";
+        isValid = false;
+    }
+
+    if (inputDiaChi.value.trim() === "") {
+        errDiaChi.innerText = "Địa chỉ bắt buộc!";
+        isValid = false;
+    }
+
+    if (inputNgaySinh.value.trim() === "") {
+        errNgaySinh.innerText = "Ngày sinh bắt buộc!";
+        isValid = false;
+    }
+
+    var avatarPreview = document.getElementById("avatarPreview").getAttribute("src");
+    if (avatarPreview.includes("avatar_default.jpg")) {
+        errAvatar.innerText = "Avatar bắt buộc!";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();  // Ngăn submit nếu có lỗi
+    }
+}
+
+const avatar = document.getElementById("Avatar")
+if (avatar) {
+    avatar.addEventListener("change", function (event) {
+        var reader = new FileReader();
+        var file = event.target.files[0];
+
+        if (file) {
+            reader.onload = function (e) {
+                // Hiển thị hình ảnh trong thẻ img
+                var img = document.getElementById('avatarPreview');
+                img.src = e.target.result;
+                img.style.display = "block"; // Hiển thị thẻ img
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+}
+
+const btnHuy = document.getElementById("btnHuy")
+const btnSua = document.getElementById("btnSua")
+const btnLuu = document.getElementById("btnLuu")
+
+const label = document.getElementById("label")
+const matKhau = document.getElementById("MatKhau")
+const email = document.getElementById("Email")
+const hoTen = document.getElementById("HoTen")
+const trangThai = document.getElementById("TrangThai")
+const maNhom = document.getElementById("MaNhom")
+const soDienThoai = document.getElementById("SoDienThoai")
+const chuyenNganh = document.getElementById("ChuyenNganh")
+const diaChi = document.getElementById("DiaChi")
+const gioiTinh = document.getElementById("GioiTinh")
+const ngaySinh = document.getElementById("NgaySinh")
+
+let saveMatKhau = "";
+let saveEmail = "";
+let saveHoten = "";
+let saveTrangThai = "";
+let saveMaNhom = "";
+let saveSoDienThoai = "";
+let saveChuyenNganh = "";
+let saveDiaChi = "";
+let saveGioiTinh = "";
+let saveNgaySinh = "";
+
+if (matKhau) {
+    saveMatKhau = matKhau.value;
+}
+if (email) {
+    saveEmail = email.value;
+}
+if (hoTen) {
+    saveHoten = hoTen.value;
+}
+if (trangThai) {
+    saveTrangThai = trangThai.value;
+}
+if (maNhom) {
+    saveMaNhom = maNhom.value;
+}
+if (soDienThoai) {
+    saveSoDienThoai = soDienThoai.value;
+}
+if (chuyenNganh) {
+    saveChuyenNganh = chuyenNganh.value;
+}
+if (diaChi) {
+    saveDiaChi = diaChi.value;
+}
+if (gioiTinh) {
+    saveGioiTinh = gioiTinh.value;
+}
+if (ngaySinh) {
+    saveNgaySinh = ngaySinh.value;
+}
+    
+if (btnSua) {
+    btnSua.addEventListener("click", function () {
+        btnHuy.disabled = false;
+        btnLuu.disabled = false;
+        btnSua.disabled = true;
+        matKhau.removeAttribute("readonly");
+        email.removeAttribute("readonly");
+        hoTen.removeAttribute("readonly");
+        trangThai.disabled = false;
+        if (maNhom) {
+            maNhom.disabled = false;
+        }
+        label.style.cursor = "pointer";
+        label.style.pointerEvents = "auto";
+
+        if (soDienThoai) {
+            soDienThoai.removeAttribute("readonly");
+        }
+        if(chuyenNganh) {
+            chuyenNganh.removeAttribute("readonly");
+        }
+        if (diaChi) {
+            diaChi.removeAttribute("readonly");
+        }
+        if (gioiTinh) {
+            gioiTinh.disabled = false;
+        }
+        if (ngaySinh) {
+            ngaySinh.removeAttribute("readonly");
+        }
+    })
+    btnHuy.addEventListener("click", function () {
+        matKhau.value = saveMatKhau;
+        email.value = saveEmail;
+        hoTen.value = saveHoten;
+        trangThai.value = saveTrangThai;
+        if (maNhom) {
+            maNhom.value = saveMaNhom;
+        }
+        if (soDienThoai) {
+            soDienThoai.value = saveSoDienThoai;
+        }
+        if (chuyenNganh) {
+            chuyenNganh.value = saveChuyenNganh;
+        }
+        if (diaChi) {
+            diaChi.value = saveDiaChi;
+        }
+        if (gioiTinh) {
+            gioiTinh.value = saveGioiTinh;
+        }
+        if (ngaySinh) {
+            ngaySinh.save = saveNgaySinh;
+        }
+    })
+}

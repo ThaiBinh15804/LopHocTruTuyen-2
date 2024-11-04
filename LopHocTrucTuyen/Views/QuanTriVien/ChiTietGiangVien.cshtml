@@ -1,0 +1,142 @@
+﻿@model LopHocTrucTuyen.Models.QuanTriVien.ThemGiangVienModel
+@using LopHocTrucTuyen.Models.QuanTriVien;
+@{
+    ViewBag.Title = "ChiTietQuanTriVien";
+    Layout = "~/Views/Shared/_LayoutQuanTriVien.cshtml";
+}
+
+<div>
+    <header style="background-color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0px 16px; border-bottom: 1px solid #edede9; height: 80px;">
+        <div style="display: flex; align-items: center; column-gap: 8px;">
+            <i class="fa-solid fa-bars" style="color: black; font-size: 20px;"></i>
+            <h2 style="font-size: 18px; color: #000; font-weight: 500;">Quản lý người dùng</h2>
+        </div>
+        <div style="position: relative">
+            <button onclick="handleClickUser(event)" style="display: flex; align-items: center; column-gap: 4px; color: #000">
+                <span style="font-size: 16px; font-weight: 500; color: #000">
+                    Xin chào,
+                    @if (Session["user"] != null)
+                    {
+                        NguoiDung user = Session["user"] as NguoiDung;
+                        <span>@user.TenDangNhap</span>
+                    }
+                </span>
+                <img src="~/Content/QuanTriVien/avatar.jpg" alt="Alternate Text" style="width: 30px; height: 30px; border-radius: 999px;" />
+            </button>
+            <div style="position: absolute; right: 0; top: 25px;" class="user">
+                <div class="d-flex flex-column mt-3 user__body">
+                    <a class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; display: block; text-align: center; font-size: 15px;">Thông tin tài khoản</a>
+                    <a href="/QuanTriVien/DangXuat" class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; border-top: 0px; display: block; text-align: center; font-size: 15px;">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div style="padding:8px 20px;">
+        <div class="d-flex gap-2 mt-2">
+            <i style="color: #343a40" class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #343a40">Danh sách Giảng viên</span>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #000; ">Thông tin Giảng viên</span>
+        </div>
+        <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Thông tin Giảng viên</h1>
+        <div style="background-color: #fff; height: 540px; overflow-y: auto; border-radius: 5px; width: 100%; margin-top: 20px; padding: 8px 16px 25px; border: 1px solid #dadada; width: 100%;">
+            <form class="d-flex" method="post" action="/QuanTriVien/ChiTietGiangVien">
+                <div style="width: 60%;">
+                    <div style="width: 100%">
+                        <span style="padding: 8px 0 16px; display: block">Thông tin tài khoản:</span>
+                        <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                            <div style="width: 100%;">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="TenDangNhap">Tên đăng nhập: </label>
+                                @Html.TextBoxFor(model => model.TenDangNhap, new { @readonly = "readonly", @id = "TenDangNhap", @class = "form-control mt-2" })
+                            </div>
+                            <div style="width: 100%;">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputMatKhau">Mật khẩu: </label>
+                                <div style="position: relative">
+                                    @Html.TextBoxFor(model => model.MatKhau, new { @readonly = "readonly", @type = "password", @id = "MatKhau", @class = "form-control mt-2", placeholder = "Nhập mật khẩu" })
+                                    <button type="button" style="position: absolute; right: 8px; top: 12px;" onclick="handleClickChangeEye('MatKhau')">
+                                        <i class="iconEye fa-solid fa-eye-slash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; width: 100%">
+                        <span style="padding: 8px 0 16px; display: block">Thông tin người dùng:</span>
+                        <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="Email">Email: </label>
+                                @Html.TextBoxFor(model => model.Email, new { @readonly = "readonly", @id = "Email", @class = "form-control mt-2", placeholder = "Nhập email" })
+                            </div>
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="HoTen">Họ tên: </label>
+                                @Html.TextBoxFor(model => model.HoTen, new { @readonly = "readonly", @id = "HoTen", @class = "form-control mt-2", placeholder = "Nhập họ tên" })
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; width: 100%">
+                        <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputNhomND">Ngày tạo tài khoản:</label>
+                                <input readonly type="text" value="@Model.NgayTao.ToString("dd/MM/yyyy")" id="inputNhomND" class="form-control mt-2" />
+                            </div>
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputStatus">Trạng thái:</label>
+                                <select disabled id="TrangThai" name="TrangThai" class="form-control mt-2">
+                                    <option value="Đang hoạt động" @(Model.TrangThai == "Đang hoạt động" ? "selected" : "")>Đang hoạt động</option>
+                                    <option value="Dừng hoạt động" @(Model.TrangThai == "Dừng hoạt động" ? "selected" : "")>Dừng hoạt động</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; width: 100%">
+                        <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="SoDienThoai">Số điện thoại:</label>
+                                @Html.TextBoxFor(model => model.SoDienThoai, new { @readonly = "readonly", @id = "SoDienThoai", @class = "form-control mt-2", placeholder = "Nhập số điện thoại" })
+                            </div>
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="ChuyenNganh">Chuyên ngành:</label>
+                                @Html.TextBoxFor(model => model.ChuyenNganh, new { @readonly = "readonly", @id = "ChuyenNganh", @class = "form-control mt-2", placeholder = "Nhập chuyên ngành" })
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; width: 100%">
+                        <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="DiaChi">Địa chỉ:</label>
+                                @Html.TextBoxFor(model => model.DiaChi, new { @readonly = "readonly", @id = "DiaChi", @class = "form-control mt-2", placeholder = "Nhập địa chỉ" })
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; width: 100%">
+                        <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                            <div style="width: 100%">
+                                <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputNhomND">Nhóm người dùng:</label>
+                                <input readonly type="text" value="Giảng viên" id="inputNhomND" class="form-control mt-2" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; width: 100%" class="d-flex justify-content-end gap-2">
+                        <button id="btnHuy" type="button" disabled class="btn btn-danger">Hủy</button>
+                        <button id="btnSua" type="button" class="btn btn-primary">Sửa</button>
+                        <button id="btnLuu" type="submit" disabled class="btn btn-success">Lưu</button>
+                    </div>
+                </div>
+                <div style="margin: 20px 0 20px 40px; width: 2px; height: 510px; background-color: #dadada"></div>
+                <div style="margin: 70px auto 0;">
+                    <div class="d-flex justify-content-center align-items-center flex-column">
+                        <img id="avatarPreview" src="~/Content/QuanTriVien/Avatar/@Model.Avatar" alt="avatar preview" style="width: 150px; object-fit: cover; height: 150px; border-radius: 999px;" />
+                        <span style="font-size: 15px; color: #374151; font-weight: 500; display: block; text-align: center; margin-top: 10px;">Avatar người dùng</span>
+                        @Html.TextBoxFor(model => model.Avatar, new { @id = "Avatar", @value = @Model.Avatar, @class = "mt-2", @style = "display: none;", @type = "file", @accept = "image/*" })
+                        <label for="Avatar" id="label" class="custom-file-upload mt-2" style="cursor: not-allowed; padding: 10px 20px; background-color: #0077b6; color: white; border-radius: 5px;">
+                            Chọn tập tin
+                        </label>
+                        <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errAvatar"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

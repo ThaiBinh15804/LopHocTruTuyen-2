@@ -1,7 +1,7 @@
-﻿@model LopHocTrucTuyen.Models.QuanTriVien.ThemGiangVienModel
+﻿@model LopHocTrucTuyen.Models.QuanTriVien.ThemHocVienModel
 @using LopHocTrucTuyen.Models.QuanTriVien
 @{
-    ViewBag.Title = "ThemGiangVien";
+    ViewBag.Title = "ThemHocVien";
     Layout = "~/Views/Shared/_LayoutQuanTriVien.cshtml";
 }
 
@@ -36,15 +36,15 @@
         <div class="d-flex gap-2 mt-2">
             <i style="color: #343a40" class="fa-solid fa-house"></i>
             <i class="fa-solid fa-angle-right"></i>
-            <span style="color: #343a40">Danh sách giảng viên</span>
+            <span style="color: #343a40">Danh sách Học viên</span>
             <i class="fa-solid fa-angle-right"></i>
-            <span style="color: #000; ">Thêm giảng viên</span>
+            <span style="color: #000; ">Tạo Học viên</span>
         </div>
-        <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Tạo Giảng viên</h1>
+        <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Tạo Học viên</h1>
         <div style="background-color: #fff; border-radius: 5px; height: 500px; overflow-y:auto;  width: 100%; margin-top: 20px; padding: 8px 16px 25px; border: 1px solid #dadada; width: 100%;">
-            <form class="myForm2" action="/QuanTriVien/ThemGiangVien" method="post">
+            <form class="myForm3" action="/QuanTriVien/ThemHocVien" method="post">
                 <div class="d-flex">
-                    <div style="width: 60%">
+                    <div style="width: 60%;">
                         <div style="width: 100%;">
                             <span style="padding: 8px 0 16px; display: block">Thông tin tài khoản:</span>
                             <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
@@ -53,11 +53,11 @@
                                     @Html.TextBoxFor(model => model.TenDangNhap, new { @id = "TenDangNhap", @class = "form-control mt-2", placeholder = "Nhập tên đăng nhập", })
                                     @if (ViewBag.errTenDangNhap1 != null)
                                     {
-                                        <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap">@ViewBag.errTenDangNhap1</span>
+                                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap">@ViewBag.errTenDangNhap2</span>
                                     }
                                     else
                                     {
-                                        <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap"></span>
+                                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errTenDangNhap"></span>
                                     }
                                 </div>
                                 <div style="width: 100%;">
@@ -90,14 +90,26 @@
                         <div style="width: 100%">
                             <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
                                 <div style="width: 100%">
+                                    <label style="font-size: 15px; color: #374151; font-weight: 500;" for="GioiTinh">Giới tính:</label>
+                                    <select id="GioiTinh" name="GioiTinh" class="form-control mt-2">
+                                        <option value="Nam" @(Model.GioiTinh == "Nam" ? "selected" : "")>Nam</option>
+                                        <option value="Nữ" @(Model.GioiTinh == "Nữ" ? "selected" : "")>Nữ</option>
+                                    </select>
+                                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errGioiTinh2"></span>
+                                </div>
+                                <div style="width: 100%">
+                                    <label style="font-size: 15px; color: #374151; font-weight: 500;" for="NgaySinh">Ngày sinh: </label>
+                                    @Html.TextBoxFor(model => model.NgaySinh, new {@type = "Date", @id = "NgaySinh", @class = "form-control mt-2" })
+                                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errNgaySinh"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 100%">
+                            <div style="margin-left: 10px" class="d-flex justify-content-between gap-4">
+                                <div style="width: 100%">
                                     <label style="font-size: 15px; color: #374151; font-weight: 500;" for="SoDienThoai">Số điện thoại: </label>
                                     @Html.TextBoxFor(model => model.SoDienThoai, new { @id = "SoDienThoai", @class = "form-control mt-2", placeholder = "Nhập số điện thoại" })
                                     <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errSoDienThoai"></span>
-                                </div>
-                                <div style="width: 100%">
-                                    <label style="font-size: 15px; color: #374151; font-weight: 500;" for="ChuyenNganh">Chuyên ngành: </label>
-                                    @Html.TextBoxFor(model => model.ChuyenNganh, new { @id = "ChuyenNganh", @class = "form-control mt-2", placeholder = "Nhập chuyên ngành" })
-                                    <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errChuyenNganh"></span>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +127,7 @@
                             <button type="submit" class="btn btn-primary">Tạo</button>
                         </div>
                     </div>
-                    <div style="margin: 20px 0 20px 40px; width: 2px; height: 350px; background-color: #dadada"></div>
+                    <div style="margin: 20px 0 20px 40px; width: 2px; height: 450px; background-color: #dadada"></div>
                     <div style="margin: 70px auto 0;">
                         <div class="d-flex justify-content-center align-items-center flex-column">
                             <img id="avatarPreview" src="~/Content/QuanTriVien/Avatar/avatar_default.jpg" alt="avatar preview" style="width: 150px; object-fit: cover; height: 150px; border-radius: 999px;" />

@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|d:\\vs\\c#\\asp.net\\lophoctructuyen\\lophoctructuyen\\controllers\\quantriviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|solutionrelative:lophoctructuyen\\controllers\\quantriviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|d:\\vs\\c#\\asp.net\\lophoctructuyen\\lophoctructuyen\\models\\quantrivien\\dataclasses1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|solutionrelative:lophoctructuyen\\models\\quantrivien\\dataclasses1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|d:\\vs\\c#\\asp.net\\lophoctructuyen\\lophoctructuyen\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|solutionrelative:lophoctructuyen\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|d:\\vs\\c#\\asp.net\\lophoctructuyen\\lophoctructuyen\\models\\quantrivien\\dataclasses1.dbml||{B465B5AD-8799-4507-B90A-EE29ACF36AF9}|",
+      "RelativeMoniker": "D:0:0:{79F54353-DAE0-493B-85B9-03B22F64DEFF}|LopHocTrucTuyen\\LopHocTrucTuyen.csproj|solutionrelative:lophoctructuyen\\models\\quantrivien\\dataclasses1.dbml||{B465B5AD-8799-4507-B90A-EE29ACF36AF9}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DataClasses1.designer.cs",
+              "DocumentMoniker": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.designer.cs",
+              "RelativeDocumentMoniker": "LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.designer.cs",
+              "ToolTip": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.designer.cs",
+              "RelativeToolTip": "LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.designer.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAD4v2cAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T05:00:24.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuanTriVienController.cs",
+              "DocumentMoniker": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Controllers\\QuanTriVienController.cs",
+              "RelativeDocumentMoniker": "LopHocTrucTuyen\\Controllers\\QuanTriVienController.cs",
+              "ToolTip": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Controllers\\QuanTriVienController.cs",
+              "RelativeToolTip": "LopHocTrucTuyen\\Controllers\\QuanTriVienController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T05:00:14.291Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Web.config",
+              "RelativeDocumentMoniker": "LopHocTrucTuyen\\Web.config",
+              "ToolTip": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Web.config",
+              "RelativeToolTip": "LopHocTrucTuyen\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-11-01T04:59:57.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DataClasses1.dbml",
+              "DocumentMoniker": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.dbml",
+              "RelativeDocumentMoniker": "LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.dbml",
+              "ToolTip": "D:\\VS\\C#\\ASP.net\\LopHocTrucTuyen\\LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.dbml",
+              "RelativeToolTip": "LopHocTrucTuyen\\Models\\QuanTriVien\\DataClasses1.dbml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001722|",
+              "WhenOpened": "2024-11-01T04:58:29.053Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
