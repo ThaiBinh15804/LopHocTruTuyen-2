@@ -6,9 +6,12 @@ using System.Web.Mvc;
 using System.IO;
 using LopHocTrucTuyen.Models;
 using System.Data.Entity;
+using System.Web.Security;
+
 
 namespace LopHocTrucTuyen.Controllers
 {
+    [Authorize]
     public class GiangVienController : Controller
     {
         DataClasses1DataContext data = new DataClasses1DataContext();
@@ -21,7 +24,7 @@ namespace LopHocTrucTuyen.Controllers
         public ActionResult HienThiKhoaHoc()
         {
             GiangVien gv = (GiangVien)Session["user"];
-            return View(data.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien).ToList());
+            return View(data.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien && t.TrangThai).ToList());
         }
 
         public ActionResult KhoaHoc(string makh)
@@ -44,29 +47,38 @@ namespace LopHocTrucTuyen.Controllers
 
         public ActionResult BaoCao(string makh)
         {
-            return PartialView();
+            return PartialView(data.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc.ToString() == makh));
         }
 
-        public ActionResult DanhGia(string makh)
+        public ActionResult BaiTap(string makh)
         {
-            return PartialView();
+            return PartialView(data.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc.ToString() == makh));
         }
 
         public ActionResult HocVien(string makh)
         {
-            return PartialView();
+            List<HocVien> lst = data.HocViens.Where(hv => hv.ThanhToans.
+                Where(t => t.ChiTietThanhToans.
+                    Where(ct => ct.DangKy.MaKhoaHoc.ToString() == makh).Any()).Any()).ToList();
+            
+            ViewBag.MaKhoaHoc = makh;
+            ViewBag.TongBaiGiang = data.BaiGiangs.Where(t => t.Chuong.MaKhoaHoc.ToString() == makh).Count();
+
+            return PartialView(lst);
         }
 
         public ActionResult ThietLap(string makh)
         {
-            return PartialView();
+            return PartialView(data.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc.ToString() == makh));
         }
 
+        [AllowAnonymous]
         public ActionResult DangNhap()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public ActionResult XuLyDangNhap(FormCollection c)
         {
             string tenDN = c["username"];
@@ -79,6 +91,7 @@ namespace LopHocTrucTuyen.Controllers
                 GiangVien gv = data.GiangViens.FirstOrDefault(t => t.MaNguoiDung == user.MaNguoiDung);
                 Session["user"] = gv;
                 TempData["ThongBao"] = "Đăng nhập thành công";
+                FormsAuthentication.SetAuthCookie(user.TenDangNhap, false);
             }
             else
             {
@@ -113,6 +126,17 @@ namespace LopHocTrucTuyen.Controllers
                 TempData["ThongBao"] = "Thêm khoá học không thành công";
 
             }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult XoaKhoaHoc(string makh)
+        {
+            KhoaHoc kh = data.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc.ToString() == makh);
+
+            kh.TrangThai = false;
+
+            data.SubmitChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -226,8 +250,12 @@ namespace LopHocTrucTuyen.Controllers
         public ActionResult XuLyXoaChuong(string machuong)
         {
             Chuong ch = data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong);
+            
             data.BaiGiangs.DeleteAllOnSubmit(ch.BaiGiangs);
+            data.BaiTaps.DeleteAllOnSubmit(ch.BaiTaps);
+
             data.Chuongs.DeleteOnSubmit(ch);
+
             data.SubmitChanges();
 
             return RedirectToAction("KhoaHoc", new { makh = ch.MaKhoaHoc });
@@ -299,6 +327,146 @@ namespace LopHocTrucTuyen.Controllers
             data.SubmitChanges();
 
             return RedirectToAction("KhoaHoc", new { makh = bg.Chuong.MaKhoaHoc});
+        }
+
+        public ActionResult XemBinhLuan(string mabg)
+        {
+            List<BinhLuan> lst = data.BinhLuans.Where(t => t.MaBaiGiang.ToString() == mabg).ToList();
+            return PartialView(lst);
+        }
+
+        public ActionResult ThemBinhLuan(string mabg, FormCollection c)
+        {
+            GiangVien gv = (GiangVien)Session["user"];
+            BinhLuan a = new BinhLuan();
+            a.MaBaiGiang = int.Parse(mabg);
+            a.NoiDung = c["binhluanmoi"];
+            a.MaNguoiDung = gv.MaNguoiDung;
+            a.NgayTao = DateTime.Now;
+            a.MaBinhLuanCha = string.IsNullOrEmpty(c["binhluancha"]) ? (int?)null : int.Parse(c["binhluancha"]);
+
+
+            data.BinhLuans.InsertOnSubmit(a);
+            data.SubmitChanges();
+
+            return RedirectToAction("XemBaiGiang", new { mabg = mabg });
+        }
+
+        public ActionResult SuaKhoaHoc(string makh, HttpPostedFileBase imageUpload, FormCollection c)
+        {
+            KhoaHoc cu = data.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc.ToString() == makh);
+
+            if (imageUpload != null && imageUpload.ContentLength > 0)
+            {
+                // Lưu ảnh bìa
+                string fileName = Path.GetFileName(imageUpload.FileName);
+                string path = Path.Combine(Server.MapPath("~/Content/GiangVien/HinhAnh/KhoaHoc"), fileName);
+                imageUpload.SaveAs(path);
+                cu.AnhBia = fileName;
+            }
+
+            cu.TenKhoaHoc = c["TenKhoaHoc"];
+            cu.MoTa = c["MoTa"];
+
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = makh });
+        }
+
+        public ActionResult ChamDiem(string mabt, string madk)
+        {
+            return View(data.DangKy_BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == mabt && t.MaDangKy.ToString() == madk));
+        }
+
+        public ActionResult XuLyChamDiem(DangKy_BaiTap dk)
+        {
+            DangKy_BaiTap cu = data.DangKy_BaiTaps.FirstOrDefault(t => t.MaDangKy == dk.MaDangKy && t.MaBaiTap == dk.MaBaiTap);
+
+            if (cu.Diem != dk.Diem)
+            {
+                cu.Diem = dk.Diem;
+                cu.ChamDiem = true;
+            }
+
+            data.SubmitChanges();
+
+            TempData["DieuHuong"] = "BaiTap";
+            return RedirectToAction("KhoaHoc", new { makh = cu.BaiTap.Chuong.MaKhoaHoc.ToString() });
+        }
+
+        public ActionResult TaoBaiTap(string machuong, FormCollection c)
+        {
+            BaiTap bt = new BaiTap();
+            bt.TenBaiTap = c["TenBaiTap"];
+            bt.ThuTu = int.Parse(c["ThuTu"]) + 1;
+            bt.MaChuong = int.Parse(machuong);
+
+            Chuong ch = data.Chuongs.FirstOrDefault(t => t.MaChuong.ToString() == machuong);
+
+            data.BaiTaps.InsertOnSubmit(bt);
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = ch.MaKhoaHoc });
+        }
+
+        public ActionResult XemBaiTap(string mabt)
+        {
+            return View(data.BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == mabt));
+        }
+
+        public ActionResult SuaBaiTap(string mabt)
+        {
+            BaiTap bt = data.BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == mabt);
+            return View(bt);
+        }
+
+        public ActionResult XuLySuaBaiTap(BaiTap b, HttpPostedFileBase UploadedFile)
+        {
+            BaiTap bt = data.BaiTaps.FirstOrDefault(t => t.MaBaiTap == b.MaBaiTap);
+
+            if (bt.TenBaiTap != b.TenBaiTap)
+            {
+                bt.TenBaiTap = b.TenBaiTap;
+            }
+
+            if (bt.MoTa != b.MoTa)
+            {
+                bt.MoTa = b.MoTa;
+            }
+
+            if (bt.ThuTu != b.ThuTu)
+            {
+                bt.ThuTu = b.ThuTu;
+            }
+
+            if (UploadedFile != null && UploadedFile.ContentLength > 0 && bt.FileUpload != b.FileUpload)
+            {
+                // Xử lý tải lên file video
+                string fileName = Path.GetFileName(UploadedFile.FileName);
+                string duongdan = Path.Combine(Server.MapPath("~/Content/GiangVien/BaiTap"), fileName);
+                UploadedFile.SaveAs(duongdan);
+
+                bt.FileUpload = fileName;
+            }
+
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = bt.Chuong.MaKhoaHoc.ToString() });
+        }
+
+        public ActionResult XoaBaiTap(string mabt)
+        {
+            return PartialView(data.BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == mabt));
+        }
+
+        public ActionResult XuLyXoaBaiTap(FormCollection c)
+        {
+            BaiTap bt = data.BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == c["mabt"]);
+            data.BaiTaps.DeleteOnSubmit(bt);
+
+            data.SubmitChanges();
+
+            return RedirectToAction("KhoaHoc", new { makh = bt.Chuong.MaKhoaHoc });
         }
     }
 }

@@ -8,8 +8,8 @@
 
 <div class="container-fluid p-0">
     <div class="row">
-        <div class="col-12 pt-3">
-            <h3>@Model.TenKhoaHoc</h3>  @* Hiển thị tên khoá học *@
+        <div class="col-12 pt-3 ps-3">
+            <h3 class="py-3 px-2" >@Model.TenKhoaHoc</h3>  @* Hiển thị tên khoá học *@
 
             @* Hiển thị các chương hiện có *@
             <div id="chuongContainer">
@@ -57,14 +57,35 @@
                                                     </li>
 
                                                 }
+                                                
+                                                List<BaiTap> baitaps = chuong.BaiTaps.OrderBy(t => t.ThuTu).ToList();
+                                                foreach (BaiTap bt in baitaps)
+                                                {
+                                                    <li class="border border-primary rounded-1 px-3 py-2 mb-2 d-flex justify-content-between align-items-center">
+                                                        
+                                                        <span class="text-primary" >@bt.TenBaiTap</span>
+    
+                                                        <div class="d-flex gap-2">
+                                                            @if (!string.IsNullOrEmpty(bt.FileUpload))
+                                                            {
+                                                                <a href="/GiangVien/XemBaiTap/?mabt=@bt.MaBaiTap" class="btn btn-primary btn-sm">Xem bài tập</a>
+                                                            }
+                                                            <a href="/GiangVien/SuaBaiTap/?mabt=@bt.MaBaiTap" class="btn btn-secondary btn-sm mx-2">Chỉnh sửa</a>
+                                                            <a href="javascript:void(0);" onclick="openModal('@Url.Action("XoaBaiTap", new { mabt = @bt.MaBaiTap})')" class="btn btn-danger btn-sm">Xoá</a>
+                                                        </div>
+                                                    </li>
+
+                                                }
                                             }
+
+
                                         </ul>
 
                                         @* Nút tạo bài học mới cho chương *@
                                         <button class="btn btn-primary btn-sm" id="ThemBaiHoc_@chuong.MaChuong" onclick="showAddBaiHocForm(@chuong.MaChuong)">Thêm Bài học</button>
 
                                         @* Form thêm bài học *@
-                                        <div id="formAddBaiHoc_@chuong.MaChuong" class="mt-2" style="display: none;">
+                                        <div id="formAddBaiHoc_@chuong.MaChuong" class="my-2" style="display: none;">
                                             <form action="/GiangVien/TaoBaiGiang/?machuong=@chuong.MaChuong" method="post">
                                                 <input type="text" id="baiHocName_@chuong.MaChuong" name="TenBaiGiang" class="form-control" placeholder="Tên Bài học" required />
                                                 <input type="hidden" name="ThuTu" value="@chuong.BaiGiangs.Count" />
@@ -72,6 +93,19 @@
                                                 <button class="btn btn-secondary btn-sm mt-1" onclick="hideAddBaiHocForm(@chuong.MaChuong)">Huỷ</button>
                                             </form>
                                             
+                                        </div>
+
+                                        @* Nút tạo bài tập mới cho chương *@
+                                        <button class="btn btn-success btn-sm" id="ThemBaiTap_@chuong.MaChuong" onclick="showThemBaiTapForm(@chuong.MaChuong)">Thêm bài tập</button>
+                                        @* Form thêm bài tập *@
+                                        <div id="ThemBaiTapForm_@chuong.MaChuong" class="my-2" style="display: none;">
+                                            <form action="/GiangVien/TaoBaiTap/?machuong=@chuong.MaChuong" method="post">
+                                                <input type="text" id="TenBaiTap_@chuong.MaChuong" name="TenBaiTap" class="form-control" placeholder="Tên bài tập" required />
+                                                <input type="hidden" name="ThuTu" value="@chuong.BaiTaps.Count" />
+                                                <button onclick="addBaiTap(@chuong.MaChuong)" class="btn btn-success btn-sm mt-1" type="submit">Tạo</button>
+                                                <button class="btn btn-secondary btn-sm mt-1" onclick="hideThemBaiTapForm(@chuong.MaChuong)">Huỷ</button>
+                                            </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -131,11 +165,28 @@
 
     function hideAddBaiHocForm(chuongId) {
         document.getElementById('formAddBaiHoc_' + chuongId).style.display = 'none';
-        document.getElementById('ThemBaiHoc_' + chuongId).style.display = 'block';
+        document.getElementById('ThemBaiHoc_' + chuongId).style.display = 'inline-block';
     }
 
     function addBaiHoc(chuongId) {
         const baiHocName = document.getElementById('baiHocName_' + chuongId).value;
     
     }
+
+
+    function showThemBaiTapForm(chuongId) {
+        document.getElementById('ThemBaiTapForm_' + chuongId).style.display = 'block';
+        document.getElementById('ThemBaiTap_' + chuongId).style.display = 'none';
+    }
+
+    function hideThemBaiTapForm(chuongId) {
+        document.getElementById('ThemBaiTapForm_' + chuongId).style.display = 'none';
+        document.getElementById('ThemBaiTap_' + chuongId).style.display = 'inline-block';
+    }
+
+    function addBaiHoc(chuongId) {
+        const baiHocName = document.getElementById('TenBaiTap_' + chuongId).value;
+
+    }
+
 </script>

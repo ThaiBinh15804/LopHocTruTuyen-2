@@ -67,25 +67,19 @@
 
     @* Phần bình luận *@
     <div id="commentsSection" class="mt-4" style="display: none;">
-        <h5>Bình luận</h5>
-        @* Hiển thị danh sách bình luận *@
-        <ul class="list-unstyled">
-            @*@foreach (var comment in Model.Comments)
-            {
-                <li class="border rounded-1 px-3 py-2 mb-2">
-                    <strong>@comment.UserName:</strong> @Html.Raw(comment.Content)
-                </li>
-            }*@
-            <li>  ádsad  </li>
-        </ul>
+        @Html.Action("XemBinhLuan", new { mabg = Model.MaBaiGiang })
 
-        @* Form thêm bình luận *@
-        <div class="form-group">
-            <label for="commentContent">Thêm bình luận:</label>
-            <textarea id="commentContent" class="form-control" rows="3"></textarea>
-            <button class="btn btn-success mt-2" onclick="addComment()">Gửi bình luận</button>
-        </div>
+
+        <form action="/GiangVien/ThemBinhLuan/?mabg=@Model.MaBaiGiang" method="post">
+            <div class="form-group mt-3">
+                <textarea id="newComment" name="binhluanmoi" class="form-control" rows="3" placeholder="Nhập bình luận của bạn"></textarea>
+                <button type="submit" class="btn btn-primary mt-2">Bình luận</button>
+            </div>
+
+        </form>
     </div>
+
+
 </div>
 
 
@@ -102,14 +96,4 @@
         }
     };
 
-    function addComment() {
-        const commentContent = document.getElementById("commentContent").value;
-        if (commentContent) {
-            // Logic to send the comment to the server
-            console.log("Comment submitted:", commentContent);
-            document.getElementById("commentContent").value = ""; // Clear the textarea
-        } else {
-            alert("Vui lòng nhập bình luận.");
-        }
-    }
 </script>
