@@ -1822,8 +1822,6 @@ namespace LopHocTrucTuyen.Models
 		
 		private int _MaDangKy;
 		
-		private int _MaHocVien;
-		
 		private int _MaKhoaHoc;
 		
 		private System.Nullable<System.DateTime> _NgayDangKy;
@@ -1838,8 +1836,6 @@ namespace LopHocTrucTuyen.Models
 		
 		private EntitySet<ThamGia> _ThamGias;
 		
-		private EntityRef<HocVien> _HocVien;
-		
 		private EntityRef<KhoaHoc> _KhoaHoc;
 		
     #region Extensibility Method Definitions
@@ -1848,8 +1844,6 @@ namespace LopHocTrucTuyen.Models
     partial void OnCreated();
     partial void OnMaDangKyChanging(int value);
     partial void OnMaDangKyChanged();
-    partial void OnMaHocVienChanging(int value);
-    partial void OnMaHocVienChanged();
     partial void OnMaKhoaHocChanging(int value);
     partial void OnMaKhoaHocChanged();
     partial void OnNgayDangKyChanging(System.Nullable<System.DateTime> value);
@@ -1864,7 +1858,6 @@ namespace LopHocTrucTuyen.Models
 			this._DangKy_BaiTaps = new EntitySet<DangKy_BaiTap>(new Action<DangKy_BaiTap>(this.attach_DangKy_BaiTaps), new Action<DangKy_BaiTap>(this.detach_DangKy_BaiTaps));
 			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._ThamGias = new EntitySet<ThamGia>(new Action<ThamGia>(this.attach_ThamGias), new Action<ThamGia>(this.detach_ThamGias));
-			this._HocVien = default(EntityRef<HocVien>);
 			this._KhoaHoc = default(EntityRef<KhoaHoc>);
 			OnCreated();
 		}
@@ -1885,30 +1878,6 @@ namespace LopHocTrucTuyen.Models
 					this._MaDangKy = value;
 					this.SendPropertyChanged("MaDangKy");
 					this.OnMaDangKyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHocVien", DbType="Int NOT NULL")]
-		public int MaHocVien
-		{
-			get
-			{
-				return this._MaHocVien;
-			}
-			set
-			{
-				if ((this._MaHocVien != value))
-				{
-					if (this._HocVien.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMaHocVienChanging(value);
-					this.SendPropertyChanging();
-					this._MaHocVien = value;
-					this.SendPropertyChanged("MaHocVien");
-					this.OnMaHocVienChanged();
 				}
 			}
 		}
@@ -2026,40 +1995,6 @@ namespace LopHocTrucTuyen.Models
 			set
 			{
 				this._ThamGias.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HocVien_DangKy", Storage="_HocVien", ThisKey="MaHocVien", OtherKey="MaHocVien", IsForeignKey=true)]
-		public HocVien HocVien
-		{
-			get
-			{
-				return this._HocVien.Entity;
-			}
-			set
-			{
-				HocVien previousValue = this._HocVien.Entity;
-				if (((previousValue != value) 
-							|| (this._HocVien.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HocVien.Entity = null;
-						previousValue.DangKies.Remove(this);
-					}
-					this._HocVien.Entity = value;
-					if ((value != null))
-					{
-						value.DangKies.Add(this);
-						this._MaHocVien = value.MaHocVien;
-					}
-					else
-					{
-						this._MaHocVien = default(int);
-					}
-					this.SendPropertyChanged("HocVien");
-				}
 			}
 		}
 		
@@ -3175,8 +3110,6 @@ namespace LopHocTrucTuyen.Models
 		
 		private string _DiaChi;
 		
-		private EntitySet<DangKy> _DangKies;
-		
 		private EntitySet<ThanhToan> _ThanhToans;
 		
 		private EntityRef<NguoiDung> _NguoiDung;
@@ -3203,7 +3136,6 @@ namespace LopHocTrucTuyen.Models
 		
 		public HocVien()
 		{
-			this._DangKies = new EntitySet<DangKy>(new Action<DangKy>(this.attach_DangKies), new Action<DangKy>(this.detach_DangKies));
 			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
 			this._NguoiDung = default(EntityRef<NguoiDung>);
 			OnCreated();
@@ -3353,19 +3285,6 @@ namespace LopHocTrucTuyen.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HocVien_DangKy", Storage="_DangKies", ThisKey="MaHocVien", OtherKey="MaHocVien")]
-		public EntitySet<DangKy> DangKies
-		{
-			get
-			{
-				return this._DangKies;
-			}
-			set
-			{
-				this._DangKies.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HocVien_ThanhToan", Storage="_ThanhToans", ThisKey="MaHocVien", OtherKey="MaHocVien")]
 		public EntitySet<ThanhToan> ThanhToans
 		{
@@ -3431,18 +3350,6 @@ namespace LopHocTrucTuyen.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_DangKies(DangKy entity)
-		{
-			this.SendPropertyChanging();
-			entity.HocVien = this;
-		}
-		
-		private void detach_DangKies(DangKy entity)
-		{
-			this.SendPropertyChanging();
-			entity.HocVien = null;
 		}
 		
 		private void attach_ThanhToans(ThanhToan entity)

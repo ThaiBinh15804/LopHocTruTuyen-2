@@ -14,17 +14,40 @@ namespace LopHocTrucTuyen.Controllers
     {
         DataClasses1DataContext db = new DataClasses1DataContext();
 
+        // TRANG CHU
         public ActionResult TrangChu()
         {
             List<KhoaHoc> dskh = db.KhoaHocs.ToList();
             return View(dskh);
         }
 
+        // HOC TAP
         public ActionResult HocTap()
         {
-            return View();
+            var userId = Session["UserId"];
+            if (userId == null)
+            {
+                return RedirectToAction("DangNhap", "HocVien");
+            }
+
+            // Lấy thông tin học viên từ bảng HocVien dựa trên MaNguoiDung
+            var hocVien = db.HocViens.FirstOrDefault(hv => hv.MaNguoiDung == (int)userId);
+            if (hocVien == null)
+            {
+                TempData["Message"] = "Người dùng không tồn tại trong hệ thống.";
+                return RedirectToAction("TrangChu");
+            }
+
+            // Lấy danh sách các khóa học mà học viên đã thanh toán thông qua bảng ThanhToan và ChiTietThanhToan
+            var danhSachKhoaHocDaThanhToan = db.ChiTietThanhToans
+                .Where(cttt => cttt.ThanhToan.MaHocVien == hocVien.MaHocVien)
+                .Select(cttt => cttt.DangKy.KhoaHoc) // Lấy thông tin khóa học từ bảng DangKy qua ChiTietThanhToan
+                .ToList();
+
+            return View(danhSachKhoaHocDaThanhToan);
         }
 
+        // CHI TIET KHOA HOC
         public ActionResult ChiTietKhoaHoc(int id)
         {
             var khoaHoc = db.KhoaHocs.FirstOrDefault(kh => kh.MaKhoaHoc == id);
@@ -33,11 +56,24 @@ namespace LopHocTrucTuyen.Controllers
                 return HttpNotFound();
             }
 
-            var chuongs = db.Chuongs.Where(ch => ch.MaKhoaHoc == id).Select(ch =>
-                new { Chuong = ch, BaiGiangs = db.BaiGiangs.Where(bg => bg.MaChuong == ch.MaChuong).OrderBy(bg => bg.ThuTu).ToList() }).OrderBy(ch => ch.Chuong.ThuTu).ToList();
+            var userId = Session["UserId"];
+            bool isPaid = false;
+
+            if (userId != null)
+            {
+                var hocVien = db.HocViens.FirstOrDefault(hv => hv.MaNguoiDung == (int)userId);
+                if (hocVien != null)
+                {
+                    isPaid = db.ThanhToans.Any(tt => tt.MaHocVien == hocVien.MaHocVien &&
+                                                     db.ChiTietThanhToans.Any(ct => ct.MaThanhToan == tt.MaThanhToan &&
+                                                                                    ct.DangKy.MaKhoaHoc == id));
+                }
+            }
+            ViewBag.IsPaid = isPaid;
             return View(khoaHoc);
         }
 
+        // THONG TIN NGUOI DUNG
         public ActionResult ThongTinNguoiDung()
         {
             var userId = Session["UserId"];
@@ -75,6 +111,25 @@ namespace LopHocTrucTuyen.Controllers
         }
 
         [HttpPost]
+        public ActionResult UploadAvatar(HttpPostedFileBase avatar)
+        {
+            if (avatar != null && avatar.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(avatar.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/HocVien/Images"), fileName);
+                if (!Directory.Exists(Server.MapPath("~/Content/HocVien/Images")))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Content/HocVien/Images"));
+                }
+                avatar.SaveAs(path);
+                Session["AnhBia"] = fileName;
+                return Json(new { success = true, filename = fileName });
+            }
+
+            return Json(new { success = false, message = "Tải lên thất bại" });
+        }
+
+        [HttpPost]
         public ActionResult ChinhSua(string email, string hoTen, DateTime? ngaySinh, string gioiTinh, string soDienThoai, string diaChi)
         {
             try
@@ -87,22 +142,16 @@ namespace LopHocTrucTuyen.Controllers
 
                     if (nguoiDung != null && hocVien != null)
                     {
-                        // Cập nhật thông tin bảng NguoiDung
                         nguoiDung.Email = email ?? nguoiDung.Email;
-
-                        // Cập nhật thông tin bảng HocVien
                         hocVien.HoTen = hoTen ?? hocVien.HoTen;
                         hocVien.NgaySinh = ngaySinh ?? hocVien.NgaySinh;
                         hocVien.GioiTinh = gioiTinh ?? hocVien.GioiTinh;
                         hocVien.SoDienThoai = soDienThoai ?? hocVien.SoDienThoai;
                         hocVien.DiaChi = diaChi ?? hocVien.DiaChi;
-
                         db.SubmitChanges();
-
                         return Json(new { success = true, message = "Thông tin đã được cập nhật thành công!" });
                     }
                 }
-
                 return Json(new { success = false, message = "Có lỗi xảy ra khi cập nhật thông tin. Người dùng không tồn tại." });
             }
             catch (Exception ex)
@@ -166,16 +215,14 @@ namespace LopHocTrucTuyen.Controllers
                 return Json(new { success = false, message = "Cập nhật thất bại: " + ex.Message });
             }
         }
-
-
-
+        
+        // GIO HANG
         public ActionResult GioHang()
         {
             var gioHang = (List<KhoaHoc>)Session["GioHang"] ?? new List<KhoaHoc>();
-            ViewBag.SelectedCourseId = TempData["CourseId"]; 
+            ViewBag.SelectedCourseId = TempData["SelectedCourseId"];
             return View(gioHang);
         }
-
 
         [HttpPost]
         public ActionResult ThemVaoGioHang(int id)
@@ -184,8 +231,6 @@ namespace LopHocTrucTuyen.Controllers
             if (khoaHoc != null)
             {
                 var gioHang = (List<KhoaHoc>)Session["GioHang"] ?? new List<KhoaHoc>();
-
-                // Check if the course is already in the cart
                 if (!gioHang.Any(kh => kh.MaKhoaHoc == id))
                 {
                     gioHang.Add(khoaHoc);
@@ -201,7 +246,6 @@ namespace LopHocTrucTuyen.Controllers
             }
             return Json(new { success = false, message = "Không tìm thấy sản phẩm." });
         }
-
 
         [HttpPost]
         public ActionResult XoaKhoiGioHang(int id)
@@ -224,43 +268,116 @@ namespace LopHocTrucTuyen.Controllers
             if (khoaHoc != null)
             {
                 var gioHang = (List<KhoaHoc>)Session["GioHang"] ?? new List<KhoaHoc>();
-
-                // Kiểm tra xem khóa học đã có trong giỏ hàng chưa
                 if (!gioHang.Any(kh => kh.MaKhoaHoc == id))
                 {
                     gioHang.Add(khoaHoc);
                     Session["GioHang"] = gioHang;
-                    TempData["CourseId"] = id; // Lưu ID khóa học vào TempData
                 }
+                TempData["SelectedCourseId"] = id; // Lưu ID khóa học vào TempData
             }
             return RedirectToAction("GioHang");
         }
 
-        [HttpPost]
-        public ActionResult UploadAvatar(HttpPostedFileBase avatar)
+        // CHI TIET THANH TOAN
+        public ActionResult ChiTietThanhToan()
         {
-            if (avatar != null && avatar.ContentLength > 0)
+            if (Session["UserId"] == null)
             {
-                var fileName = Path.GetFileName(avatar.FileName);
-                var path = Path.Combine(Server.MapPath("~/Content/HocVien/Images"), fileName);
-
-                // Kiểm tra và tạo thư mục nếu chưa có
-                if (!Directory.Exists(Server.MapPath("~/Content/HocVien/Images")))
-                {
-                    Directory.CreateDirectory(Server.MapPath("~/Content/HocVien/Images"));
-                }
-
-                // Lưu file vào thư mục
-                avatar.SaveAs(path);
-
-                // Cập nhật Session và trả về tên file
-                Session["AnhBia"] = fileName;
-                return Json(new { success = true, filename = fileName });
+                return RedirectToAction("DangNhap", "HocVien");
             }
 
-            return Json(new { success = false, message = "Tải lên thất bại" });
+            // Lấy danh sách khóa học đã chọn từ Session
+            var khoaHocDaChon = (List<KhoaHoc>)Session["KhoaHocDaChon"] ?? new List<KhoaHoc>();
+
+            // Tính tổng chi phí
+            decimal tongChiPhi = khoaHocDaChon.Sum(kh => kh.Gia);
+            ViewBag.TongChiPhi = tongChiPhi;
+
+            return View(khoaHocDaChon);
         }
 
+        [HttpPost]
+        public ActionResult ChonKhoaHocThanhToan(List<int> selectedCourses)
+        {
+            // Lấy danh sách khóa học đã chọn từ database
+            var khoaHocDaChon = db.KhoaHocs.Where(kh => selectedCourses.Contains(kh.MaKhoaHoc)).ToList();
+
+            // Lưu vào Session để hiển thị trong trang thanh toán
+            Session["KhoaHocDaChon"] = khoaHocDaChon;
+
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult HoanTatThanhToan()
+        {
+            var userId = Session["UserId"];
+            if (userId == null)
+            {
+                TempData["Message"] = "Bạn cần đăng nhập để thanh toán.";
+                return RedirectToAction("DangNhap", "HocVien");
+            }
+            var hocVien = db.HocViens.FirstOrDefault(hv => hv.MaNguoiDung == (int)userId);
+            if (hocVien == null)
+            {
+                TempData["Message"] = "Người dùng không tồn tại trong hệ thống. Vui lòng kiểm tra tài khoản của bạn.";
+                return RedirectToAction("GioHang");
+            }
+            var khoaHocDaChon = (List<KhoaHoc>)Session["KhoaHocDaChon"];
+            if (khoaHocDaChon == null || !khoaHocDaChon.Any())
+            {
+                TempData["Message"] = "Không có khóa học nào để thanh toán.";
+                return RedirectToAction("GioHang");
+            }
+            try
+            {
+                decimal tongTien = khoaHocDaChon.Sum(kh => kh.Gia);
+                var thanhToan = new ThanhToan
+                {
+                    MaHocVien = hocVien.MaHocVien,
+                    SoTien = tongTien,
+                    NgayThanhToan = DateTime.Now,
+                    TrangThai = "Đã thanh toán"
+                };
+                db.ThanhToans.InsertOnSubmit(thanhToan);
+                db.SubmitChanges();
+                var danhSachChiTietThanhToan = new List<ChiTietThanhToan>();
+                var gioHang = (List<KhoaHoc>)Session["GioHang"] ?? new List<KhoaHoc>();
+                foreach (var khoaHoc in khoaHocDaChon)
+                {
+                    var dangKy = new DangKy
+                    {
+                        MaKhoaHoc = khoaHoc.MaKhoaHoc,
+                        NgayDangKy = DateTime.Now,
+                        TrangThai = "Đã thanh toán"
+                    };
+                    db.DangKies.InsertOnSubmit(dangKy);
+                    db.SubmitChanges();
+                    var chiTietThanhToan = new ChiTietThanhToan
+                    {
+                        MaThanhToan = thanhToan.MaThanhToan,
+                        MaDangKy = dangKy.MaDangKy,
+                        SoTien = khoaHoc.Gia,
+                        NgayChiTiet = DateTime.Now
+                    };
+                    danhSachChiTietThanhToan.Add(chiTietThanhToan);
+                    gioHang.RemoveAll(kh => kh.MaKhoaHoc == khoaHoc.MaKhoaHoc);
+                }
+                db.ChiTietThanhToans.InsertAllOnSubmit(danhSachChiTietThanhToan);
+                db.SubmitChanges();
+                TempData["Message"] = "Thanh toán thành công!";
+                Session["GioHang"] = gioHang;
+                Session.Remove("KhoaHocDaChon");
+                return RedirectToAction("ChiTietThanhToan");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "Có lỗi xảy ra khi thực hiện thanh toán: " + ex.Message;
+                return RedirectToAction("ChiTietThanhToan");
+            }
+        }
+
+        // DANG NHAP, DANG KY
         [HttpGet]
         public ActionResult DangNhap()
         {

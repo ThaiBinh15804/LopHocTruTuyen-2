@@ -74,7 +74,6 @@
   <Table Name="dbo.DangKy" Member="DangKies">
     <Type Name="DangKy">
       <Column Name="MaDangKy" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MaHocVien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaKhoaHoc" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="NgayDangKy" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -82,7 +81,6 @@
       <Association Name="DangKy_DangKy_BaiTap" Member="DangKy_BaiTaps" ThisKey="MaDangKy" OtherKey="MaDangKy" Type="DangKy_BaiTap" />
       <Association Name="DangKy_DanhGia" Member="DanhGias" ThisKey="MaDangKy" OtherKey="MaDangKy" Type="DanhGia" />
       <Association Name="DangKy_ThamGia" Member="ThamGias" ThisKey="MaDangKy" OtherKey="MaDangKy" Type="ThamGia" />
-      <Association Name="HocVien_DangKy" Member="HocVien" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="HocVien" IsForeignKey="true" />
       <Association Name="KhoaHoc_DangKy" Member="KhoaHoc" ThisKey="MaKhoaHoc" OtherKey="MaKhoaHoc" Type="KhoaHoc" IsForeignKey="true" />
     </Type>
   </Table>
@@ -142,7 +140,6 @@
       <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
       <Column Name="DiaChi" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="HocVien_DangKy" Member="DangKies" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="DangKy" />
       <Association Name="HocVien_ThanhToan" Member="ThanhToans" ThisKey="MaHocVien" OtherKey="MaHocVien" Type="ThanhToan" />
       <Association Name="NguoiDung_HocVien" Member="NguoiDung" ThisKey="MaNguoiDung" OtherKey="MaNguoiDung" Type="NguoiDung" IsForeignKey="true" />
     </Type>

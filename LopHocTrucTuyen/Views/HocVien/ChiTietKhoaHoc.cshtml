@@ -18,9 +18,17 @@
                     <h5 class="card-title text-danger fw-bold">@String.Format(CultureInfo.InvariantCulture, "{0:N0} đ", Model.Gia)</h5>
                     <p class="text-muted"><strong>Đánh giá:</strong> 4.9 <i class="bi bi-star-fill text-warning"></i> (265 xếp hạng)</p>
                     <div class="d-flex flex-column align-items-center">
-                        <button class="btn btn-primary mb-2" style="width: 70%;" id="addToCartBtn" onclick="addToCart(@Model.MaKhoaHoc)">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-success" style="width: 70%;" onclick="buyNow(@Model.MaKhoaHoc)">Mua ngay</button>
+                        @if (ViewBag.IsPaid)
+                        {
+                            <button class="btn btn-primary mb-2" style="width: 70%;" onclick="window.location.href='/HocVien/HocTap'">Chuyển đến trang học tập</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary mb-2" style="width: 70%;" id="addToCartBtn" onclick="addToCart(@Model.MaKhoaHoc)">Thêm vào giỏ hàng</button>
+                            <button class="btn btn-success" style="width: 70%;" onclick="buyNow(@Model.MaKhoaHoc)">Mua ngay</button>
+                        }
                     </div>
+
                 </div>
             </div>
         </div>
@@ -79,8 +87,27 @@
             <h4>Đánh giá và nhận xét</h4>
             <div>
                 <p><strong>4.6</strong> <i class="bi bi-star-fill text-warning"></i> (265 xếp hạng)</p>
-                <p>"Khoá học rất bổ ích, giảng viên dạy dễ hiểu và chi tiết."</p>
-                <p>"Thực hành dễ hiểu, bài giảng có logic. Cảm ơn giảng viên!"</p>
+                <p>Cho các học viên khác biết trải nghiệm của bạn với khóa học này!</p>
+                <button class="btn btn-primary mb-4">Sửa đánh giá của bạn</button>
+                <!-- Đánh giá của người dùng -->
+                <div class="mb-4">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="me-3">
+                            <span class="bg-secondary text-white rounded-circle d-inline-flex justify-content-center align-items-center" style="width: 40px; height: 40px;">
+                                D
+                            </span>
+                        </div>
+                        <div>
+                            <strong>@ViewBag.HoTen</strong>
+                            <div class="text-warning">
+                                @for (var i = 0; i < 5; i++)
+                                { <i class="bi bi-star-fill"></i> }
+                            </div>
+                            <span class="text-muted" style="font-size: 0.9rem;">23 Oct, 09:21 PM</span>
+                            <p>ádadfdasf</p>
+                        </div>
+                    </div>
+                </div>  
             </div>
 
             <hr>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<LopHocTrucTuyen.Models.KhoaHoc>
+
+@{
     ViewBag.Title = "HocTap";
     Layout = "~/Views/Shared/_LayoutHocVien.cshtml";
 }
@@ -6,7 +8,7 @@
 <!-- Thanh menu học tập ngay dưới navbar -->
 <div class="bg-dark py-3">
     <div class="container text-left">
-        <h2 class="text-white fw-bold mb-3" style="font-size: 2.5rem;">Học tập</h2> 
+        <h2 class="text-white fw-bold mb-3" style="font-size: 2.5rem;">Học tập</h2>
         <ul class="nav justify-content-start">
             <li class="nav-item">
                 <a class="nav-link text-white fs-5" href="#">Tất cả khóa học</a>
@@ -29,5 +31,27 @@
 
 <!-- Nội dung chính của trang học tập -->
 <div class="container mt-4">
-    <p>Nội dung học tập ở đây...</p>
+    @if (!Model.Any())
+    {
+        <p>Bạn chưa đăng ký khóa học nào. <a href="@Url.Action("TrangChu", "HocVien")">Quay lại trang chủ</a> để xem các khóa học.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var khoaHoc in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="~/Content/HocVien/Images/@khoaHoc.AnhBia" class="card-img-top" alt="@khoaHoc.TenKhoaHoc" style="height: 180px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@khoaHoc.TenKhoaHoc</h5>
+                            <p class="card-text">@khoaHoc.MoTa</p>
+                            <p class="card-text text-muted">Giảng viên: @khoaHoc.GiangVien.HoTen</p>
+                            <a href="@Url.Action("ChiTietKhoaHoc", "HocVien", new { id = khoaHoc.MaKhoaHoc })" class="btn btn-primary">Bắt đầu khóa học</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 </div>

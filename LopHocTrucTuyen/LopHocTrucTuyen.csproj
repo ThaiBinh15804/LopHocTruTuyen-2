@@ -381,6 +381,7 @@
     <Content Include="Views\HocVien\ChiTietKhoaHoc.cshtml" />
     <Content Include="Views\HocVien\ThongTinNguoiDung.cshtml" />
     <Content Include="Views\HocVien\GioHang.cshtml" />
+    <Content Include="Views\HocVien\ChiTietThanhToan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
