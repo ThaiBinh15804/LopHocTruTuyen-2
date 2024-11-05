@@ -34,7 +34,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
         public string HoTen { get; set; }
         public string ChucVu { get; set; }
     }
-
     public class GiangVienModel
     {
         public int MaGiangVien { get; set; }
@@ -65,7 +64,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
         public string DiaChi { get; set; }
         public string Avatar { get; set; } 
     }
-
     public class HocVienModel
     {
         public int MaHocVien { get; set; }
@@ -96,5 +94,27 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
         public string SoDienThoai { get; set; }
         public string DiaChi { get; set; }
         public string Avatar { get; set; }
+    }
+
+    public class LoaiKhoaHocModel
+    {
+        public int MaLoaiKhoaHoc { get; set; }
+        public string TenLoai { get; set; }
+        public string MoTa { get; set; }
+    }
+
+    public class LoaiKhoaHocPagedList
+    {
+        public List<LoaiKhoaHocModel> LoaiKhoaHoc { get; set; } // Danh sách loai khoa hoc
+        public int CurrentPage { get; set; }  // Trang hiện tại
+        public int TotalPages { get; set; }   // Tổng số trang
+        public int PageSize { get; set; }     // Số lượng bản ghi mỗi trang
+        public string SearchQuery { get; set; }
+    }
+
+    public class ChiTietKhoaHoc
+    {
+        public LoaiKhoaHoc loaiKH;
+        public List<KhoaHoc> listKH_loai;
     }
 }

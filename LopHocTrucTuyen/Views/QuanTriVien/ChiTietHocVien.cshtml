@@ -43,7 +43,7 @@
         </div>
         <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Thông tin Học viên</h1>
         <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 8px 16px 25px; border: 1px solid #dadada; width: 100%;">
-            <form class="d-flex" method="post" action="/QuanTriVien/ChiTietHocVien">
+            <form class="d-flex myForm3" method="post" action="/QuanTriVien/ChiTietHocVien">
                 <div style="width: 60%">
                     <div style="width: 100%">
                         <span style="padding: 8px 0 16px; display: block">Thông tin tài khoản:</span>
@@ -56,10 +56,11 @@
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="MatKhau">Mật khẩu: </label>
                                 <div style="position: relative">
                                     @Html.TextBoxFor(model => model.MatKhau, new { @readonly = "readonly", @type = "password", @id = "MatKhau", @class = "form-control mt-2", placeholder = "Nhập mật khẩu" })
-                                    <button type="button" style="position: absolute; right: 8px; top: 12px;" onclick="handleClickChangeEye('inputMatKhau')">
+                                    <button type="button" style="position: absolute; right: 8px; top: 12px;" onclick="handleClickChangeEye('MatKhau')">
                                         <i class="iconEye fa-solid fa-eye-slash"></i>
                                     </button>
                                 </div>
+                                <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errMatKhau"></span>
                             </div>
                         </div>
                     </div>
@@ -69,11 +70,13 @@
                             <div style="width: 100%">
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="Email">Email: </label>
                                 @Html.TextBoxFor(model => model.Email, new { @readonly = "readonly", @id = "Email", @class = "form-control mt-2", placeholder = "Nhập email" })
+                                <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errEmail"></span>
                             </div>
                             <div style="width: 100%">
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="HoTen">Họ tên: </label>
-                                @Html.TextBoxFor(model => model.HoTen, new { @readonly = "readonly", @id = "HoTen", @class = "form-control mt-2", placeholder = "Nhập email" })
-                            </div>
+                                @Html.TextBoxFor(model => model.HoTen, new { @readonly = "readonly", @id = "HoTen", @class = "form-control mt-2", placeholder = "Nhập họ tên" })
+                                <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errHoTen"></span>
+                             </div>
                         </div>
                     </div>
                     <div style="margin-top: 20px; width: 100%">
@@ -119,7 +122,8 @@
                             <div style="width: 100%">
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="SoDienThoai">Số điện thoại:</label>
                                 @Html.TextBoxFor(model => model.SoDienThoai, new { @readonly = "readonly", @id = "SoDienThoai", @class = "form-control mt-2", placeholder = "Nhập số điện thoại" })
-                            </div>
+                                <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errSoDienThoai"></span>
+                             </div>
                         </div>
                     </div>
                     <div style="margin-top: 20px; width: 100%">
@@ -127,6 +131,7 @@
                             <div style="width: 100%">
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="DiaChi">Địa chỉ:</label>
                                 @Html.TextBoxFor(model => model.DiaChi, new { @readonly = "readonly", @id = "DiaChi", @class = "form-control mt-2", placeholder = "Nhập địa chỉ" })
+                                <span style="min-height: 20px; display: inline-block; color: red; font-size: 14px; margin-top: 5px;" class="errDiaChi"></span>
                             </div>
                         </div>
                     </div>

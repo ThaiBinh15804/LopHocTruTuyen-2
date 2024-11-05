@@ -42,7 +42,7 @@
         </div>
         <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Thông tin Quản trị viên</h1>
         <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 8px 16px 25px; border: 1px solid #dadada; width: 100%;">
-            <form class="d-flex" method="post" action="/QuanTriVien/ChiTietQuanTriVien">
+            <form class="d-flex myForm1" method="post" action="/QuanTriVien/ChiTietQuanTriVien">
                 <div style="width: 60%">
                     <div style="width: 100%">
                         <span style="padding: 8px 0 16px; display: block">Thông tin tài khoản:</span>
@@ -86,10 +86,19 @@
                             </div>
                             <div style="width: 100%">
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputStatus">Trạng thái:</label>
-                                <select disabled id="TrangThai" name="TrangThai" class="form-control mt-2">
-                                    <option value="Đang hoạt động" @(Model.TrangThai == "Đang hoạt động" ? "selected" : "")>Đang hoạt động</option>
-                                    <option value="Dừng hoạt động" @(Model.TrangThai == "Dừng hoạt động" ? "selected" : "")>Dừng hoạt động</option>
-                                </select>
+                                @if (Model.MaNhom == 1)
+                                {
+                                    <select disabled id="TrangThai_1" name="TrangThai" class="form-control mt-2">
+                                        <option value="Đang hoạt động" @(Model.TrangThai == "Đang hoạt động" ? "selected" : "")>Đang hoạt động</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select disabled id="TrangThai" name="TrangThai" class="form-control mt-2">
+                                        <option value="Đang hoạt động" @(Model.TrangThai == "Đang hoạt động" ? "selected" : "")>Đang hoạt động</option>
+                                        <option value="Dừng hoạt động" @(Model.TrangThai == "Dừng hoạt động" ? "selected" : "")>Dừng hoạt động</option>
+                                    </select>
+                                }
                             </div>
                         </div>
                     </div>
@@ -97,10 +106,19 @@
                         <div style="margin-left: 10px; width: 100%;">
                             <div class="widthCalc2">
                                 <label style="font-size: 15px; color: #374151; font-weight: 500;" for="inputNhomND">Nhóm người dùng:</label>
-                                <select disabled id="MaNhom" name="MaNhom" class="form-control mt-2">
-                                    <option value="4" @(Model.MaNhom == 4 ? "selected" : "")>Thu Ngân</option>
-                                    <option value="5" @(Model.MaNhom == 5 ? "selected" : "")>Kĩ thuật viên</option>
-                                </select>
+                                @if (Model.MaNhom == 1)
+                                {
+                                    <select disabled id="MaNhom" name="MaNhom" class="form-control mt-2">
+                                        <option value="1" @(Model.MaNhom == 1 ? "selected" : "")>Quản Trị Viên</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select disabled id="MaNhom" name="MaNhom" class="form-control mt-2">
+                                        <option value="4" @(Model.MaNhom == 4 ? "selected" : "")>Thu Ngân</option>
+                                        <option value="5" @(Model.MaNhom == 5 ? "selected" : "")>Kĩ thuật viên</option>
+                                    </select>
+                                }
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,53 @@
+﻿@model LopHocTrucTuyen.Models.QuanTriVien.ChiTietKhoaHoc
+@using LopHocTrucTuyen.Models.QuanTriVien;
+@{
+    ViewBag.Title = "ChiTietLoaiKhoaHoc";
+    Layout = "~/Views/Shared/_LayoutQuanTriVien.cshtml";
+}
+
+<div>
+    <header style="background-color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0px 16px; border-bottom: 1px solid #edede9; height: 80px;">
+        <div style="display: flex; align-items: center; column-gap: 8px;">
+            <i class="fa-solid fa-bars" style="color: black; font-size: 20px;"></i>
+            <h2 style="font-size: 18px; color: #000; font-weight: 500;">Quản lý người dùng</h2>
+        </div>
+        <div style="position: relative">
+            <button onclick="handleClickUser(event)" style="display: flex; align-items: center; column-gap: 4px; color: #000">
+                <span style="font-size: 16px; font-weight: 500; color: #000">
+                    Xin chào,
+                    @if (Session["user"] != null)
+                    {
+                        NguoiDung user = Session["user"] as NguoiDung;
+                        <span>@user.TenDangNhap</span>
+                    }
+                </span>
+                <img src="~/Content/QuanTriVien/avatar.jpg" alt="Alternate Text" style="width: 30px; height: 30px; border-radius: 999px;" />
+            </button>
+            <div style="position: absolute; right: 0; top: 25px;" class="user">
+                <div class="d-flex flex-column mt-3 user__body">
+                    <a class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; display: block; text-align: center; font-size: 15px;">Thông tin tài khoản</a>
+                    <a href="/QuanTriVien/DangXuat" class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; border-top: 0px; display: block; text-align: center; font-size: 15px;">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div style="padding:8px 20px;">
+        <div class="d-flex gap-2 mt-2">
+            <i style="color: #343a40" class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #343a40">Danh sách Quản trị viên</span>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #000; ">Tạo Quản trị viên</span>
+        </div>
+        <h1 style="font-size: 24px; font-weight: 600; color: #000; margin-top: 20px;">Tạo Quản trị viên</h1>
+        <div style="background-color: #fff; border-radius: 5px; width: 100%; margin-top: 20px; padding: 8px 16px 25px; border: 1px solid #dadada; width: 100%;">
+            <h1>@Model.loaiKH.TenLoai</h1>
+            <form class="myForm1" action="/QuanTriVien/ThemQuanTriVien" method="post">
+                <div class="d-flex">
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

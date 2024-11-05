@@ -98,11 +98,15 @@ const inputHoTen = document.getElementById("HoTen");
 const inputMaNhom = document.getElementById("MaNhom");
 
 function handleForm1(event) {
-    errTenDangNhap.innerText = "";
+    if (errTenDangNhap) {
+        errTenDangNhap.innerText = "";
+    }
     errMatKhau.innerText = "";
     errEmail.innerText = "";
     errHoTen.innerText = "";
-    errNhomNguoiDung.innerText = "";
+    if (errNhomNguoiDung) {
+        errNhomNguoiDung.innerText = "";
+    }
     errAvatar.innerText = "";
 
     let isValid = true;
@@ -162,58 +166,6 @@ function handleForm1(event) {
      }
 }
 
-function handleForm4(event) {
-    errTenDangNhap.innerText = "";
-    errMatKhau.innerText = "";
-    errEmail.innerText = "";
-    errHoTen.innerText = "";
-
-    let isValid = true;
-
-    if (inputTenDangNhap.value.trim() === "") {
-        errTenDangNhap.innerText = "Tên đăng nhập bắt buộc!";
-        isValid = false;
-    } else if (inputTenDangNhap.value.length < 5) {
-        errTenDangNhap.innerText = "Tên đăng nhập ít nhất 5 kí tự!";
-    } else if (inputTenDangNhap.value.trim().includes(" ")) {
-        errTenDangNhap.innerText = "Tên đăng nhập không chứa khoảng trắng!";
-        isValid = false;
-    }
-
-    if (inputMatKhau.value.trim() === "") {
-        errMatKhau.innerText = "Mật khẩu bắt buộc!";
-        isValid = false;
-    } else if (inputMatKhau.value.length < 8) {
-        errMatKhau.innerText = "Mật khẩu ít nhất 8 kí tự!";
-        isValid = false;
-    }
-
-    let regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (inputEmail.value.trim() === "") {
-        errEmail.innerText = "Email bắt buộc!";
-        isValid = false;
-    } else if (!regexEmail.test(inputEmail.value)) {
-        errEmail.innerText = "Email không hợp lệ!";
-        isValid = false;
-    }
-
-    let regexHoTen = /\d/; // \d đại diện kí tự số
-    if (inputHoTen.value.trim() === "") {
-        errHoTen.innerText = "Họ tên bắt buộc!";
-        isValid = false;
-    } else if (regexHoTen.test(inputHoTen.value)) {
-        errHoTen.innerText = "Họ tên không chứa kí tự số!";
-        isValid = false;
-    } else if (inputHoTen.value.length < 6) {
-        errHoTen.innerText = "Họ tên ít nhất 6 kí tự!";
-        isValid = false;
-    }
-
-    if (!isValid) {
-        event.preventDefault();  // Ngăn submit nếu có lỗi
-    }
-}
-
 const selectMaNhom = document.getElementById("MaNhom");
 const btnClearForm = document.getElementById("btnClearForm")
 if (btnClearForm) {
@@ -235,7 +187,9 @@ const inputDiaChi = document.getElementById("DiaChi");
 const inputChuyenNganh = document.getElementById("ChuyenNganh");
 
 function handleForm2(event) {
-    errTenDangNhap.innerText = "";
+    if (errTenDangNhap) {
+        errTenDangNhap.innerText = "";
+    }
     errMatKhau.innerText = "";
     errEmail.innerText = "";
     errHoTen.innerText = "";
@@ -258,6 +212,9 @@ function handleForm2(event) {
 
     if (inputMatKhau.value.trim() === "") {
         errMatKhau.innerText = "Mật khẩu bắt buộc!";
+        isValid = false;
+    } else if (inputMatKhau.value.length < 8) {
+        errMatKhau.innerText = "Mật khẩu ít nhất 8 kí tự!";
         isValid = false;
     }
 
@@ -332,13 +289,17 @@ const inputNgaySinh = document.getElementById("NgaySinh");
 const inputGioiTinh = document.getElementById("GioiTinh")
 
 function handleForm3(event) {
-    errTenDangNhap.innerText = "";
+    if (errTenDangNhap) {
+        errTenDangNhap.innerText = "";
+    }
     errMatKhau.innerText = "";
     errEmail.innerText = "";
     errHoTen.innerText = "";
     errSoDienThoai.innerText = "";
     errDiaChi.innerText = "";
-    errNgaySinh.innerText = "";
+    if (errNgaySinh) {
+        errNgaySinh.innerText = "";
+    }
 
     let isValid = true;
 
@@ -354,6 +315,9 @@ function handleForm3(event) {
 
     if (inputMatKhau.value.trim() === "") {
         errMatKhau.innerText = "Mật khẩu bắt buộc!";
+        isValid = false;
+    } else if (inputMatKhau.value.length < 8) {
+        errMatKhau.innerText = "Mật khẩu ít nhất 8 kí tự!";
         isValid = false;
     }
 
@@ -490,7 +454,9 @@ if (btnSua) {
         matKhau.removeAttribute("readonly");
         email.removeAttribute("readonly");
         hoTen.removeAttribute("readonly");
-        trangThai.disabled = false;
+        if (trangThai) {
+            trangThai.disabled = false;
+        }
         if (maNhom) {
             maNhom.disabled = false;
         }
@@ -537,4 +503,10 @@ if (btnSua) {
             ngaySinh.save = saveNgaySinh;
         }
     })
+}
+
+function handleDeleteItemTemporary(button) {
+    var item = button.parentElement;
+    var row = item.parentElement;
+    row.remove();
 }

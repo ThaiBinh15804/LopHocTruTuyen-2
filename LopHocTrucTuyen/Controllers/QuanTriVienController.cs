@@ -246,17 +246,21 @@ namespace LopHocTrucTuyen.Controllers
             // Cập nhật các thông tin của người dùng
             findUser.MatKhau =user.MatKhau;
             findUser.Email = user.Email;
-            findUser.TrangThai = user.TrangThai;
+
             findUser.Avatar = user.Avatar;
             findUser.MaNhom = user.MaNhom.Value;
 
             var quanTriVien = db.QuanTriViens.FirstOrDefault(q => q.MaNguoiDung == findUser.MaNguoiDung);
-            if (quanTriVien != null)
+            if(findUser.MaNguoiDung == 1) {
+                findUser.TrangThai =  "Đang hoạt động";
+                quanTriVien.ChucVu = "Quản trị viên";
+            }
+            else
             {
-                // Cập nhật thông tin quản trị viên
-                quanTriVien.HoTen = user.HoTen;
+                findUser.TrangThai = user.TrangThai;
                 quanTriVien.ChucVu = (user.MaNhom == 4) ? "Thu ngân" : "Kĩ thuật viên";
             }
+            quanTriVien.HoTen = user.HoTen;
 
             db.SubmitChanges();
             return RedirectToAction("QuanTriVien");
@@ -617,6 +621,48 @@ namespace LopHocTrucTuyen.Controllers
                 SearchQuery = search
             };
 
+            return View(model);
+        }
+
+        public ActionResult LoaiKhoaHoc(int page = 1, int pageSize = 5)
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            var dsLoaiKH = from loai in db.LoaiKhoaHocs
+                          select new LoaiKhoaHocModel
+                          {
+                              MaLoaiKhoaHoc = loai.MaLoaiKhoaHoc,
+                              TenLoai = loai.TenLoai,
+                              MoTa = loai.MoTa,
+                          };
+            var totalRecords = dsLoaiKH.Count();
+
+            var dsLoaiKHList = dsLoaiKH.OrderBy(q => q.MaLoaiKhoaHoc).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var model = new LoaiKhoaHocPagedList
+            {
+                LoaiKhoaHoc = dsLoaiKHList,
+                CurrentPage = page,
+                TotalPages = totalPages,
+                PageSize = pageSize
+            };
+
+            return View(model);
+        }
+
+        public ActionResult ChiTietLoaiKhoaHoc(int id)
+        {
+            var loaiKH = db.LoaiKhoaHocs.FirstOrDefault(t => t.MaLoaiKhoaHoc == id);
+            List<KhoaHoc> listKH = db.KhoaHocs.Where(t => t.MaLoaiKhoaHoc == loaiKH.MaLoaiKhoaHoc).ToList();
+
+            var model = new ChiTietKhoaHoc
+            {
+                loaiKH = loaiKH,
+                listKH_loai = listKH
+            };
             return View(model);
         }
         public ActionResult KhoaHoc()
