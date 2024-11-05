@@ -388,6 +388,9 @@
     <Content Include="Views\GiangVien\SuaBaiTap.cshtml" />
     <Content Include="Views\GiangVien\XemBaiTap.cshtml" />
     <Content Include="Views\GiangVien\XoaBaiTap.cshtml" />
+    <Content Include="Views\GiangVien\BoLoc.cshtml" />
+    <Content Include="Views\GiangVien\LoaiKhoaHocList.cshtml" />
+    <Content Include="Views\GiangVien\ThongTinNguoiDung.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

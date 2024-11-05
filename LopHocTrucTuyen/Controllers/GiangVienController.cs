@@ -24,7 +24,7 @@ namespace LopHocTrucTuyen.Controllers
         public ActionResult HienThiKhoaHoc()
         {
             GiangVien gv = (GiangVien)Session["user"];
-            return View(data.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien && t.TrangThai).ToList());
+            return View(data.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien).ToList());
         }
 
         public ActionResult KhoaHoc(string makh)
@@ -69,6 +69,7 @@ namespace LopHocTrucTuyen.Controllers
 
         public ActionResult ThietLap(string makh)
         {
+            ViewBag.LoaiKhoaHocs = data.LoaiKhoaHocs.ToList();
             return PartialView(data.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc.ToString() == makh));
         }
 
@@ -104,6 +105,7 @@ namespace LopHocTrucTuyen.Controllers
         public ActionResult TaoKH_1()
         {
             KhoaHoc kh = new KhoaHoc();
+            ViewBag.LoaiKhoaHocs = data.LoaiKhoaHocs.ToList();
             return PartialView(kh);
         }
 
@@ -112,9 +114,8 @@ namespace LopHocTrucTuyen.Controllers
         {
             if (ModelState.IsValid)
             {
-                kh.MaGiangVien = 1;
-                kh.MaLoaiKhoaHoc = 1;
-                kh.Gia = 1000;
+                GiangVien gv = (GiangVien)Session["user"];
+                kh.MaGiangVien = gv.MaGiangVien;
                 kh.TrangThai = false;
                 data.KhoaHocs.InsertOnSubmit(kh);
                 data.SubmitChanges();
@@ -126,7 +127,7 @@ namespace LopHocTrucTuyen.Controllers
                 TempData["ThongBao"] = "Thêm khoá học không thành công";
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("HienThiKhoaHoc");
         }
 
         public ActionResult XoaKhoaHoc(string makh)
@@ -367,6 +368,7 @@ namespace LopHocTrucTuyen.Controllers
 
             cu.TenKhoaHoc = c["TenKhoaHoc"];
             cu.MoTa = c["MoTa"];
+            cu.MaLoaiKhoaHoc = int.Parse(c["LoaiKhoaHoc"]);
 
             data.SubmitChanges();
 
@@ -467,6 +469,112 @@ namespace LopHocTrucTuyen.Controllers
             data.SubmitChanges();
 
             return RedirectToAction("KhoaHoc", new { makh = bt.Chuong.MaKhoaHoc });
+        }
+
+        public ActionResult TimKiem(FormCollection c)
+        {
+            string tk = c["TenKhoaHoc"].ToLower();
+            List<KhoaHoc> lst = data.KhoaHocs.Where(t => t.TenKhoaHoc.ToLower().Contains(tk)).ToList();
+
+            TempData["lst"] = lst;
+
+            return RedirectToAction("BoLoc");
+        }
+
+        public ActionResult BoLoc()
+        {
+            List<KhoaHoc> lst = (List<KhoaHoc>)TempData["lst"];
+            return View(lst);
+        }
+
+        public ActionResult LoaiKhoaHocList()
+        {
+            return View(data.LoaiKhoaHocs);
+        }
+
+        public ActionResult XuLyBoLoc(FormCollection c)
+        {
+            List<KhoaHoc> lst = data.KhoaHocs.ToList();
+
+            if (!String.IsNullOrEmpty(c["LoaiKhoaHoc"]))
+            {
+                lst = lst.Where(t => t.MaLoaiKhoaHoc.ToString() == c["LoaiKhoaHoc"]).ToList();
+            }
+
+            if (c["TrangThai"] != null)
+            {
+                bool trangthai = bool.Parse(c["TrangThai"]);
+                lst = lst.Where(t => t.TrangThai == trangthai).ToList();
+            }
+
+            if (c["TenKhoaHoc"] != null)
+            {
+                string tenkh = c["TenKhoaHoc"].ToLower();
+                lst = lst.Where(t => t.TenKhoaHoc.ToLower().Contains(tenkh)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(c["NgayBD"]))
+            {
+                DateTime ngaybd;
+                if (DateTime.TryParse(c["NgayBD"], out ngaybd))
+                {
+                    lst = lst.Where(t => t.NgayBatDau >= ngaybd).ToList();
+                }
+                else
+                {
+                    ModelState.AddModelError("NgayBD", "Ngày bắt đầu không hợp lệ.");
+                }
+            }
+
+            if (!string.IsNullOrEmpty(c["NgayKT"]))
+            {
+                DateTime ngaykt;
+                if (DateTime.TryParse(c["NgayKT"], out ngaykt))
+                {
+                    lst = lst.Where(t => t.NgayBatDau <= ngaykt).ToList();
+                }
+                else
+                {
+                    ModelState.AddModelError("NgayKT", "Ngày kết thúc không hợp lệ.");
+                }
+            }
+
+
+            TempData["lst"] = lst;
+            return RedirectToAction("BoLoc", lst);
+        }
+
+        public ActionResult ThongTinNguoiDung()
+        {
+            GiangVien gv = (GiangVien)Session["user"];
+            return View(gv);
+        }
+
+        [HttpPost]
+        public ActionResult SuaThongTinNguoiDung(FormCollection c, HttpPostedFileBase anh)
+        {
+            GiangVien gv = (GiangVien)Session["user"];
+            GiangVien cu = data.GiangViens.FirstOrDefault(t => t.MaGiangVien == gv.MaGiangVien);
+
+            cu.HoTen = c["hoten"];
+            cu.ChuyenNganh = c["chuyennganh"];
+            cu.SoDienThoai = c["sdt"];
+            cu.DiaChi = c["diachi"];
+            cu.NgayGiaNhap = DateTime.Parse(c["ngaygianhap"]);
+
+            if (anh != null)
+            {
+                string fileName = Path.GetFileName(anh.FileName);
+                string duongdan = Path.Combine(Server.MapPath("~/Content/GiangVien/HinhAnh/Avatar"), fileName);
+                anh.SaveAs(duongdan);
+                cu.NguoiDung.Avatar = fileName;
+            }
+
+            Session["user"] = cu;
+
+            data.SubmitChanges();
+
+            return RedirectToAction("ThongTinNguoiDung");
         }
     }
 }
