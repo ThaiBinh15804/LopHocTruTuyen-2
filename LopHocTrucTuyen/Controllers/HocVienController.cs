@@ -21,6 +21,24 @@ namespace LopHocTrucTuyen.Controllers
             return View(dskh);
         }
 
+        public ActionResult TimKiemKhoaHoc(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                // Chuyển hướng về trang chủ nếu không có từ khóa tìm kiếm
+                return RedirectToAction("TrangChu");
+            }
+
+            // Thực hiện tìm kiếm nếu có từ khóa
+            var ketQua = db.KhoaHocs
+                           .Where(kh => kh.TenKhoaHoc.Contains(query))
+                           .ToList();
+
+            return View("TrangChu", ketQua);
+        }
+
+
+
         // HOC TAP
         public ActionResult HocTap()
         {
@@ -70,7 +88,104 @@ namespace LopHocTrucTuyen.Controllers
                 }
             }
             ViewBag.IsPaid = isPaid;
+            ViewBag.MaKhoaHoc = id;
             return View(khoaHoc);
+        }
+
+        [HttpPost]
+        public JsonResult LuuDanhGia(int maKhoaHoc, int rate, string nhanXet)
+        {
+            var userId = Session["UserId"];
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để đánh giá khóa học." });
+            }
+
+            var hocVien = db.HocViens.FirstOrDefault(hv => hv.MaNguoiDung == (int)userId);
+            var tenDangNhap = db.NguoiDungs.FirstOrDefault(nd => nd.MaNguoiDung == (int)userId).TenDangNhap;
+
+            if (hocVien == null || tenDangNhap == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy học viên." });
+            }
+
+            var dangKy = db.DangKies.FirstOrDefault(dk =>
+                dk.MaKhoaHoc == maKhoaHoc &&
+                dk.TrangThai == "Đã thanh toán" &&
+                db.ThanhToans.Any(tt =>
+                    tt.MaHocVien == hocVien.MaHocVien &&
+                    db.ChiTietThanhToans.Any(ct =>
+                        ct.MaThanhToan == tt.MaThanhToan && ct.MaDangKy == dk.MaDangKy)
+                )
+            );
+
+            if (dangKy == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa thanh toán khóa học này, không thể đánh giá." });
+            }
+
+            try
+            {
+                var danhGia = db.DanhGias.FirstOrDefault(dg => dg.MaDangKy == dangKy.MaDangKy && dg.MaKhoaHoc == maKhoaHoc);
+                if (danhGia == null)
+                {
+                    danhGia = new DanhGia
+                    {
+                        MaDangKy = dangKy.MaDangKy,
+                        MaKhoaHoc = maKhoaHoc,
+                        Rate = rate,
+                        NhanXet = nhanXet,
+                        NgayDanhGia = DateTime.Now
+                    };
+                    db.DanhGias.InsertOnSubmit(danhGia);
+                }
+                else
+                {
+                    danhGia.Rate = rate;
+                    danhGia.NhanXet = nhanXet;
+                    danhGia.NgayDanhGia = DateTime.Now;
+                }
+
+                db.SubmitChanges();
+
+                // Trả về tên tài khoản (TenDangNhap) thay vì tên đầy đủ
+                return Json(new { success = true, message = "Đánh giá của bạn đã được lưu thành công!", userName = tenDangNhap });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra khi lưu đánh giá: " + ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public JsonResult LayDanhGiaKhoaHoc(int maKhoaHoc)
+        {
+            var danhGiaList = db.DanhGias
+                .Where(dg => dg.MaKhoaHoc == maKhoaHoc)
+                .Select(dg => new
+                {
+                    UserName = db.ChiTietThanhToans
+                                 .Where(ct => ct.MaDangKy == dg.MaDangKy)
+                                 .Select(ct => db.ThanhToans
+                                                .Where(tt => tt.MaThanhToan == ct.MaThanhToan)
+                                                .Select(tt => tt.HocVien.NguoiDung.TenDangNhap)
+                                                .FirstOrDefault())
+                                 .FirstOrDefault(),
+                    Rate = dg.Rate,
+                    NhanXet = dg.NhanXet,
+                    NgayDanhGia = dg.NgayDanhGia
+                })
+                .ToList()
+                .Select(dg => new
+                {
+                    dg.UserName,
+                    dg.Rate,
+                    dg.NhanXet,
+                    NgayDanhGia = dg.NgayDanhGia.HasValue ? dg.NgayDanhGia.Value.ToString("dd/MM/yyyy") : null
+                })
+                .ToList();
+
+            return Json(danhGiaList, JsonRequestBehavior.AllowGet);
         }
 
         // THONG TIN NGUOI DUNG
@@ -215,6 +330,28 @@ namespace LopHocTrucTuyen.Controllers
                 return Json(new { success = false, message = "Cập nhật thất bại: " + ex.Message });
             }
         }
+
+        [HttpPost]
+        public ActionResult DoiMatKhau(string currentPassword, string newPassword)
+        {
+            var userId = Session["UserId"];
+            if (userId == null)
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để đổi mật khẩu." });
+            }
+
+            var nguoiDung = db.NguoiDungs.FirstOrDefault(nd => nd.MaNguoiDung == (int)userId);
+            if (nguoiDung == null || nguoiDung.MatKhau != currentPassword)
+            {
+                return Json(new { success = false, message = "Mật khẩu hiện tại không đúng." });
+            }
+
+            nguoiDung.MatKhau = newPassword;
+            db.SubmitChanges();
+            return Json(new { success = true, message = "Mật khẩu đã được cập nhật thành công!" });
+        }
+
+
         
         // GIO HANG
         public ActionResult GioHang()
