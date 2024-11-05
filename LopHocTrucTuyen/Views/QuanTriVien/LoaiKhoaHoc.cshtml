@@ -93,7 +93,7 @@
                 }
             </div>
             <div class="mt-4 d-flex justify-content-center align-items-center gap-2">
-                <a href="@Url.Action("QuanTriVien", new { page = Model.CurrentPage - 1 })"
+                <a href="@Url.Action("LoaiKhoaHoc", new { page = Model.CurrentPage - 1 })"
                    class="btnNextPage @(Model.CurrentPage == 1 ? "disabled" : "")"
                    @(Model.CurrentPage == 1 ? "aria-disabled=\"true\"" : "")>
                     Trước
@@ -107,11 +107,11 @@
                         }
                         else
                         {
-                            <a class="btnPageItem" href="@Url.Action("QuanTriVien", new { page = i })">@i</a>
+                            <a class="btnPageItem" href="@Url.Action("LoaiKhoaHoc", new { page = i })">@i</a>
                         }
                     }
                 </div>
-                <a href="@Url.Action("QuanTriVien", new { page = Model.CurrentPage + 1 })"
+                <a href="@Url.Action("LoaiKhoaHoc", new { page = Model.CurrentPage + 1 })"
                    class="btnNextPage @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")"
                    @(Model.CurrentPage == Model.TotalPages ? "aria-disabled=\"true\"" : "")>
                     Sau
