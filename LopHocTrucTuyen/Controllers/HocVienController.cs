@@ -73,7 +73,6 @@ namespace LopHocTrucTuyen.Controllers
             return View(khoaHoc);
         }
 
-
         // Hiển thị danh sách bài giảng trong một chương (chỉ hiển thị, không chỉnh sửa hoặc xóa)
         public JsonResult XemBaiGiang(int id)
         {
@@ -117,19 +116,6 @@ namespace LopHocTrucTuyen.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-
-
-        // Hiển thị nội dung chi tiết của một bài tập
-        public ActionResult XemBaiTap(string mabt)
-        {
-            return View(db.BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == mabt));
-        }
-
-        public ActionResult HienThiKhoaHoc()
-        {
-            GiangVien gv = (GiangVien)Session["user"];
-            return View(db.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien).ToList());
-        }
 
         // CHI TIET KHOA HOC
         public ActionResult ChiTietKhoaHoc(int id)

@@ -385,9 +385,6 @@
     <Content Include="Views\HocVien\GioHang.cshtml" />
     <Content Include="Views\HocVien\ChiTietThanhToan.cshtml" />
     <Content Include="Views\HocVien\KhoaHoc.cshtml" />
-    <Content Include="Views\HocVien\XemBaiGiang.cshtml" />
-    <Content Include="Views\HocVien\XemBaiTap.cshtml" />
-    <Content Include="Views\HocVien\HienThiKhoaHoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
