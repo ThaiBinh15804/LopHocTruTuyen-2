@@ -310,7 +310,7 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private string _URL;
 		
-		private string _TaiLieu;
+		private string _FileVideo;
 		
 		private int _ThuTu;
 		
@@ -334,8 +334,8 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnNoiDungChanged();
     partial void OnURLChanging(string value);
     partial void OnURLChanged();
-    partial void OnTaiLieuChanging(string value);
-    partial void OnTaiLieuChanged();
+    partial void OnFileVideoChanging(string value);
+    partial void OnFileVideoChanged();
     partial void OnThuTuChanging(int value);
     partial void OnThuTuChanged();
     #endregion
@@ -452,22 +452,22 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TaiLieu", DbType="NVarChar(255)")]
-		public string TaiLieu
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileVideo", DbType="NVarChar(255)")]
+		public string FileVideo
 		{
 			get
 			{
-				return this._TaiLieu;
+				return this._FileVideo;
 			}
 			set
 			{
-				if ((this._TaiLieu != value))
+				if ((this._FileVideo != value))
 				{
-					this.OnTaiLieuChanging(value);
+					this.OnFileVideoChanging(value);
 					this.SendPropertyChanging();
-					this._TaiLieu = value;
-					this.SendPropertyChanged("TaiLieu");
-					this.OnTaiLieuChanged();
+					this._FileVideo = value;
+					this.SendPropertyChanged("FileVideo");
+					this.OnFileVideoChanged();
 				}
 			}
 		}
@@ -611,9 +611,11 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private string _MoTa;
 		
-		private string _URL;
+		private string _FileUpload;
 		
 		private System.Nullable<System.DateTime> _NgayKetThuc;
+		
+		private System.Nullable<int> _ThuTu;
 		
 		private EntitySet<DangKy_BaiTap> _DangKy_BaiTaps;
 		
@@ -631,10 +633,12 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnTenBaiTapChanged();
     partial void OnMoTaChanging(string value);
     partial void OnMoTaChanged();
-    partial void OnURLChanging(string value);
-    partial void OnURLChanged();
+    partial void OnFileUploadChanging(string value);
+    partial void OnFileUploadChanged();
     partial void OnNgayKetThucChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayKetThucChanged();
+    partial void OnThuTuChanging(System.Nullable<int> value);
+    partial void OnThuTuChanged();
     #endregion
 		
 		public BaiTap()
@@ -728,22 +732,22 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_URL", DbType="VarChar(1000)")]
-		public string URL
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileUpload", DbType="VarChar(1000)")]
+		public string FileUpload
 		{
 			get
 			{
-				return this._URL;
+				return this._FileUpload;
 			}
 			set
 			{
-				if ((this._URL != value))
+				if ((this._FileUpload != value))
 				{
-					this.OnURLChanging(value);
+					this.OnFileUploadChanging(value);
 					this.SendPropertyChanging();
-					this._URL = value;
-					this.SendPropertyChanged("URL");
-					this.OnURLChanged();
+					this._FileUpload = value;
+					this.SendPropertyChanged("FileUpload");
+					this.OnFileUploadChanged();
 				}
 			}
 		}
@@ -764,6 +768,26 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 					this._NgayKetThuc = value;
 					this.SendPropertyChanged("NgayKetThuc");
 					this.OnNgayKetThucChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThuTu", DbType="Int")]
+		public System.Nullable<int> ThuTu
+		{
+			get
+			{
+				return this._ThuTu;
+			}
+			set
+			{
+				if ((this._ThuTu != value))
+				{
+					this.OnThuTuChanging(value);
+					this.SendPropertyChanging();
+					this._ThuTu = value;
+					this.SendPropertyChanged("ThuTu");
+					this.OnThuTuChanged();
 				}
 			}
 		}
@@ -1684,8 +1708,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private int _MaDangKy;
 		
-		private int _MaHocVien;
-		
 		private int _MaKhoaHoc;
 		
 		private System.Nullable<System.DateTime> _NgayDangKy;
@@ -1700,8 +1722,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private EntitySet<ThamGia> _ThamGias;
 		
-		private EntityRef<HocVien> _HocVien;
-		
 		private EntityRef<KhoaHoc> _KhoaHoc;
 		
     #region Extensibility Method Definitions
@@ -1710,8 +1730,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnCreated();
     partial void OnMaDangKyChanging(int value);
     partial void OnMaDangKyChanged();
-    partial void OnMaHocVienChanging(int value);
-    partial void OnMaHocVienChanged();
     partial void OnMaKhoaHocChanging(int value);
     partial void OnMaKhoaHocChanged();
     partial void OnNgayDangKyChanging(System.Nullable<System.DateTime> value);
@@ -1726,7 +1744,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 			this._DangKy_BaiTaps = new EntitySet<DangKy_BaiTap>(new Action<DangKy_BaiTap>(this.attach_DangKy_BaiTaps), new Action<DangKy_BaiTap>(this.detach_DangKy_BaiTaps));
 			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._ThamGias = new EntitySet<ThamGia>(new Action<ThamGia>(this.attach_ThamGias), new Action<ThamGia>(this.detach_ThamGias));
-			this._HocVien = default(EntityRef<HocVien>);
 			this._KhoaHoc = default(EntityRef<KhoaHoc>);
 			OnCreated();
 		}
@@ -1747,30 +1764,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 					this._MaDangKy = value;
 					this.SendPropertyChanged("MaDangKy");
 					this.OnMaDangKyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHocVien", DbType="Int NOT NULL")]
-		public int MaHocVien
-		{
-			get
-			{
-				return this._MaHocVien;
-			}
-			set
-			{
-				if ((this._MaHocVien != value))
-				{
-					if (this._HocVien.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMaHocVienChanging(value);
-					this.SendPropertyChanging();
-					this._MaHocVien = value;
-					this.SendPropertyChanged("MaHocVien");
-					this.OnMaHocVienChanged();
 				}
 			}
 		}
@@ -1888,40 +1881,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 			set
 			{
 				this._ThamGias.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HocVien_DangKy", Storage="_HocVien", ThisKey="MaHocVien", OtherKey="MaHocVien", IsForeignKey=true)]
-		public HocVien HocVien
-		{
-			get
-			{
-				return this._HocVien.Entity;
-			}
-			set
-			{
-				HocVien previousValue = this._HocVien.Entity;
-				if (((previousValue != value) 
-							|| (this._HocVien.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HocVien.Entity = null;
-						previousValue.DangKies.Remove(this);
-					}
-					this._HocVien.Entity = value;
-					if ((value != null))
-					{
-						value.DangKies.Add(this);
-						this._MaHocVien = value.MaHocVien;
-					}
-					else
-					{
-						this._MaHocVien = default(int);
-					}
-					this.SendPropertyChanged("HocVien");
-				}
 			}
 		}
 		
@@ -3013,8 +2972,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private string _DiaChi;
 		
-		private EntitySet<DangKy> _DangKies;
-		
 		private EntitySet<ThanhToan> _ThanhToans;
 		
 		private EntityRef<NguoiDung> _NguoiDung;
@@ -3041,7 +2998,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		public HocVien()
 		{
-			this._DangKies = new EntitySet<DangKy>(new Action<DangKy>(this.attach_DangKies), new Action<DangKy>(this.detach_DangKies));
 			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
 			this._NguoiDung = default(EntityRef<NguoiDung>);
 			OnCreated();
@@ -3191,19 +3147,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HocVien_DangKy", Storage="_DangKies", ThisKey="MaHocVien", OtherKey="MaHocVien")]
-		public EntitySet<DangKy> DangKies
-		{
-			get
-			{
-				return this._DangKies;
-			}
-			set
-			{
-				this._DangKies.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HocVien_ThanhToan", Storage="_ThanhToans", ThisKey="MaHocVien", OtherKey="MaHocVien")]
 		public EntitySet<ThanhToan> ThanhToans
 		{
@@ -3271,18 +3214,6 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 			}
 		}
 		
-		private void attach_DangKies(DangKy entity)
-		{
-			this.SendPropertyChanging();
-			entity.HocVien = this;
-		}
-		
-		private void detach_DangKies(DangKy entity)
-		{
-			this.SendPropertyChanging();
-			entity.HocVien = null;
-		}
-		
 		private void attach_ThanhToans(ThanhToan entity)
 		{
 			this.SendPropertyChanging();
@@ -3316,6 +3247,10 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 		
 		private decimal _Gia;
 		
+		private string _AnhBia;
+		
+		private System.Nullable<bool> _TrangThai;
+		
 		private int _MaGiangVien;
 		
 		private EntitySet<Chuong> _Chuongs;
@@ -3348,6 +3283,10 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
     partial void OnNgayKetThucChanged();
     partial void OnGiaChanging(decimal value);
     partial void OnGiaChanged();
+    partial void OnAnhBiaChanging(string value);
+    partial void OnAnhBiaChanged();
+    partial void OnTrangThaiChanging(System.Nullable<bool> value);
+    partial void OnTrangThaiChanged();
     partial void OnMaGiangVienChanging(int value);
     partial void OnMaGiangVienChanged();
     #endregion
@@ -3503,6 +3442,46 @@ namespace LopHocTrucTuyen.Models.QuanTriVien
 					this._Gia = value;
 					this.SendPropertyChanged("Gia");
 					this.OnGiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnhBia", DbType="VarChar(255)")]
+		public string AnhBia
+		{
+			get
+			{
+				return this._AnhBia;
+			}
+			set
+			{
+				if ((this._AnhBia != value))
+				{
+					this.OnAnhBiaChanging(value);
+					this.SendPropertyChanging();
+					this._AnhBia = value;
+					this.SendPropertyChanged("AnhBia");
+					this.OnAnhBiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="Bit")]
+		public System.Nullable<bool> TrangThai
+		{
+			get
+			{
+				return this._TrangThai;
+			}
+			set
+			{
+				if ((this._TrangThai != value))
+				{
+					this.OnTrangThaiChanging(value);
+					this.SendPropertyChanging();
+					this._TrangThai = value;
+					this.SendPropertyChanged("TrangThai");
+					this.OnTrangThaiChanged();
 				}
 			}
 		}

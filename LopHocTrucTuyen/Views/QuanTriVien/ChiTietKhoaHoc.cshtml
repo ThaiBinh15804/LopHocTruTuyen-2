@@ -1,0 +1,87 @@
+﻿@model LopHocTrucTuyen.Models.QuanTriVien.KhoaHoc
+@using LopHocTrucTuyen.Models.QuanTriVien;
+@{
+    ViewBag.Title = "ChiTietKhoaHoc";
+    Layout = "~/Views/Shared/_LayoutQuanTriVien.cshtml";
+}
+
+<div>
+    <header style="position: sticky; left:0 ; top: 0; background-color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0px 16px; border-bottom: 1px solid #edede9; height: 80px;">
+        <div style="display: flex; align-items: center; column-gap: 8px;">
+            <i class="fa-solid fa-bars" style="color: black; font-size: 20px;"></i>
+            <h2 style="font-size: 18px; color: #000; font-weight: 500;">Quản lý người dùng</h2>
+        </div>
+        <div style="position: relative">
+            <button onclick="handleClickUser(event)" style="display: flex; align-items: center; column-gap: 4px; color: #000">
+                <span style="font-size: 16px; font-weight: 500; color: #000">
+                    Xin chào,
+                    @if (Session["user"] != null)
+                    {
+                        NguoiDung user = Session["user"] as NguoiDung;
+                        <span>@user.TenDangNhap</span>
+                    }
+                </span>
+                <img src="~/Content/QuanTriVien/avatar.jpg" alt="Alternate Text" style="width: 30px; height: 30px; border-radius: 999px;" />
+            </button>
+            <div style="position: absolute; right: 0; top: 25px;" class="user">
+                <div class="d-flex flex-column mt-3 user__body">
+                    <a class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; display: block; text-align: center; font-size: 15px;">Thông tin tài khoản</a>
+                    <a href="/QuanTriVien/DangXuat" class="user__btn" style="padding: 8px 8px; border: 1px solid #f2f2f2; border-top: 0px; display: block; text-align: center; font-size: 15px;">Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div style="padding:8px 0 8px 20px;">
+        <div class="d-flex gap-2 mt-2">
+            <i style="color: #343a40" class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #343a40">Danh sách khóa học phê duyệt</span>
+            <i class="fa-solid fa-angle-right"></i>
+            <span style="color: #343a40">Khóa học</span>
+        </div>
+        <div class="d-flex mt-3 p-2" style="background-color: #0b5ed7; color: #fff">
+            <a style="color: white;" href="/QuanTriVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=ThongTinKhoaHoc">Thông tin</a>
+            <a style="color:white;margin-left: 25px;" href="/QuanTriVien/XuLyDieuHuong/?makh=@Model.MaKhoaHoc&page=BaiHoc">Bài học</a>
+            <span style="margin-left: 25px;">Bài tập</span>
+            <span style="margin-left: 25px;">Báo cáo</span>
+            <span style="margin-left: 25px;">Học viên</span>
+            <span style="margin-left: 25px;">Thiết lập</span>
+        </div>
+        <div>
+            <div id="contentArea" style="height: 500px; overflow-y: auto; transition: margin-left 0.3s;">
+                @{
+                    string dieuHuong = TempData["DieuHuong"] as string;
+
+                    switch (dieuHuong)
+                    {
+                        case "BaiHoc":
+                            @Html.Action("BaiHoc", "QuanTriVien", new { makh = Model.MaKhoaHoc })
+                            break;
+                        case "ThongTinKhoaHoc":
+                            @Html.Action("ThongTinKhoaHoc", "QuanTriVien", new { makh = Model.MaKhoaHoc })
+                            break;
+                        default:
+                         @Html.Action("ThongTinKhoaHoc", "QuanTriVien", new { makh = Model.MaKhoaHoc })
+                            break;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>  
+
+<script>
+    function openModal(actionUrl) {
+        $.ajax({
+            url: actionUrl,
+            type: "GET",
+            success: function (data) {
+                $("#modalContent").html(data);
+                $("#dynamicModal").modal("show");
+            },
+            error: function () {
+                alert("Không thể tải nội dung, vui lòng thử lại.");
+            }
+        });
+    }
+</script>

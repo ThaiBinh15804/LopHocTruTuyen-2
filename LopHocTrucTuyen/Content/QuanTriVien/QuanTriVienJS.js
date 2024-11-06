@@ -336,8 +336,10 @@ function handleForm3(event) {
         isValid = false;
     } else if (regexHoTen.test(inputHoTen.value)) {
         errHoTen.innerText = "Họ tên không chứa kí tự số!";
+        isValid = false;
     } else if (inputHoTen.value.length < 6) {
         errHoTen.innerText = "Họ tên ít nhất 6 kí tự!";
+        isValid = false;
     }
 
     let regexChuCai = /[a-zA-Z]/;
@@ -404,6 +406,9 @@ const diaChi = document.getElementById("DiaChi")
 const gioiTinh = document.getElementById("GioiTinh")
 const ngaySinh = document.getElementById("NgaySinh")
 
+const tenLoai = document.getElementById("TenLoai")
+const moTa = document.getElementById("MoTa")
+
 let saveMatKhau = "";
 let saveEmail = "";
 let saveHoten = "";
@@ -414,6 +419,8 @@ let saveChuyenNganh = "";
 let saveDiaChi = "";
 let saveGioiTinh = "";
 let saveNgaySinh = "";
+let saveTenLoai = "";
+let saveMoTa = "";
 
 if (matKhau) {
     saveMatKhau = matKhau.value;
@@ -445,23 +452,37 @@ if (gioiTinh) {
 if (ngaySinh) {
     saveNgaySinh = ngaySinh.value;
 }
+if (tenLoai) {
+    saveTenLoai = tenLoai.value;
+}
+if (moTa) {
+    saveMoTa = moTa.value;
+}
     
 if (btnSua) {
     btnSua.addEventListener("click", function () {
         btnHuy.disabled = false;
         btnLuu.disabled = false;
         btnSua.disabled = true;
-        matKhau.removeAttribute("readonly");
-        email.removeAttribute("readonly");
-        hoTen.removeAttribute("readonly");
+        if (matKhau) {
+            matKhau.removeAttribute("readonly");
+        }
+        if (email) {
+            email.removeAttribute("readonly");
+        }
+        if (hoTen) {
+            hoTen.removeAttribute("readonly");
+        }
         if (trangThai) {
             trangThai.disabled = false;
         }
         if (maNhom) {
             maNhom.disabled = false;
         }
-        label.style.cursor = "pointer";
-        label.style.pointerEvents = "auto";
+        if (label) {
+            label.style.cursor = "pointer";
+            label.style.pointerEvents = "auto";
+        }
 
         if (soDienThoai) {
             soDienThoai.removeAttribute("readonly");
@@ -478,12 +499,26 @@ if (btnSua) {
         if (ngaySinh) {
             ngaySinh.removeAttribute("readonly");
         }
+        if (tenLoai) {
+            tenLoai.removeAttribute("readonly");
+        }
+        if (moTa) {
+            moTa.removeAttribute("readonly");
+        }
     })
     btnHuy.addEventListener("click", function () {
-        matKhau.value = saveMatKhau;
-        email.value = saveEmail;
-        hoTen.value = saveHoten;
-        trangThai.value = saveTrangThai;
+        if (matKhau) {
+            matKhau.value = saveMatKhau;
+        }
+        if (email) {
+            email.value = saveEmail;
+        }
+        if (hoTen) {
+            hoTen.value = saveHoten;
+        }
+        if (trangThai) {
+            trangThai.value = saveTrangThai;
+        }
         if (maNhom) {
             maNhom.value = saveMaNhom;
         }
@@ -502,6 +537,12 @@ if (btnSua) {
         if (ngaySinh) {
             ngaySinh.save = saveNgaySinh;
         }
+        if (tenLoai) {
+            tenLoai.value = saveTenLoai;
+        }
+        if (moTa) {
+            moTa.value = saveMoTa;
+        }
     })
 }
 
@@ -509,4 +550,31 @@ function handleDeleteItemTemporary(button) {
     var item = button.parentElement;
     var row = item.parentElement;
     row.remove();
+}
+
+const errTenLoai = document.querySelector(".errTenLoai")
+const errMoTa = document.querySelector(".errMoTa")
+const inputTenLoai = document.getElementById("TenLoai")
+const inputMoTa = document.getElementById("MoTa")
+function handleForm4() {
+    errTenLoai.innerText = "";
+    errMoTa.innerText = "";
+    let isValid = true;
+    let regexHoTen = /\d/; // \d đại diện kí tự số
+    if (inputTenLoai.value.trim() === "") {
+        errTenLoai.innerText = "Tên loại bắt buộc!";
+        isValid = false;
+    } else if (regexHoTen.test(inputTenLoai.value)) {
+        errTenLoai.innerText = "Tên loại không chứa kí tự số!";
+        isValid = false;
+    }
+
+    if (inputMoTa.value.trim() === "") {
+        errMoTa.innerText = "Mô tả bắt buộc!";
+        isValid = false;
+    }
+
+    if (!isValid) {
+        event.preventDefault();  // Ngăn submit nếu có lỗi
+    }
 }

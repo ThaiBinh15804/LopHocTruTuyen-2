@@ -1,0 +1,82 @@
+﻿@using LopHocTrucTuyen.Models.QuanTriVien;
+@model LopHocTrucTuyen.Models.QuanTriVien.KhoaHoc
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-12 pt-3 ps-3">
+            <h3 class="py-3 px-2">@Model.TenKhoaHoc</h3>  @* Hiển thị tên khoá học *@
+            @* Hiển thị các chương hiện có *@
+            <div id="chuongContainer">
+                @{
+                    List<Chuong> chuongs = Model.Chuongs.ToList();
+                    foreach (Chuong chuong in chuongs)
+                    {
+                        <div class="accordion mb-2" id="accordion_@chuong.MaChuong">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading_@chuong.MaChuong">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@chuong.MaChuong">
+                                        @chuong.TenChuong
+                                    </button>
+                                </h2>
+                                <div id="collapse_@chuong.MaChuong" class="accordion-collapse collapse" data-bs-parent="#accordion_@chuong.MaChuong">
+                                    <div class="accordion-body">
+                                        <div class="py-2 px-1 mb-2" style="font-style:italic;">
+                                            <p>"@chuong.MoTa"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+        function showAddChuongForm() {
+            document.getElementById("addChuongForm").style.display = "block";
+            document.getElementById("ThemChuong").style.display = "none";
+        }
+
+        function cancelAddChuong() {
+            document.getElementById("addChuongForm").style.display = "none";
+            document.getElementById("ThemChuong").style.display = "inline-block";
+        }
+
+        function showAddBaiHocForm(chuongId) {
+            document.getElementById('formAddBaiHoc_' + chuongId).style.display = 'block';
+            document.getElementById('ThemBaiHoc_' + chuongId).style.display = 'none';
+        }
+
+        function hideAddBaiHocForm(chuongId) {
+            document.getElementById('formAddBaiHoc_' + chuongId).style.display = 'none';
+            document.getElementById('ThemBaiHoc_' + chuongId).style.display = 'inline-block';
+        }
+
+        function addBaiHoc(chuongId) {
+            const baiHocName = document.getElementById('baiHocName_' + chuongId).value;
+
+        }
+
+
+        function showThemBaiTapForm(chuongId) {
+            document.getElementById('ThemBaiTapForm_' + chuongId).style.display = 'block';
+            document.getElementById('ThemBaiTap_' + chuongId).style.display = 'none';
+        }
+
+        function hideThemBaiTapForm(chuongId) {
+            document.getElementById('ThemBaiTapForm_' + chuongId).style.display = 'none';
+            document.getElementById('ThemBaiTap_' + chuongId).style.display = 'inline-block';
+        }
+
+        function addBaiHoc(chuongId) {
+            const baiHocName = document.getElementById('TenBaiTap_' + chuongId).value;
+
+        }
+
+    </script>*@

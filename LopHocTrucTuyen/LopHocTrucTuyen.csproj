@@ -165,6 +165,12 @@
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.esm.min.js" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.js" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.min.js" />
+    <Content Include="Content\GiangVien\HinhAnh\Avatar\avt1.jpg" />
+    <Content Include="Content\GiangVien\HinhAnh\Avatar\avt2.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\Avatar\avt3.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\Avatar\avt4.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\Avatar\IMG_6386.JPG" />
+    <Content Include="Content\GiangVien\HinhAnh\Avatar\user.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\bell.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\education-high-resolution-logo.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\fb.jpg" />
@@ -173,6 +179,15 @@
     <Content Include="Content\GiangVien\HinhAnh\Base\twitter.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\user.png" />
     <Content Include="Content\GiangVien\HinhAnh\Base\youtube.jpg" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh1.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh2.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh3.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh4.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\anh5.jfif" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\khoahc6.png" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\khoahc7.png" />
+    <Content Include="Content\GiangVien\HinhAnh\KhoaHoc\Solo-Leveling.jpg" />
+    <Content Include="Content\GiangVien\Video\dssa.mp4" />
     <Content Include="Content\QuanTriVien\Avatar\avatar_default.jpg" />
     <Content Include="Content\QuanTriVien\Avatar\h1.jpg" />
     <Content Include="Content\QuanTriVien\Avatar\h2.jpg" />
@@ -298,6 +313,9 @@
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.js.map" />
     <Content Include="Content\bootstrap-5.0.2-dist\js\bootstrap.min.js.map" />
     <Content Include="Content\QuanTriVien\favicon\manifest.json" />
+    <Content Include="Content\GiangVien\BaiTap\bt.pdf" />
+    <Content Include="Content\GiangVien\BaiTap\github-git-cheat-sh.pdf" />
+    <Content Include="Content\GiangVien\BaiTap\PhieuThuHocPhi.pdf" />
     <Content Include="Models\QuanTriVien\DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
@@ -337,7 +355,6 @@
     <Content Include="Views\QuanTriVien\DangNhap.cshtml" />
     <Content Include="Views\QuanTriVien\GiangVien.cshtml" />
     <Content Include="Views\QuanTriVien\HocVien.cshtml" />
-    <Content Include="Views\QuanTriVien\KhoaHoc.cshtml" />
     <Content Include="Views\QuanTriVien\ThemQuanTriVien.cshtml" />
     <Content Include="Views\QuanTriVien\ThemGiangVien.cshtml" />
     <Content Include="Views\QuanTriVien\ChiTietQuanTriVien.cshtml" />
@@ -349,6 +366,13 @@
     <Content Include="Views\QuanTriVien\TimKiemHocVien.cshtml" />
     <Content Include="Views\QuanTriVien\LoaiKhoaHoc.cshtml" />
     <Content Include="Views\QuanTriVien\ChiTietLoaiKhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\ThemLoaiKhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\TimKiemLoaiKhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\KhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\KhoaHocPheDuyet.cshtml" />
+    <Content Include="Views\QuanTriVien\ChiTietKhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\ThongTinKhoaHoc.cshtml" />
+    <Content Include="Views\QuanTriVien\BaiHoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

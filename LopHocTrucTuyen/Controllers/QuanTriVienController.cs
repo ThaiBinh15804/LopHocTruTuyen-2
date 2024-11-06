@@ -653,6 +653,41 @@ namespace LopHocTrucTuyen.Controllers
             return View(model);
         }
 
+        public ActionResult TimKiemLoaiKhoaHoc(string search, int page = 1, int pageSize = 5)
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            var dsLoaiKH = from loai in db.LoaiKhoaHocs
+                          select new LoaiKhoaHocModel
+                          {
+                              MaLoaiKhoaHoc = loai.MaLoaiKhoaHoc,
+                              TenLoai = loai.TenLoai,
+                              MoTa = loai.MoTa,
+                          };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                dsLoaiKH = dsLoaiKH.Where(t => t.TenLoai.Contains(search));
+            }
+
+            var totalRecords = dsLoaiKH.Count();
+            var totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var khoahocList = dsLoaiKH.OrderBy(q => q.MaLoaiKhoaHoc).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var model = new LoaiKhoaHocPagedList
+            {
+                LoaiKhoaHoc = khoahocList,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                CurrentPage = page,
+                SearchQuery = search
+            };
+
+            return View(model);
+        }
         public ActionResult ChiTietLoaiKhoaHoc(int id)
         {
             var loaiKH = db.LoaiKhoaHocs.FirstOrDefault(t => t.MaLoaiKhoaHoc == id);
@@ -665,14 +700,86 @@ namespace LopHocTrucTuyen.Controllers
             };
             return View(model);
         }
+
+        public ActionResult ThemLoaiKhoaHoc()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemLoaiKhoaHoc(LoaiKhoaHoc kh)
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            var addLoaiKH = new LoaiKhoaHoc
+            {
+                TenLoai = kh.TenLoai,
+                MoTa = kh.MoTa
+            };
+            db.LoaiKhoaHocs.InsertOnSubmit(addLoaiKH);
+            db.SubmitChanges();
+            return RedirectToAction("LoaiKhoaHoc");
+        }
+        
         public ActionResult KhoaHoc()
         {
             if (Session["user"] == null)
             {
                 return RedirectToAction("DangNhap");
             }
-            
-            return View();
+            List<KhoaHoc> listKhoaHoc = db.KhoaHocs.Where(t => t.TrangThai == true).ToList();
+            return View(listKhoaHoc);
+        }
+
+        public ActionResult ChiTietKhoaHoc(int makh)
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            KhoaHoc KhoaHoc = db.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc == makh);
+            return View(KhoaHoc);
+        }
+
+        public ActionResult XuLyDieuHuong(int makh, string page)
+        {
+            TempData["DieuHuong"] = page;
+            return RedirectToAction("ChiTietKhoaHoc", new { makh = makh });
+        }
+
+        public ActionResult ThongTinKhoaHoc(int makh)
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            KhoaHoc KhoaHoc = db.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc == makh);
+            int chuong = db.Chuongs.Count(c => c.MaKhoaHoc == makh);
+            ViewBag.SoLuongChuong = chuong;
+            int soLuongBaiGiang = db.BaiGiangs.Count(b => db.Chuongs.Any(c => c.MaChuong == b.MaChuong && c.MaKhoaHoc == makh));
+            ViewBag.SoLuongBaiGiang = soLuongBaiGiang;
+
+            int soLuongBaiTap = db.BaiTaps.Count(b => db.Chuongs.Any(c => c.MaChuong == b.MaChuong && c.MaKhoaHoc == makh));
+            ViewBag.SoLuongBaiTap = soLuongBaiTap;
+            return PartialView(KhoaHoc);
+        }
+
+        public ActionResult BaiHoc(int makh)
+        {
+            KhoaHoc kh = db.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc == makh);
+            return PartialView(kh);
+        }
+
+        public ActionResult KhoaHocPheDuyet()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("DangNhap");
+            }
+            List<KhoaHoc> listKhoaHoc = db.KhoaHocs.Where(t => t.TrangThai == false).ToList();
+      
+            return View(listKhoaHoc);
         }
     }
 }
