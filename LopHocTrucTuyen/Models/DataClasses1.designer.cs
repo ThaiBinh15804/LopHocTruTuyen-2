@@ -749,9 +749,11 @@ namespace LopHocTrucTuyen.Models
 		
 		private string _MoTa;
 		
-		private string _URL;
+		private string _FileUpload;
 		
 		private System.Nullable<System.DateTime> _NgayKetThuc;
+		
+		private int _ThuTu;
 		
 		private EntitySet<DangKy_BaiTap> _DangKy_BaiTaps;
 		
@@ -769,10 +771,12 @@ namespace LopHocTrucTuyen.Models
     partial void OnTenBaiTapChanged();
     partial void OnMoTaChanging(string value);
     partial void OnMoTaChanged();
-    partial void OnURLChanging(string value);
-    partial void OnURLChanged();
+    partial void OnFileUploadChanging(string value);
+    partial void OnFileUploadChanged();
     partial void OnNgayKetThucChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayKetThucChanged();
+    partial void OnThuTuChanging(int value);
+    partial void OnThuTuChanged();
     #endregion
 		
 		public BaiTap()
@@ -866,22 +870,22 @@ namespace LopHocTrucTuyen.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_URL", DbType="VarChar(1000)")]
-		public string URL
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileUpload", DbType="NVarChar(255)")]
+		public string FileUpload
 		{
 			get
 			{
-				return this._URL;
+				return this._FileUpload;
 			}
 			set
 			{
-				if ((this._URL != value))
+				if ((this._FileUpload != value))
 				{
-					this.OnURLChanging(value);
+					this.OnFileUploadChanging(value);
 					this.SendPropertyChanging();
-					this._URL = value;
-					this.SendPropertyChanged("URL");
-					this.OnURLChanged();
+					this._FileUpload = value;
+					this.SendPropertyChanged("FileUpload");
+					this.OnFileUploadChanged();
 				}
 			}
 		}
@@ -902,6 +906,26 @@ namespace LopHocTrucTuyen.Models
 					this._NgayKetThuc = value;
 					this.SendPropertyChanged("NgayKetThuc");
 					this.OnNgayKetThucChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThuTu", DbType="Int NOT NULL")]
+		public int ThuTu
+		{
+			get
+			{
+				return this._ThuTu;
+			}
+			set
+			{
+				if ((this._ThuTu != value))
+				{
+					this.OnThuTuChanging(value);
+					this.SendPropertyChanging();
+					this._ThuTu = value;
+					this.SendPropertyChanged("ThuTu");
+					this.OnThuTuChanged();
 				}
 			}
 		}

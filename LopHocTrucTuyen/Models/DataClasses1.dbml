@@ -28,8 +28,9 @@
       <Column Name="MaChuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TenBaiTap" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="MoTa" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="URL" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="FileUpload" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="NgayKetThuc" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ThuTu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="BaiTap_DangKy_BaiTap" Member="DangKy_BaiTaps" ThisKey="MaBaiTap" OtherKey="MaBaiTap" Type="DangKy_BaiTap" />
       <Association Name="Chuong_BaiTap" Member="Chuong" ThisKey="MaChuong" OtherKey="MaChuong" Type="Chuong" IsForeignKey="true" />
     </Type>

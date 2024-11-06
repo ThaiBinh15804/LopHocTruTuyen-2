@@ -37,8 +37,6 @@ namespace LopHocTrucTuyen.Controllers
             return View("TrangChu", ketQua);
         }
 
-
-
         // HOC TAP
         public ActionResult HocTap()
         {
@@ -63,6 +61,74 @@ namespace LopHocTrucTuyen.Controllers
                 .ToList();
 
             return View(danhSachKhoaHocDaThanhToan);
+        }
+        public ActionResult KhoaHoc(int id)
+        {
+            var khoaHoc = db.KhoaHocs.FirstOrDefault(kh => kh.MaKhoaHoc == id);
+            if (khoaHoc == null)
+            {
+                // Trường hợp không tìm thấy khóa học
+                return RedirectToAction("TrangChu", "HocVien"); // Redirect về trang khác nếu không tìm thấy
+            }
+            return View(khoaHoc);
+        }
+
+
+        // Hiển thị danh sách bài giảng trong một chương (chỉ hiển thị, không chỉnh sửa hoặc xóa)
+        public JsonResult XemBaiGiang(int id)
+        {
+            var baiGiang = db.BaiGiangs.FirstOrDefault(b => b.MaBaiGiang == id);
+            if (baiGiang == null)
+            {
+                return Json(new { success = false, message = "Bài giảng không tồn tại." });
+            }
+
+            // Lấy danh sách bài tập liên quan tới MaChuong của bài giảng
+            var baiTaps = db.BaiTaps
+                           .Where(bt => bt.MaChuong == baiGiang.MaChuong)
+                           .Select(bt => new
+                           {
+                               MaBaiTap = bt.MaBaiTap,
+                               TenBaiTap = bt.TenBaiTap,
+                               MoTa = bt.MoTa,
+                               FileUpload = bt.FileUpload
+                           }).ToList();
+
+            // Lấy danh sách tất cả các bài giảng, sắp xếp theo ID
+            var allBaiGiangs = db.BaiGiangs.OrderBy(b => b.MaBaiGiang).ToList();
+            int currentIndex = allBaiGiangs.FindIndex(b => b.MaBaiGiang == id);
+
+            // Lấy ID của bài giảng tiếp theo nếu có
+            int? nextBaiGiangId = (currentIndex >= 0 && currentIndex < allBaiGiangs.Count - 1)
+                ? (int?)allBaiGiangs[currentIndex + 1].MaBaiGiang
+                : null;
+
+            return Json(new
+            {
+                success = true,
+                data = new
+                {
+                    TenBaiGiang = baiGiang.TenBaiGiang,
+                    NoiDung = baiGiang.NoiDung,
+                    URL = baiGiang.URL,
+                    BaiTaps = baiTaps, // Trả về danh sách bài tập
+                    NextBaiGiangId = nextBaiGiangId // Trả về ID của bài giảng tiếp theo
+                }
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        // Hiển thị nội dung chi tiết của một bài tập
+        public ActionResult XemBaiTap(string mabt)
+        {
+            return View(db.BaiTaps.FirstOrDefault(t => t.MaBaiTap.ToString() == mabt));
+        }
+
+        public ActionResult HienThiKhoaHoc()
+        {
+            GiangVien gv = (GiangVien)Session["user"];
+            return View(db.KhoaHocs.Where(t => t.MaGiangVien == gv.MaGiangVien).ToList());
         }
 
         // CHI TIET KHOA HOC
@@ -411,8 +477,9 @@ namespace LopHocTrucTuyen.Controllers
                     Session["GioHang"] = gioHang;
                 }
                 TempData["SelectedCourseId"] = id; // Lưu ID khóa học vào TempData
+                return Json(new { success = true, message = "Khóa học đã được thêm vào giỏ hàng!" });
             }
-            return RedirectToAction("GioHang");
+            return Json(new { success = false, message = "Không tìm thấy khóa học." });
         }
 
         // CHI TIET THANH TOAN

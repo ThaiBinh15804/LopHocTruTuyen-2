@@ -140,9 +140,29 @@
                 </div>
             </div>
 
-           @section Scripts {
+@section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function addToCart(maKhoaHoc) {
+            $.post('/HocVien/ThemVaoGioHang', { id: maKhoaHoc }, function(response) {
+                if (response.success) {
+                    showToast(response.message); // Hiển thị thông báo thành công
+                } else {
+                    alert(response.message); // Hiển thị thông báo lỗi nếu có
+                }
+            });
+        }
+        function buyNow(maKhoaHoc) {
+            $.post('/HocVien/MuaNgay', { id: maKhoaHoc }, function(response) {
+                if (response.success) {
+                    // Chuyển hướng đến trang giỏ hàng sau khi thêm thành công
+                    window.location.href = '/HocVien/GioHang';
+                } else {
+                    alert(response.message);
+                }
+            });
+        }
+
         function showToast(message) {
             let toastElement = document.getElementById("toastMessage");
             let progressBar = document.getElementById("progressBar");
@@ -235,17 +255,3 @@
         });
     </script>
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
