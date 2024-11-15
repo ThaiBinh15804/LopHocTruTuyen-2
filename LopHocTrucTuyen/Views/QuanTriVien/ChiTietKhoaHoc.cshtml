@@ -48,7 +48,7 @@
             <span style="margin-left: 25px;">Thiết lập</span>
         </div>
         <div>
-            <div id="contentArea" style="height: 500px; overflow-y: auto; transition: margin-left 0.3s;">
+            <div id="contentArea" style="height: auto; overflow-y: auto; transition: margin-left 0.3s;">
                 @{
                     string dieuHuong = TempData["DieuHuong"] as string;
 
@@ -69,19 +69,3 @@
         </div>
     </div>
 </div>  
-
-<script>
-    function openModal(actionUrl) {
-        $.ajax({
-            url: actionUrl,
-            type: "GET",
-            success: function (data) {
-                $("#modalContent").html(data);
-                $("#dynamicModal").modal("show");
-            },
-            error: function () {
-                alert("Không thể tải nội dung, vui lòng thử lại.");
-            }
-        });
-    }
-</script>

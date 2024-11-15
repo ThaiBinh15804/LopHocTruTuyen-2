@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyLopHocTrucTuyen" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PHAMTHUAN\THUAN;Initial Catalog=QuanLyLopHocTrucTuyen;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyLopHocTrucTuyenConnectionString3" Provider="System.Data.SqlClient" />
   <Table Name="dbo.BaiGiang" Member="BaiGiangs">
     <Type Name="BaiGiang">
       <Column Name="MaBaiGiang" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

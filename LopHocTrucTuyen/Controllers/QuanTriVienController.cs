@@ -53,6 +53,7 @@ namespace LopHocTrucTuyen.Controllers
             }
             else if (user != null && user.TrangThai == "Đang hoạt động" && user.MaNhom == 2)
             {
+                Session["user"] = user;
                 return RedirectToAction("Index", "GiangVien");
             }
             else if (user != null && user.TrangThai == "Đang hoạt động" && user.MaNhom == 3)
@@ -769,6 +770,16 @@ namespace LopHocTrucTuyen.Controllers
         {
             KhoaHoc kh = db.KhoaHocs.FirstOrDefault(t => t.MaKhoaHoc == makh);
             return PartialView(kh);
+        }
+
+        public ActionResult XemBaiGiang(int mabg)
+        {
+            var baiGiang = db.BaiGiangs.FirstOrDefault(t => t.MaBaiGiang == mabg);
+            if (baiGiang == null)
+            {
+                return new HttpStatusCodeResult(404, "Bài giảng không tồn tại");
+            }
+            return PartialView("_XemBaiGiangPartial", baiGiang); // Trả về partial view kèm dữ liệu
         }
 
         public ActionResult KhoaHocPheDuyet()
